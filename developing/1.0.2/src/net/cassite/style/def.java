@@ -144,61 +144,70 @@ public class def<R> {
 
 	public R apply(Object... args) {
 		try {
-			if (args.length == 0) {
+			Object[] realArgs = new Object[argCount];
+			for (int i = 0; i < args.length && i < argCount; ++i) {
+				realArgs[i] = args[i];
+			}
+			for (int i = args.length; i < argCount; ++i) {
+				realArgs[i] = null;
+			}
+			if (argCount == 0) {
 				if (body0 == null) {
 					void0.invoke();
 					return null;
 				} else {
 					return body0.apply();
 				}
-			} else if (args.length == 1) {
+			} else if (argCount == 1) {
 				if (body1 == null) {
-					void1.accept(args[0]);
+					void1.accept(realArgs[0]);
 					return null;
 				} else {
-					return body1.apply(args[0]);
+					return body1.apply(realArgs[0]);
 				}
-			} else if (args.length == 2) {
+			} else if (argCount == 2) {
 				if (body2 == null) {
-					void2.accept(args[0], args[1]);
+					void2.accept(realArgs[0], realArgs[1]);
 					return null;
 				} else {
-					return body2.apply(args[0], args[1]);
+					return body2.apply(realArgs[0], realArgs[1]);
 				}
-			} else if (args.length == 3) {
+			} else if (argCount == 3) {
 				if (body3 == null) {
-					void3.accept(args[0], args[1], args[2]);
+					void3.accept(realArgs[0], realArgs[1], realArgs[2]);
 					return null;
 				} else {
-					return body3.apply(args[0], args[1], args[2]);
+					return body3.apply(realArgs[0], realArgs[1], realArgs[2]);
 				}
-			} else if (args.length == 4) {
+			} else if (argCount == 4) {
 				if (body4 == null) {
-					void4.accept(args[0], args[1], args[2], args[3]);
+					void4.accept(realArgs[0], realArgs[1], realArgs[2], realArgs[3]);
 					return null;
 				} else {
-					return body4.apply(args[0], args[1], args[2], args[3]);
+					return body4.apply(realArgs[0], realArgs[1], realArgs[2], realArgs[3]);
 				}
-			} else if (args.length == 5) {
+			} else if (argCount == 5) {
 				if (body5 == null) {
-					void5.accept(args[0], args[1], args[2], args[3], args[4]);
+					void5.accept(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4]);
 					return null;
 				} else {
-					return body5.apply(args[0], args[1], args[2], args[3], args[4]);
+					return body5.apply(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4]);
 				}
-			} else if (args.length == 6) {
+			} else if (argCount == 6) {
 				if (body6 == null) {
-					void6.accept(args[0], args[1], args[2], args[3], args[4], args[5]);
+					void6.accept(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4], realArgs[5]);
 					return null;
 				} else {
-					return body6.apply(args[0], args[1], args[2], args[3], args[4], args[5]);
+					return body6.apply(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4], realArgs[5]);
 				}
-			} else if (args.length == 7) {
+			} else if (argCount == 7) {
 				if (body7 == null) {
-					void7.accept(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+					void7.accept(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4], realArgs[5],
+							realArgs[6]);
 					return null;
 				} else {
-					return body7.apply(args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+					return body7.apply(realArgs[0], realArgs[1], realArgs[2], realArgs[3], realArgs[4], realArgs[5],
+							realArgs[6]);
 				}
 			} else {
 				throw new IllegalArgumentException();

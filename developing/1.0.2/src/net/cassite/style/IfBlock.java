@@ -43,10 +43,7 @@ public class IfBlock<T, INIT> extends Style {
 	public T Else(def<T> func) {
 		if (procceed)
 			if (initVal != null && !initVal.equals(false)) {
-				if (body.argCount() == 1)
-					return body.apply(initVal);
-				else
-					return body.apply();
+				return body.apply(initVal);
 			} else {
 				return func.apply();
 			}
@@ -101,10 +98,7 @@ public class IfBlock<T, INIT> extends Style {
 	public IfBlock<T, INIT> ElseIf(RFunc0<INIT> init, def<T> body) {
 		if (procceed)
 			if (initVal != null && !initVal.equals(false)) {
-				if (body.argCount() == 1)
-					return new IfBlock<T, INIT>(this.body.apply(initVal));
-				else
-					return new IfBlock<T, INIT>(this.body.apply());
+				return new IfBlock<T, INIT>(this.body.apply(initVal));
 			} else {
 				return new IfBlock<T, INIT>(init, body);
 			}
@@ -115,10 +109,7 @@ public class IfBlock<T, INIT> extends Style {
 	public T End() {
 		if (procceed)
 			if (initVal != null && !initVal.equals(false)) {
-				if (body.argCount() == 1)
-					return body.apply(initVal);
-				else
-					return body.apply();
+				return body.apply(initVal);
 			} else {
 				return null;
 			}

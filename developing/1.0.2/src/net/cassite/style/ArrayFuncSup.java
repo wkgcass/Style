@@ -67,11 +67,8 @@ public class ArrayFuncSup<T> implements A1FuncSup<T> {
 		IteratorInfo<R> info = new IteratorInfo<R>();
 		return For(0).to(array.length - 1).loop((i, loopInfo) -> {
 			return If(predicate.apply(array[i]), () -> {
-				if (func.argCount() == 2)
-					return func.apply(array[i], info.setValues(i - 1, i + 1, i != 0, i != array.length - 1,
-							loopInfo.currentIndex, loopInfo.effectiveIndex, loopInfo.lastRes));
-				else
-					return func.apply(array[i]);
+				return func.apply(array[i], info.setValues(i - 1, i + 1, i != 0, i != array.length - 1,
+						loopInfo.currentIndex, loopInfo.effectiveIndex, loopInfo.lastRes));
 			}).Else(() -> null);
 		});
 	}

@@ -21,12 +21,9 @@ public class IterableFuncSup<T> implements A1FuncSup<T> {
 			T t = it.next();
 			try {
 				return If(predicate.apply(t), () -> {
-					if (func.argCount() == 2)
-						return func.apply(t,
-								info.setValues(i.item - 1, i.item + 1, i.item == 0, it.hasNext(), loopInfo.currentIndex,
-										loopInfo.effectiveIndex, loopInfo.lastRes));
-					else
-						return func.apply(t);
+					return func.apply(t,
+							info.setValues(i.item - 1, i.item + 1, i.item == 0, it.hasNext(), loopInfo.currentIndex,
+									loopInfo.effectiveIndex, loopInfo.lastRes));
 				}).Else(() -> null);
 			} catch (Throwable err) {
 				StyleRuntimeException sErr = $(err);

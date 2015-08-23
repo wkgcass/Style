@@ -45,7 +45,9 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 1.0.1 --> 1.0.2
 
 * 增强的If表达式可以接收lambda作为第一个参数
+* 函数可以接收比参数表更多或更少的参数
 * 动态代理简化
+* 只读对象
 * 文档更正
 
 #目录
@@ -69,6 +71,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 		* 成员
 		* 方法
 		* 动态代理
+			* 只读对象
 	* 线程
 		* 回调
 		* (async)
@@ -99,6 +102,8 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	* Comparable
 	* Rand
 	* 字符串
+* 附录
+	* 上次循环结果
 
 #起步
 
@@ -160,6 +165,15 @@ e.g.
 e.g.
 	
 	check.apply(list, "cass");
+	
+函数可以接收比参数表更多或更少的参数。
+	
+e.g.
+	
+	check.apply(list, "cass", "arg"); 
+	// "arg" 会被忽略
+	check.apply(list) 
+	// 相当于 'check.apply(list, null)'
 	
 ##Async, Await 以及异常处理
 Async, Await是一个非常好用的多线程模型. 你可以通过*Style*来使用Async/Await，而且不需要编写任何额外代码。
@@ -288,7 +302,7 @@ var 提供和*Style*一模一样的default方法。
 
 ##反射
 
-类/成员/方法/够早起被包装在*提供支持的对象*中. 查看*net.cassite.reflect*以获取更多信息.
+类/成员/方法/构造器被包装在*提供支持的对象*中. 查看*net.cassite.style.reflect*以获取更多信息.
 
 ###类
 我们曾这样获取一个Class对象
@@ -312,12 +326,12 @@ ClassSup让你轻松的使用*支持泛型的*构造函数、成员、方法的�
 	// 有参
 	ConstructorSup<TYPE> con = cls.constructor(T0.class, T1.class, ...);
 
-	FieldSup<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
+	FieldSupport<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
 	
 	// 无参
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
 	// 有参
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
 	
 此外，你可以获取所有本类或者父类中定义过的成员或方法
 
@@ -370,14 +384,14 @@ ClassSup让你轻松的使用*支持泛型的*构造函数、成员、方法的�
 			@SuppressWarnings("unused")
 			String get(int index) {
 				System.out.println("before get invoked with arg0:" + index);
-				String res = toProxy.get(index);
+				String res = target.get(index);
 				System.out.println("after get invoked with res:" + res);
 				return res;
 			}
 		};
 	
 	>
-	>ProxyHandler接收一个对象，以它作为被代理对象，它将存储在叫做toProxy的成员中。
+	>ProxyHandler接收一个对象，以它作为被代理对象，它将存储在叫做target的成员中。
 	>
 	>可以看出，使用 返回类型 方法名(原方法参数) 来定义一个Around型的代理。该方法实际上和被代理方法在定义上看起来完全一样。
 	
@@ -386,6 +400,31 @@ ClassSup让你轻松的使用*支持泛型的*构造函数、成员、方法的�
 		List<String> listProxy = proxy(handler);
 		
 代理过程非常轻松可读。
+
+####只读对象
+我们常常需要创建一个只读对象以防止其他人修改它。
+>e.g. 我们可能会把一个对象包装起来发送到其他模块去，但并不能保证其他模块的人不会修改它
+
+*Style* 能够方便的将一个带有接口的对象包装成只读对象。
+
+一般来说这不会需要什么额外工作。
+
+	R readOnly(R r);
+
+当调用到来时，*Style* 将检查方法：
+
+* 如果 方法名包含 $.readOnlyToSearch 中出现的元素
+	* 检查该方法是否具有ReadOnly注解
+		* 如果有
+			* 执行调用
+		* 否则
+			* 抛出异常(ModifyReadOnlyException)
+* 否则
+	* 检查该方法是否具有Writable注解
+		* 如果有
+			* 抛出异常(ModifyReadOnlyException)
+		* 否则
+			* 执行调用
 	
 ##线程
 ###回调
@@ -826,3 +865,15 @@ g表示全局，i表示忽略大小写，m表示多行。
 	System.out.println(
 		$("My name is ${name}, I'm ${age} years old, and I'm ${sex}.")
 			.from(sample));
+			
+#附录
+
+##上次循环结果
+For, For-to-step, While, forEach/forThose 循环 都有返回值  
+当一个循环结束时，它也许会返回一个值给循环控制器。
+
+循环控制器保存了一个叫做“上次循环结果”的值。  
+控制器检查循环返回的结果
+
+如果结果不是null, 它将以结果覆盖这个值. 如果是null，那么控制器将忽略这个结果，然后继续进行循环。
+>循环控制器不是一个类，它是一个方法。更明确的说，是Style.For(i,c,inc,loop) 和 Style.While(c,loop). 它们是*Style*大部分循环的基础.

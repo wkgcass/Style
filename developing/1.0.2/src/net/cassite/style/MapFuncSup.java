@@ -64,12 +64,9 @@ public class MapFuncSup<K, V> {
 			V v = map.get(k);
 			try {
 				return Style.If(predicate.apply(k, v), () -> {
-					if (func.argCount() == 3)
-						return func.apply(k, v,
-								info.setValues(i.item - 1, i.item + 1, i.item != 0, it.hasNext(), loopInfo.currentIndex,
-										loopInfo.effectiveIndex, loopInfo.lastRes));
-					else
-						return func.apply(k, v);
+					return func.apply(k, v,
+							info.setValues(i.item - 1, i.item + 1, i.item != 0, it.hasNext(), loopInfo.currentIndex,
+									loopInfo.effectiveIndex, loopInfo.lastRes));
 				}).Else(() -> null);
 			} catch (Throwable err) {
 				StyleRuntimeException sErr = Style.$(err);

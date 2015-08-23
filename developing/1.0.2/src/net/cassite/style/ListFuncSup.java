@@ -77,12 +77,9 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
 			T t = it.next();
 			try {
 				return If(predicate.apply(t), () -> {
-					if (func.argCount() == 2)
-						return func.apply(t,
-								info.setValues(previousIndex, nextIndex, hasPrevious,
-										hasNext, loopInfo.currentIndex, loopInfo.effectiveIndex, loopInfo.lastRes));
-					else
-						return func.apply(t);
+					return func.apply(t,
+							info.setValues(previousIndex, nextIndex, hasPrevious,
+									hasNext, loopInfo.currentIndex, loopInfo.effectiveIndex, loopInfo.lastRes));
 				}).Else(() -> null);
 			} catch (Throwable err) {
 				StyleRuntimeException sErr = $(err);

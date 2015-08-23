@@ -45,7 +45,9 @@ And pls execuse me for my poor english...
 1.0.1 --> 1.0.2
 
 * Now Enhanced If expression can receive lambda as its first argument.
+* functions can receive more or less values than its argument length.
 * Dynamic Proxy Simplify
+* Read-Only objects
 * Document Revision
 
 #Directory
@@ -69,6 +71,7 @@ And pls execuse me for my poor english...
 		* Field
 		* Method
 		* Dynamic Proxy
+			* Read-Only objects
 	* Thread
 		* callback
 		* (async)
@@ -99,6 +102,8 @@ And pls execuse me for my poor english...
 	* Comparable
 	* Rand
 	* String
+* Appendix
+	* last loop result
 
 #Starting
 
@@ -160,6 +165,15 @@ Use *apply* to call a function on caller's thread.
 e.g.
 	
 	check.apply(list, "cass");
+	
+Functions can receive more or less values than its argument length.
+
+e.g.
+	
+	check.apply(list, "cass", "arg"); 
+	// "arg" will be ignored
+	check.apply(list) 
+	// same as 'check.apply(list, null)'
 	
 ##Async, Await and Exception Handling
 
@@ -289,7 +303,7 @@ This *Style* version(1.0.1) only support few new features about reflect.
 
 More features will come out in the next version.
 
-Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.reflect* for more info.
+Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.style.reflect* for more info.
 
 ###Class
 We used to write this:
@@ -311,12 +325,12 @@ ClassSup let you easily get *Generic Supported* constructors', fields', and meth
 	// with args
 	ConstructorSup<TYPE> con = cls.constructor(T0.class, T1.class, ...);
 
-	FieldSup<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
+	FieldSupport<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
 	
 	// no args
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
 	// with args
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
 	
 Also, you can get all declaired methods or fields from the class and its super classes.
 
@@ -372,14 +386,14 @@ Use List.get method as an example
 			@SuppressWarnings("unused")
 			String get(int index) {
 				System.out.println("before get invoked with arg0:" + index);
-				String res = toProxy.get(index);
+				String res = target.get(index);
 				System.out.println("after get invoked with res:" + res);
 				return res;
 			}
 		};
 	
 	>
-	>ProxyHandler receive an object as the object to proxy, it's stored in a field called toProxy.
+	>ProxyHandler receive an object as the object to proxy, it's stored in a field called target.
 	>
 	>As you can see, it uses **RETURN_TYPE methodName(Args)** to define an 'Around' proxy. This method looks exactly the same as the method to proxy.
 	
@@ -388,6 +402,31 @@ Use List.get method as an example
 		List<String> listProxy = proxy(handler);
 		
 this way makes proxy more readable.
+
+####Read-Only objects
+Usually, we need to create readonly objects in case someone change them. 
+>e.g. We may have to pack an object into another and expose it to other modules. However we cannot guarantee other people not changing it.
+
+*Style* provides you a easy way of turning an object with interfaces into a read-only one.
+
+Usually it doesn't require you doing any extra work.  
+
+	R readOnly(R r);
+
+When an invocation comes, *Style* will check the method.
+
+* if methodName.contains elements in $.readOnlyToSearch
+	* Check whether the method has ReadOnly annotation
+		* if has
+			* do invoking
+		* else
+			* throw an exception(ModifyReadOnlyException)
+* else
+	* Check whether the method has Writable annotation
+		* if has
+			* throw an exception(ModifyReadOnlyException)
+		* else
+			* do invoking
 	
 ##Thread
 ###callback
@@ -832,3 +871,14 @@ You can write:
 	System.out.println(
 		$("My name is ${name}, I'm ${age} years old, and I'm ${sex}.")
 			.from(sample));
+			
+#Appendix
+
+##last loop result
+For, For-to-step, While, forEach/forThose loops all have return values.  
+when a loop finished, it may return a result to the loop controller. 
+
+Loop controllers store a value called 'last loop value'.The controller examine the result from loop, 
+
+if it's not null, overwrite the 'last loop value' with received result. if it's null, the controller ignore the null value and goes on.
+>Loop controller is not a class, it's a method. More specificly, Style.For(i,c,inc,loop) and Style.While(c,loop). They are bases of most loops in *Style*.
