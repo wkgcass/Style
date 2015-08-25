@@ -1,5 +1,6 @@
 package net.cassite.style;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -19,10 +20,19 @@ import net.cassite.style.readonly.ModifyReadOnlyException;
 import net.cassite.style.readonly.ReadOnly;
 import net.cassite.style.readonly.Writable;
 import net.cassite.style.reflect.ClassSup;
+import net.cassite.style.reflect.FieldSupport;
 import net.cassite.style.reflect.MethodSupport;
 import net.cassite.style.reflect.ProxyHandler;
 
-public class Style {
+/**
+ * All functions in <b>Style tool box</b> are provided here.<br/>
+ * Let your class <code>extends Style</code> to avoid retyping
+ * <code>Style.</code> which makes your coding prettier
+ * 
+ * @author wkgcass
+ *
+ */
+public abstract class Style {
 
         protected Style() {
         }
@@ -1567,7 +1577,37 @@ public class Style {
                 return new JSONLike<K, V>(key, value);
         }
 
+        /**
+         * Create a JSONLike object from an array similar to JSON
+         * 
+         * @param json
+         *                an array look like JSON.<br/>
+         *                e.g.
+         * 
+         *                <pre>
+         * new Object["name" ,"cass",
+         *           "age", 20,
+         *           "sex", "male"]
+         *                </pre>
+         * 
+         * @return a new JSONLike object
+         * @see JSONLike
+         */
+        public static JSONLike<String, Object> map(Object[] json) {
+                if (json.length % 2 != 0 || json.length == 0) {
+                        throw new RuntimeException("Wrong json format");
+                }
+                JSONLike<String, Object> map = new JSONLike<String, Object>(json[0].toString(), json[1]);
+                for (int i = 2; i < json.length; i += 2) {
+                        String key = json[i].toString();
+                        Object value = json[i + 1];
+                        map.$(key, value);
+                }
+                return map;
+        }
+
         // date
+
         /**
          * Create a date supporter
          * 
@@ -1581,6 +1621,7 @@ public class Style {
         }
 
         // regex
+
         /**
          * Create a simplified regex tool from a string.
          * 
@@ -1594,27 +1635,86 @@ public class Style {
         }
 
         // comparable
+
+        /**
+         * Enables you to compare two comparable objects with more readable
+         * coding.<br/>
+         * e.g.
+         * 
+         * <pre>
+         *  lt, gt, le, lte, ge, gte, eq, ne, neq
+         * </pre>
+         * 
+         * @param comparable
+         *                the first comparable object to be compared
+         * @return ComparableFuncSup
+         * @see ComparableFuncSup
+         */
         public static <T> ComparableFuncSup<T> $(Comparable<T> comparable) {
                 return new ComparableFuncSup<>(comparable);
         }
 
         // rand
+
+        /**
+         * get an integer randomly from start (inclusive) to end (inclusive)
+         * 
+         * @param start
+         * @param end
+         * @return random integer
+         */
         public static int rand(int start, int end) {
                 return (int) (Math.random() * (end - start + 1)) + start;
         }
 
+        /**
+         * get a double randomly from start (inclusive) to end (exclusive)
+         * 
+         * @param start
+         * @param end
+         * @return random double
+         */
         public static double rand(double start, double end) {
                 return Math.random() * (end - start) + start;
         }
 
+        /**
+         * get an integer littler than max (inclusive)
+         * 
+         * @param max
+         * @return random integer
+         */
         public static int rand(int max) {
                 return (int) (Math.random() * (max + 1));
         }
 
+        /**
+         * get a double littler than max
+         * 
+         * @param max
+         * @return random double
+         */
         public static double rand(double max) {
                 return Math.random() * max;
         }
 
+        /**
+         * generate a random string serial with characters from $chooseFrom and
+         * given length.
+         * 
+         * @param chooseFrom
+         *                characters to choose from
+         * @param length
+         *                generated serial length
+         * @param unrepeatable
+         *                true if the serial doesn't contain repeating
+         *                characters. false otherwise.
+         * @param ignoreCase
+         *                true if the serial doesn't contain repeating
+         *                case-ignored characters. false otherwise.<br/>
+         *                Only consider this argument when $unrepeatable is true
+         * @return random string serial
+         */
         public static String rand(String chooseFrom, int length, boolean unrepeatable, boolean ignoreCase) {
                 if (length > chooseFrom.length() && unrepeatable) {
                         throw new RuntimeException("unrepeatable but length > chooseFrom.length");
@@ -1639,18 +1739,56 @@ public class Style {
                 return sb.toString();
         }
 
+        /**
+         * generate a random string serial with characters from $chooseFrom and
+         * given length.
+         * 
+         * @param chooseFrom
+         *                characters to choose from
+         * @param length
+         *                generated serial length
+         * @param unrepeatable
+         *                true if the serial doesn't contain repeating
+         *                characters. false otherwise.
+         * @return random string serial
+         */
         public static String rand(String chooseFrom, int length, boolean unrepeatable) {
                 return rand(chooseFrom, length, unrepeatable, false);
         }
 
+        /**
+         * generate a random string serial with characters from $chooseFrom and
+         * given length.
+         * 
+         * @param chooseFrom
+         *                characters to choose from
+         * @param length
+         *                generated serial length
+         * @return random string serial
+         */
         public static String rand(String chooseFrom, int length) {
                 return rand(chooseFrom, length, false, false);
         }
 
-        public static int $(IteratorInfo<?> info) {
+        /**
+         * retrieve LoopInfo.currentIndex
+         * 
+         * @param info
+         * @return
+         * @see LoopInfo
+         */
+        public static int $(LoopInfo<?> info) {
                 return info.currentIndex;
         }
 
+        /**
+         * create a string supporter
+         * 
+         * @param base
+         *                the string to be supported
+         * @return String supporter
+         * @see StringFuncSup
+         */
         public static StringFuncSup $(String base) {
                 return new StringFuncSup(base);
         }
@@ -1712,6 +1850,17 @@ public class Style {
                 }
         }
 
+        /**
+         * Avoid null values.<br/>
+         * firstly check the first argument, if it's null, invoke the the second
+         * argument (lambda expression), otherwise return the first argument.
+         * 
+         * @param t
+         *                the value to be checked
+         * @param Default
+         *                return its value if $t is null
+         * @return value of which null has been avoided
+         */
         public static <T> T avoidNull(T t, RFunc0<T> Default) {
                 if (t == null)
                         try {
@@ -1723,14 +1872,61 @@ public class Style {
                         return t;
         }
 
+        /**
+         * Swap two values in an un-traditional way<br/>
+         * The two values should be the same type
+         * (a.getClass().equals(b.getClass())) and are not primitives <br/>
+         * or they are same kind of array and length are the same.
+         * 
+         * @param a
+         * @param b
+         */
+        public static void swap(Object a, Object b) {
+                if (!a.getClass().equals(b.getClass())) {
+                        throw new RuntimeException();
+                }
+                if (a.getClass().isArray() && Array.getLength(a) == Array.getLength(b)) {
+                        for (int i = 0; i < Array.getLength(a); ++i) {
+                                Object tmp = Array.get(a, i);
+                                Array.set(a, i, Array.get(b, i));
+                                Array.set(b, i, tmp);
+                        }
+                } else {
+                        List<FieldSupport<?, Object>> fields = cls(a).allFields();
+                        $(fields).forEach(f -> {
+                                if (!f.isStatic()) {
+                                        Object tmp = f.get(a);
+                                        f.set(a, f.get(b));
+                                        f.set(b, tmp);
+                                }
+                        });
+                }
+        }
+
         // ┌─────────────────────────────────┐
         // │...........reflection............│
         // └─────────────────────────────────┘
 
+        /**
+         * create a class supporter with given class
+         * 
+         * @param cls
+         *                the class object to be supported
+         * @return Class supporter
+         * @see ClassSup
+         */
         public static <T> ClassSup<T> cls(Class<T> cls) {
                 return new ClassSup<>(cls);
         }
 
+        /**
+         * create a class supporter with given class name
+         * 
+         * @param clsName
+         *                full name of the class to be supported
+         * @return Class supporter
+         * @see ClassSup
+         */
         @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(String clsName) {
                 try {
@@ -1740,16 +1936,49 @@ public class Style {
                 }
         }
 
+        /**
+         * create a class supporter with given object
+         * 
+         * @param obj
+         *                instance of the class to be supported
+         * @return Class supporter
+         * @see ClassSup
+         */
         @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(T obj) {
                 return (ClassSup<T>) cls(obj.getClass());
         }
 
+        /**
+         * generate proxy object with given InvocationHandler and the object to
+         * do proxy
+         * 
+         * @param handler
+         *                InvocationHandler instance
+         * @param toProxy
+         *                the object to do proxy
+         * @return proxy object generated with Proxy.newProxyInstance(...)
+         * @see InvocationHandler
+         * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
+         */
         @SuppressWarnings("unchecked")
         public static <T> T proxy(InvocationHandler handler, T toProxy) {
                 return (T) Proxy.newProxyInstance(toProxy.getClass().getClassLoader(), toProxy.getClass().getInterfaces(), handler);
         }
 
+        /**
+         * generate proxy object with given ProxyHandler<br/>
+         * ProxyHandler is an abstract class with a constructor taking in the
+         * object to do proxy<br/>
+         * see ProxyHandler or
+         * <a href="https://github.com/wkgcass/Style/">tutorial</a> for more
+         * info on how to use.
+         * 
+         * @param proxyHandler
+         * @return proxy object generated with Proxy.newProxyInstance(...)
+         * @see ProxyHandler
+         * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
+         */
         @SuppressWarnings("unchecked")
         public static <P> P proxy(ProxyHandler<P> proxyHandler) {
                 List<MethodSupport<?, ProxyHandler<P>>> methods = cls(proxyHandler).allMethods();
@@ -1771,6 +2000,29 @@ public class Style {
                 });
         }
 
+        /**
+         * Make an object which has interfaces to a read-only one.<br/>
+         * When an invocation comes, the InvocatinHandler will check the method.
+         * 
+         * <pre>
+         if methodName.contains elements in $.readOnlyToSearch
+                Check whether the method has ReadOnly annotation
+                        if has
+                            do invoking
+                        else
+                            throw an exception(ModifyReadOnlyException)
+        else
+                Check whether the method has Writable annotation
+                        if has
+                            throw an exception(ModifyReadOnlyException)
+                        else
+                            do invoking
+         * </pre>
+         * 
+         * @param toReadOnly
+         *                the object to be readonly
+         * @return read-only object(dynamic proxy supported)
+         */
         public static <R> R readOnly(R toReadOnly) {
                 return proxy((p, m, args) -> {
                         return If($($.readOnlyToSearch).forEach(s -> {

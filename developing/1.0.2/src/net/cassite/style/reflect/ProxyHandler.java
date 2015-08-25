@@ -28,7 +28,7 @@ import net.cassite.style.Style;
  * @param <T>
  * @since 1.0.2
  */
-public class ProxyHandler<T> extends Style {
+public abstract class ProxyHandler<T> extends Style {
         public T target;
 
         /**

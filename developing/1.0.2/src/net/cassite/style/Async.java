@@ -2,106 +2,200 @@ package net.cassite.style;
 
 import net.cassite.style.interfaces.VFunc1;
 
+/**
+ * Async supporter. <br/>
+ * the given function will start to run as soon as its constructed.
+ * 
+ * @author wkgcass
+ *
+ * @param <R>
+ *                function's return type
+ */
 public class Async<R> {
-	private Container<R> container;
-	private Thread t;
+        private Container<R> container;
+        private Thread t;
 
-	private StyleRuntimeException throwable = null;
-	private def<Object> handler = null;
-	private Object lock = new Object();
+        private StyleRuntimeException throwable = null;
+        private def<Object> handler = null;
+        private Object lock = new Object();
 
-	private boolean hasHandler = false;
+        private boolean hasHandler = false;
 
-	private static class Container<R> {
-		R ret = null;
-		boolean inProcess = false;
+        private static class Container<R> {
+                R ret = null;
+                boolean inProcess = false;
 
-		Container() {
-		}
-	}
+                Container() {
+                }
+        }
 
-	private class AsyncRunnable<T> implements Runnable {
-		private final Container<T> container;
-		private final def<T> func;
-		private final Object[] args;
+        private class AsyncRunnable<T> implements Runnable {
+                private final Container<T> container;
+                private final def<T> func;
+                private final Object[] args;
 
-		AsyncRunnable(Container<T> container, def<T> func, Object... args) {
-			this.container = container;
-			this.func = func;
-			this.args = args;
-		}
+                AsyncRunnable(Container<T> container, def<T> func, Object... args) {
+                        this.container = container;
+                        this.func = func;
+                        this.args = args;
+                }
 
-		@Override
-		public void run() {
-			synchronized (container) {
-				container.inProcess = true;
-				try {
-					container.ret = func.apply(args);
-				} catch (Throwable t) {
-					synchronized (lock) {
-						throwable = Style.$(t);
-						if (handler != null) {
-							handler.apply(Style.$(throwable));
-						}
-					}
-				}
-			}
-		}
-	}
+                @Override
+                public void run() {
+                        synchronized (container) {
+                                container.inProcess = true;
+                                try {
+                                        container.ret = func.apply(args);
+                                } catch (Throwable t) {
+                                        synchronized (lock) {
+                                                throwable = Style.$(t);
+                                                if (handler != null) {
+                                                        handler.apply(Style.$(throwable));
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
 
-	Async(def<R> func, Object... args) {
-		this.container = new Container<R>();
-		t = new Thread(new AsyncRunnable<R>(container, func, args));
-		t.start();
-	}
+        Async(def<R> func, Object... args) {
+                this.container = new Container<R>();
+                t = new Thread(new AsyncRunnable<R>(container, func, args));
+                t.start();
+        }
 
-	public R await() {
-		while (!container.inProcess) {
-			// block
-		}
-		synchronized (container) {
-			return container.ret;
-		}
-	}
+        /**
+         * block current thread and wait until the async task was finished or
+         * thrown with an exception.
+         * 
+         * @return the result of the finished async.<br/>
+         *         When an exception occurred inside the async task, the result
+         *         will always be null.
+         */
+        public R await() {
+                while (!container.inProcess) {
+                        // block
+                }
+                synchronized (container) {
+                        return container.ret;
+                }
+        }
 
-	public Thread getThread() {
-		return t;
-	}
+        /**
+         * retrieve the async thread
+         * 
+         * @return the thread that async task run on.
+         */
+        public Thread getThread() {
+                return t;
+        }
 
-	public void onError(VFunc1<StyleRuntimeException> handler) {
-		onError(Style.$(handler));
-	}
+        /**
+         * Handle exceptions that async task thrown.<br/>
+         * if there's already an exception thrown when this method invoked, the
+         * handling process would be taken in current thread.<br/>
+         * Otherwise, the process would be taken at async thread when exception
+         * occurred.<br/>
+         * use {@link #awaitError(VFunc1)} if you need to force the handling
+         * process taken on current thread.
+         * 
+         * @param handler
+         *                a function takes in StyleRuntimeException<br/>
+         *                for all Throwable caught from the async task would be
+         *                packed into StyleRuntimeException
+         * @see #awaitError(VFunc1)
+         * @see StyleRuntimeException
+         */
+        public void onError(VFunc1<StyleRuntimeException> handler) {
+                onError(Style.$(handler));
+        }
 
-	public void onError(def<Object> handler) {
-		hasHandler = true;
-		synchronized (lock) {
-			this.handler = handler;
-			if (null != throwable) {
-				handler.apply(Style.$(throwable));
-			}
-		}
-	}
+        /**
+         * Handle exceptions that async task thrown.<br/>
+         * if there's already an exception thrown when this method invoked, the
+         * handling process would be taken in current thread.<br/>
+         * Otherwise, the process would be taken at async thread when exception
+         * occurred.<br/>
+         * use {@link #awaitError(def)} if you need to force the handling
+         * process taken on current thread.
+         * 
+         * @param handler
+         *                a function to invoke when occurred an exception<br/>
+         *                for all Throwable caught from the async task would be
+         *                packed into StyleRuntimeException
+         * @see #awaitError(def)
+         * @see StyleRuntimeException
+         */
+        public void onError(def<Object> handler) {
+                hasHandler = true;
+                while (!container.inProcess) {
+                        // block
+                }
+                synchronized (lock) {
+                        this.handler = handler;
+                        if (null != throwable) {
+                                handler.apply(Style.$(throwable));
+                        }
+                }
+        }
 
-	public void awaitError(VFunc1<StyleRuntimeException> handler) {
-		awaitError(Style.$(handler));
-	}
+        /**
+         * Handle exceptions that async task thrown.<br/>
+         * the method would block current thread until async task finished or
+         * thrown with an exception, the handling process would be taken in
+         * current thread.<br/>
+         * 
+         * @param handler
+         *                a function takes in StyleRuntimeException<br/>
+         *                for all Throwable caught from the async task would be
+         *                packed into StyleRuntimeException
+         * @see StyleRuntimeException
+         */
+        public void awaitError(VFunc1<StyleRuntimeException> handler) {
+                awaitError(Style.$(handler));
+        }
 
-	public void awaitError(def<Object> handler) {
-		while (!container.inProcess) {
-			// block
-		}
-		synchronized (container) {
-			if (null != throwable) {
-				handler.apply(Style.$(throwable));
-			}
-		}
-	}
+        /**
+         * Handle exceptions that async task thrown.<br/>
+         * the method would block current thread until async task finished or
+         * thrown with an exception, the handling process would be taken in
+         * current thread.<br/>
+         * 
+         * @param handler
+         *                a function to invoke when occurred an exception<br/>
+         *                for all Throwable caught from the async task would be
+         *                packed into StyleRuntimeException
+         * @see StyleRuntimeException
+         */
+        public void awaitError(def<Object> handler) {
+                while (!container.inProcess) {
+                        // block
+                }
+                synchronized (container) {
+                        if (null != throwable) {
+                                handler.apply(Style.$(throwable));
+                        }
+                }
+        }
 
-	public boolean hasErrHandler() {
-		return hasHandler;
-	}
+        /**
+         * check whether this async supporter has an exception handler
+         * 
+         * @return true if this async supporter has an exception handler, false
+         *         otherwise
+         */
+        public boolean hasErrHandler() {
+                return hasHandler;
+        }
 
-	public StyleRuntimeException getErr() {
-		return throwable;
-	}
+        /**
+         * retrieve exception that this supporter occurred.<br/>
+         * the method will only return exception that's already found. It will
+         * not guarantee exception won't occur after invoking this method.
+         * 
+         * @return occurred exception.
+         */
+        public StyleRuntimeException getErr() {
+                return throwable;
+        }
 }

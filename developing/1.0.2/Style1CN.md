@@ -46,9 +46,13 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 
 * 增强的If表达式可以接收lambda作为第一个参数
 * 函数可以接收比参数表更多或更少的参数
+* StringFuncSup.fill 调整为调用 Message.fill
 * 动态代理简化
 * 只读对象
+* 使用数组模拟JSON对象生成map
 * 文档更正
+* BUG修复:
+	* Async.onError 和 AsyncGroup.onError 曾在少部分情况下将当前线程永久挂起。
 
 #目录
 
@@ -102,6 +106,8 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	* Comparable
 	* Rand
 	* 字符串
+	* JSON
+	* 交换
 * 附录
 	* 上次循环结果
 
@@ -865,6 +871,38 @@ g表示全局，i表示忽略大小写，m表示多行。
 	System.out.println(
 		$("My name is ${name}, I'm ${age} years old, and I'm ${sex}.")
 			.from(sample));
+			
+将输出
+
+	My name is cass, I'm 20 years old, and I'm male.
+	
+##JSON
+你可以通过“长得很像JSON”的Object数组创建一个JSONLike对象。  
+比如说这样创建一个JSONLike对象
+
+	map(new Object[]{
+		"name"	, "cass",
+		"age"	, 20,
+		"sex"	, "male"
+	});
+>JSONLike 继承了 LinkedHashMap
+
+##交换
+我们都知道，java没有指针，所以C中这样的的swap写法无法在java实现
+
+	void swap(T*a, T*b){
+		T tmp=*a;
+		*a=*b;
+		*b=tmp;
+	}
+	
+但是，我们可以利用反射完成对引用类型的swap
+
+现在只需要调用
+
+	swap(a,b)
+	
+就能交换两个对象。
 			
 #附录
 

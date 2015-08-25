@@ -6,41 +6,51 @@ import java.lang.reflect.Field;
 import net.cassite.style.Style;
 
 public class FieldSupport<FieldType, ObjectType> extends Style implements MemberSup<Field> {
-	private Field f;
+        private Field f;
 
-	public Field getMember() {
-		return f;
-	}
+        public Field getMember() {
+                return f;
+        }
 
-	FieldSupport(Field f, Class<FieldType> cls, Class<ObjectType> objCls) {
-		if (f == null)
-			throw $(new NoSuchFieldException());
-		this.f = f;
-	}
+        FieldSupport(Field f, Class<FieldType> cls, Class<ObjectType> objCls) {
+                if (f == null)
+                        throw $(new NoSuchFieldException());
+                this.f = f;
+        }
 
-	public <A extends Annotation> A annotation(Class<A> annoCls) {
-		return f.getAnnotation(annoCls);
-	}
+        public <A extends Annotation> A annotation(Class<A> annoCls) {
+                return f.getAnnotation(annoCls);
+        }
 
-	public <A extends Annotation> boolean isAnnotationPresent(Class<A> annoCls) {
-		return f.isAnnotationPresent(annoCls);
-	}
+        public <A extends Annotation> boolean isAnnotationPresent(Class<A> annoCls) {
+                return f.isAnnotationPresent(annoCls);
+        }
 
-	@SuppressWarnings("unchecked")
-	public FieldType get(ObjectType obj) {
-		try {
-			f.setAccessible(true);
-			return (FieldType) f.get(obj);
-		} catch (Exception e) {
-			throw $(e);
-		}
-	}
+        @SuppressWarnings("unchecked")
+        public FieldType get(ObjectType obj) {
+                try {
+                        f.setAccessible(true);
+                        return (FieldType) f.get(obj);
+                } catch (Exception e) {
+                        throw $(e);
+                }
+        }
 
-	public String name() {
-		return f.getName();
-	}
+        public FieldSupport<FieldType, ObjectType> set(ObjectType obj, Object toSet) {
+                try {
+                        f.setAccessible(true);
+                        f.set(obj, toSet);
+                        return this;
+                } catch (Exception e) {
+                        throw $(e);
+                }
+        }
 
-	public String toString() {
-		return f.toString();
-	}
+        public String name() {
+                return f.getName();
+        }
+
+        public String toString() {
+                return f.toString();
+        }
 }

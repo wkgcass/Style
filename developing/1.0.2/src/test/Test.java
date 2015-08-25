@@ -11,7 +11,6 @@ import net.cassite.style.Async;
 import net.cassite.style.Style;
 import net.cassite.style.def;
 import net.cassite.style.var;
-import net.cassite.style.readonly.ModifyReadOnlyException;
 import net.cassite.style.reflect.ClassSup;
 import net.cassite.style.reflect.ProxyHandler;
 
@@ -342,7 +341,7 @@ public class Test implements var {
                 System.out.println(readOnlyList.get(0));
                 try {
                         readOnlyList.add("test add");
-                } catch (ModifyReadOnlyException e) {
+                } catch (Exception e) {
                         System.out.println(e);
                 }
         }

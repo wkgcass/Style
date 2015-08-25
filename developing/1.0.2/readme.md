@@ -46,9 +46,13 @@ And pls execuse me for my poor english...
 
 * Now Enhanced If expression can receive lambda as its first argument.
 * functions can receive more or less values than its argument length.
+* StringFuncSup.fill has changed to directly invoking Message.fill
 * Dynamic Proxy Simplify
 * Read-Only objects
+* use arrays to simulate JSON and generate a map
 * Document Revision
+* BUG solved:
+	* Async.onError or AsyncGroup.onError used to have a chance to lock current thread forever in few cases.
 
 #Directory
 
@@ -102,6 +106,8 @@ And pls execuse me for my poor english...
 	* Comparable
 	* Rand
 	* String
+	* JSON
+	* swap
 * Appendix
 	* last loop result
 
@@ -871,6 +877,38 @@ You can write:
 	System.out.println(
 		$("My name is ${name}, I'm ${age} years old, and I'm ${sex}.")
 			.from(sample));
+
+will return
+
+	My name is cass, I'm 20 years old, and I'm male.
+	
+##JSON
+You can create a JSONLike object from a json-like Object array.  
+e.g. you can create a JSONLike object like this:
+
+	map(new Object[]{
+		"name"	, "cass",
+		"age"	, 20,
+		"sex"	, "male"
+	});
+>JSONLike extends LinkedHashMap
+
+##swap
+As we all know java don't have pointers so a C swap cannot work in java:
+
+	void swap(T*a, T*b){
+		T tmp=*a;
+		*a=*b;
+		*b=tmp;
+	}
+	
+However we can do swap on reference types using reflect.  
+
+Now simply invoke
+
+	swap(a,b)
+	
+Can swap two objects.
 			
 #Appendix
 

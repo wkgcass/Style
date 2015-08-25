@@ -1,31 +1,57 @@
 package net.cassite.style;
 
+/**
+ * Entry which formats a map from key to value
+ * 
+ * @author wkgcass
+ *
+ * @param <K2>
+ *                Key type
+ * @param <V2>
+ *                Value type
+ */
 public class Entry<K2, V2> {
-	public Entry() {
-	}
+        /**
+         * Construct an Entry with no key and value
+         */
+        public Entry() {
+        }
 
-	public Entry(K2 key, V2 value) {
-		this.key = key;
-		this.value = value;
-	}
+        /**
+         * Construct an Entry with no key and value
+         * 
+         * @param key
+         *                key
+         * @param value
+         *                value
+         */
+        public Entry(K2 key, V2 value) {
+                this.key = key;
+                this.value = value;
+        }
 
-	public K2 key;
-	public V2 value;
+        /**
+         * key of the entry
+         */
+        public K2 key;
+        /**
+         * value of the entry
+         */
+        public V2 value;
 
-	@Override
-	public String toString() {
-		return key + "=" + value;
-	}
+        @Override
+        public String toString() {
+                return key + "=" + value;
+        }
 
-	@Override
-	public int hashCode() {
-		return key.hashCode() + value.hashCode();
-	}
+        @Override
+        public int hashCode() {
+                return key.hashCode() + value.hashCode();
+        }
 
-	@Override
-	public boolean equals(Object o) {
-		return o == null ? false
-				: (o instanceof Entry) ? (key.equals(((Entry<?, ?>) o).key) && value.equals(((Entry<?, ?>) o).value))
-						: false;
-	}
+        @Override
+        public boolean equals(Object o) {
+                return o == null ? false
+                                : (o instanceof Entry) ? (key.equals(((Entry<?, ?>) o).key) && value.equals(((Entry<?, ?>) o).value)) : false;
+        }
 }
