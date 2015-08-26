@@ -22,7 +22,7 @@ public interface A1FuncSup<T> extends var {
          * 
          * @param func
          *                a function takes in each element from array/iterable
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -38,7 +38,7 @@ public interface A1FuncSup<T> extends var {
          * @param func
          *                a function takes in each element from array/iterable
          *                and iterator info
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -54,9 +54,9 @@ public interface A1FuncSup<T> extends var {
          * 
          * @param func
          *                a function takes in each element from array/iterable
-         *                <br/>
+         *                <br>
          *                and returns 'last loop value'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -70,9 +70,9 @@ public interface A1FuncSup<T> extends var {
          * 
          * @param func
          *                a function takes in each element from array/iterable
-         *                and iterator info<br/>
+         *                and iterator info<br>
          *                and returns 'last loop value'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -87,7 +87,7 @@ public interface A1FuncSup<T> extends var {
          * 
          * @param func
          *                a function returns 'last loop value'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -104,7 +104,7 @@ public interface A1FuncSup<T> extends var {
          *                and returns true or false(or null)
          * @param func
          *                a function takes in each element from array/iterable
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -123,7 +123,7 @@ public interface A1FuncSup<T> extends var {
          * @param func
          *                a function takes in each element from array/iterable
          *                and iterator info
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -142,9 +142,9 @@ public interface A1FuncSup<T> extends var {
          *                and iterator info and returns true or false(or null)
          * @param func
          *                a function takes in each element from array/iterable
-         *                <br/>
+         *                <br>
          *                and returns 'last loop result'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -161,9 +161,9 @@ public interface A1FuncSup<T> extends var {
          *                and returns true or false(or null)
          * @param func
          *                a function takes in each element from array/iterable
-         *                and iterator info<br/>
+         *                and iterator info<br>
          *                and returns 'last loop info'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -181,7 +181,7 @@ public interface A1FuncSup<T> extends var {
          *                and returns true or false(or null)
          * @param func
          *                a function returns 'last loop info'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -200,7 +200,7 @@ public interface A1FuncSup<T> extends var {
          * find the first matched element
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each element in array/iterable and
          *                returns true/false/null
          * @return first matched element
@@ -213,7 +213,7 @@ public interface A1FuncSup<T> extends var {
          * find the first matched element
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @return first matched element
          */
@@ -225,7 +225,7 @@ public interface A1FuncSup<T> extends var {
          * find all matched elements
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each element in array/iterable and
          *                returns true/false/null
          * @return all matched elements in an ArrayList
@@ -238,7 +238,7 @@ public interface A1FuncSup<T> extends var {
          * find all matched elements
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @return all matched elements in an ArrayList
          */
@@ -250,7 +250,7 @@ public interface A1FuncSup<T> extends var {
          * add all matched elements into given collection
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each element in array/iterable and
          *                returns true/false/null
          * @param toColl
@@ -265,7 +265,7 @@ public interface A1FuncSup<T> extends var {
          * add all matched elements into given collection
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @param toColl
          *                the collection to add elements in
@@ -279,7 +279,7 @@ public interface A1FuncSup<T> extends var {
          * add limited number of matched elements into given collection
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each element in array/iterable and
          *                returns true/false/null
          * @param toColl
@@ -297,7 +297,7 @@ public interface A1FuncSup<T> extends var {
          * add limited number of matched elements into given collection
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @param toColl
          *                the collection to add elements in
@@ -321,10 +321,10 @@ public interface A1FuncSup<T> extends var {
         /**
          * Entrance of transformer
          * 
-         * @param collection
-         *                the collection to support
+         * @param arr
+         *                the array to support
          * @return new A1Transformer
-         * @see A1Transformer
+         * @see A1ArrTransformer
          */
         <R> A1ArrTransformer<R, T> to(R[] arr);
 

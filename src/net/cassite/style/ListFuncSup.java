@@ -50,7 +50,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                a function takes in each element from list
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -69,7 +69,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                iterator info
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -89,7 +89,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                last loop value
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -104,11 +104,11 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          * 
          * @param func
          *                a function takes in each element from list and
-         *                iterator info<br/>
+         *                iterator info<br>
          *                and returns last loop value
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -126,7 +126,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                a function returns 'last loop value'
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -146,7 +146,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                a function takes in each element from list
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -168,7 +168,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                iterator info
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -191,7 +191,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                'last loop result'
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -209,11 +209,11 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                true or false(or null)
          * @param func
          *                a function takes in each element from list and
-         *                iterator info<br/>
+         *                iterator info<br>
          *                and returns 'last loop result'
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -239,7 +239,7 @@ public class ListFuncSup<T> extends CollectionFuncSup<T> {
          *                a function returns 'last loop result'
          * @param index
          *                the index where to start iteration
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'

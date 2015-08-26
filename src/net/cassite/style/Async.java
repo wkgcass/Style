@@ -3,7 +3,7 @@ package net.cassite.style;
 import net.cassite.style.interfaces.VFunc1;
 
 /**
- * Async supporter. <br/>
+ * Async supporter. <br>
  * the given function will start to run as soon as its constructed.
  * 
  * @author wkgcass
@@ -68,7 +68,7 @@ public class Async<R> {
          * block current thread and wait until the async task was finished or
          * thrown with an exception.
          * 
-         * @return the result of the finished async.<br/>
+         * @return the result of the finished async.<br>
          *         When an exception occurred inside the async task, the result
          *         will always be null.
          */
@@ -91,16 +91,16 @@ public class Async<R> {
         }
 
         /**
-         * Handle exceptions that async task thrown.<br/>
+         * Handle exceptions that async task thrown.<br>
          * if there's already an exception thrown when this method invoked, the
-         * handling process would be taken in current thread.<br/>
+         * handling process would be taken in current thread.<br>
          * Otherwise, the process would be taken at async thread when exception
-         * occurred.<br/>
+         * occurred.<br>
          * use {@link #awaitError(VFunc1)} if you need to force the handling
          * process taken on current thread.
          * 
          * @param handler
-         *                a function takes in StyleRuntimeException<br/>
+         *                a function takes in StyleRuntimeException<br>
          *                for all Throwable caught from the async task would be
          *                packed into StyleRuntimeException
          * @see #awaitError(VFunc1)
@@ -111,16 +111,16 @@ public class Async<R> {
         }
 
         /**
-         * Handle exceptions that async task thrown.<br/>
+         * Handle exceptions that async task thrown.<br>
          * if there's already an exception thrown when this method invoked, the
-         * handling process would be taken in current thread.<br/>
+         * handling process would be taken in current thread.<br>
          * Otherwise, the process would be taken at async thread when exception
-         * occurred.<br/>
+         * occurred.<br>
          * use {@link #awaitError(def)} if you need to force the handling
          * process taken on current thread.
          * 
          * @param handler
-         *                a function to invoke when occurred an exception<br/>
+         *                a function to invoke when occurred an exception<br>
          *                for all Throwable caught from the async task would be
          *                packed into StyleRuntimeException
          * @see #awaitError(def)
@@ -140,13 +140,13 @@ public class Async<R> {
         }
 
         /**
-         * Handle exceptions that async task thrown.<br/>
+         * Handle exceptions that async task thrown.<br>
          * the method would block current thread until async task finished or
          * thrown with an exception, the handling process would be taken in
-         * current thread.<br/>
+         * current thread.<br>
          * 
          * @param handler
-         *                a function takes in StyleRuntimeException<br/>
+         *                a function takes in StyleRuntimeException<br>
          *                for all Throwable caught from the async task would be
          *                packed into StyleRuntimeException
          * @see StyleRuntimeException
@@ -156,13 +156,13 @@ public class Async<R> {
         }
 
         /**
-         * Handle exceptions that async task thrown.<br/>
+         * Handle exceptions that async task thrown.<br>
          * the method would block current thread until async task finished or
          * thrown with an exception, the handling process would be taken in
-         * current thread.<br/>
+         * current thread.<br>
          * 
          * @param handler
-         *                a function to invoke when occurred an exception<br/>
+         *                a function to invoke when occurred an exception<br>
          *                for all Throwable caught from the async task would be
          *                packed into StyleRuntimeException
          * @see StyleRuntimeException
@@ -189,7 +189,7 @@ public class Async<R> {
         }
 
         /**
-         * retrieve exception that this supporter occurred.<br/>
+         * retrieve exception that this supporter occurred.<br>
          * the method will only return exception that's already found. It will
          * not guarantee exception won't occur after invoking this method.
          * 

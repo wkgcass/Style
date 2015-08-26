@@ -19,13 +19,13 @@ import net.cassite.style.reflect.ProxyHandler;
 
 /**
  * All functions in <b>Style tool box</b> are provided both in <b>Style</b> and
- * here.<br/>
- * They are excatly the same.<br/>
+ * here.<br>
+ * They are excatly the same.<br>
  * However sometimes you may not able to <code>extends Style</code>, then try
- * <code>implements var</code> to get full support.<br/>
+ * <code>implements var</code> to get full support.<br>
  * But in this way, you are still not able to invoke methods directly from
- * static methods.<br/>
- * Anyway <code>implements var</code> still works in most cases.<br/>
+ * static methods.<br>
+ * Anyway <code>implements var</code> still works in most cases.<br>
  * Also you may write code like this:
  * 
  * <pre>
@@ -405,11 +405,11 @@ public interface var {
         // function support
 
         /**
-         * generate a pointer pointed to given object<br/>
+         * generate a pointer pointed to given object<br>
          * A <b>pointer</b> here means a container contains an object with
-         * initial type<br/>
-         * Type of the pointer is guaranteed by Generic System.<br/>
-         * You can access it's contained value using <b>ptr.item</b>, <br/>
+         * initial type<br>
+         * Type of the pointer is guaranteed by Generic System.<br>
+         * You can access it's contained value using <b>ptr.item</b>, <br>
          * Or using {@link #$(ptr)} and {@link #$(ptr, Object)}.
          * 
          * @param o
@@ -460,7 +460,7 @@ public interface var {
 
         /**
          * Join async objects for further usage and attach each of them with
-         * given exception handler.<br/>
+         * given exception handler.<br>
          * see {@link Async#onError(def)}, {@link Async#awaitError(def)} for
          * more info about exception handling.
          * 
@@ -480,10 +480,10 @@ public interface var {
 
         /**
          * Join async objects for further usage and attach each of them with
-         * given exception handler.<br/>
+         * given exception handler.<br>
          * see {@link Async#onError(def)}, {@link Async#awaitError(def)} for
-         * more info about exception handling.<br/>
-         * <br/>
+         * more info about exception handling.<br>
+         * <br>
          * This method simply invoke {@link #$(def, Async...)} with $(handler)
          * 
          * @param handler
@@ -504,7 +504,7 @@ public interface var {
 
         /**
          * Block current thread and wait for a Async call to return its value.
-         * <br/>
+         * <br>
          * This method simply invokes {@link Async#await()}
          * 
          * @param async
@@ -533,7 +533,7 @@ public interface var {
         /**
          * Create a new thread and invoke start on it.
          * 
-         * @param runnable
+         * @param toRun
          *                function run on the new thread
          * @return created thread
          */
@@ -566,7 +566,7 @@ public interface var {
         }
 
         /**
-         * Remove an object from current iterator.<br/>
+         * Remove an object from current iterator.<br>
          * Only works for loops on Iterators and Maps
          * 
          * @return
@@ -600,7 +600,7 @@ public interface var {
         }
 
         /**
-         * Add the value to ListIterator<br/>
+         * Add the value to ListIterator<br>
          * Only works for loops on ListIterators
          * 
          * @param toAdd
@@ -611,7 +611,7 @@ public interface var {
         }
 
         /**
-         * Set the value to ListIterator<br/>
+         * Set the value to ListIterator<br>
          * Only works for loops on ListIterators
          * 
          * @param toSet
@@ -626,8 +626,8 @@ public interface var {
         // └─────────────────────────────────┘
 
         /**
-         * Create an array supporter with int[]<br/>
-         * This method converts int[] into a new array:Integer[]<br/>
+         * Create an array supporter with int[]<br>
+         * This method converts int[] into a new array:Integer[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -639,8 +639,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with double[]<br/>
-         * This method converts double[] into a new array:Double[]<br/>
+         * Create an array supporter with double[]<br>
+         * This method converts double[] into a new array:Double[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -652,8 +652,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with float[]<br/>
-         * This method converts float[] into a new array:Float[]<br/>
+         * Create an array supporter with float[]<br>
+         * This method converts float[] into a new array:Float[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -665,8 +665,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with boolean[]<br/>
-         * This method converts boolean[] into a new array:Boolean[]<br/>
+         * Create an array supporter with boolean[]<br>
+         * This method converts boolean[] into a new array:Boolean[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -678,8 +678,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with char[]<br/>
-         * This method converts char[] into a new array:char[]<br/>
+         * Create an array supporter with char[]<br>
+         * This method converts char[] into a new array:char[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -691,8 +691,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with byte[]<br/>
-         * This method converts byte[] into a new array:Byte[]<br/>
+         * Create an array supporter with byte[]<br>
+         * This method converts byte[] into a new array:Byte[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -704,8 +704,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with long[]<br/>
-         * This method converts long[] into a new array:Long[]<br/>
+         * Create an array supporter with long[]<br>
+         * This method converts long[] into a new array:Long[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -717,8 +717,8 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with short[]<br/>
-         * This method converts short[] into a new array:Short[]<br/>
+         * Create an array supporter with short[]<br>
+         * This method converts short[] into a new array:Short[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -730,7 +730,7 @@ public interface var {
         }
 
         /**
-         * Create an array supporter with T[]<br/>
+         * Create an array supporter with T[]<br>
          * 
          * @param array
          *                the array to support
@@ -765,7 +765,7 @@ public interface var {
         /**
          * Create a list supporter
          * 
-         * @param coll
+         * @param list
          *                the list to support
          * @return List supporter
          */
@@ -774,8 +774,8 @@ public interface var {
         }
 
         /**
-         * add these elements into given collection.<br/>
-         * usually used when initializing a collection.<br/>
+         * add these elements into given collection.<br>
+         * usually used when initializing a collection.<br>
          * however you can also add elements into already existed collections.
          * 
          * @param collection
@@ -800,18 +800,18 @@ public interface var {
         }
 
         /**
-         * put entries into the given map.<br/>
-         * usually used when initializing a map.<br/>
+         * put entries into the given map.<br>
+         * usually used when initializing a map.<br>
          * however you can also put entries into already existed maps.
          * 
          * @param map
          *                the map to put entries into
          * @param entries
-         *                entries to put, in the form of a JSONLike object.<br/>
+         *                entries to put, in the form of a JSONLike object.<br>
          *                a JSONLike object can be created with
-         *                {@link #map(Object, Object)}<br/>
+         *                {@link #map(Object, Object)}<br>
          *                and can put in entries using
-         *                {@link JSONLike#$(Object, Object)}<br/>
+         *                {@link JSONLike#$(Object, Object)}<br>
          *                e.g.
          * 
          *                <pre>
@@ -832,8 +832,8 @@ public interface var {
         // for
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'
          * 
@@ -852,10 +852,10 @@ public interface var {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -875,10 +875,10 @@ public interface var {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -898,10 +898,10 @@ public interface var {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -922,10 +922,10 @@ public interface var {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -946,7 +946,7 @@ public interface var {
         }
 
         /**
-         * Entrance of For-to-step loop<br/>
+         * Entrance of For-to-step loop<br>
          * See ForSupport for more info
          * 
          * @param start
@@ -959,8 +959,8 @@ public interface var {
         }
 
         /**
-         * Entrance of For-to-step loop<br/>
-         * See ForSupport for more info<br/>
+         * Entrance of For-to-step loop<br>
+         * See ForSupport for more info<br>
          * It's an alias of For(Number)
          * 
          * @param start
@@ -989,7 +989,7 @@ public interface var {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1004,7 +1004,7 @@ public interface var {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1019,7 +1019,7 @@ public interface var {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1034,7 +1034,7 @@ public interface var {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1052,10 +1052,10 @@ public interface var {
         // switch
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1068,10 +1068,10 @@ public interface var {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1088,10 +1088,10 @@ public interface var {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1108,10 +1108,10 @@ public interface var {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1126,10 +1126,10 @@ public interface var {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1147,10 +1147,10 @@ public interface var {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1420,7 +1420,7 @@ public interface var {
 
         /**
          * Generate a StyleRuntimeException with 'cause' of given Throwable
-         * object.<br/>
+         * object.<br>
          * if t instanceof StyleRuntimeException, the method would return t
          * itself
          * 
@@ -1440,7 +1440,7 @@ public interface var {
         // json like
 
         /**
-         * Create a JSONLike object.<br/>
+         * Create a JSONLike object.<br>
          * it helps you create a map with similar method as how JSON initializes
          * 
          * @param key
@@ -1458,7 +1458,7 @@ public interface var {
          * Create a JSONLike object from an array similar to JSON
          * 
          * @param json
-         *                an array look like JSON.<br/>
+         *                an array look like JSON.<br>
          *                e.g.
          * 
          *                <pre>
@@ -1506,7 +1506,7 @@ public interface var {
 
         /**
          * Enables you to compare two comparable objects with more readable
-         * coding.<br/>
+         * coding.<br>
          * e.g.
          * 
          * <pre>
@@ -1579,7 +1579,7 @@ public interface var {
          *                characters. false otherwise.
          * @param ignoreCase
          *                true if the serial doesn't contain repeating
-         *                case-ignored characters. false otherwise.<br/>
+         *                case-ignored characters. false otherwise.<br>
          *                Only consider this argument when $unrepeatable is true
          * @return random string serial
          */
@@ -1642,14 +1642,14 @@ public interface var {
         }
 
         /**
-         * Implicit Type Conversion.<br/>
-         * To achieve implicit type conversion,<br/>
-         * the class to be converted to may contain methods like this:<br/>
-         * <code>static R from(T o)</code><br/>
+         * Implicit Type Conversion.<br>
+         * To achieve implicit type conversion,<br>
+         * the class to be converted to may contain methods like this:<br>
+         * <code>static R from(T o)</code><br>
          * <b>OR</b> the class of the object (param 'o') to convert may contain
-         * methods like this:<br/>
-         * <code>toT</code><br/>
-         * e.g.<br/>
+         * methods like this:<br>
+         * <code>toT</code><br>
+         * e.g.<br>
          * The following definition means you can convert String to User or
          * convert User to String with this method.
          * 
@@ -1669,7 +1669,7 @@ public interface var {
         }
 
         /**
-         * get object in real type<br/>
+         * get object in real type<br>
          * if you defined object using <code>var v=...</code>
          * 
          * @return object in real type
@@ -1680,7 +1680,7 @@ public interface var {
         }
 
         /**
-         * get object in targeted type<br/>
+         * get object in targeted type<br>
          * if you defined object using <code>var v=...</code>
          * 
          * @param cls
@@ -1693,7 +1693,7 @@ public interface var {
         }
 
         /**
-         * Avoid null values.<br/>
+         * Avoid null values.<br>
          * firstly check the first argument, if it's null, invoke the the second
          * argument (lambda expression), otherwise return the first argument.
          * 
@@ -1748,6 +1748,23 @@ public interface var {
         }
 
         /**
+         * generate proxy object with given ProxyHandler<br>
+         * ProxyHandler is an abstract class with a constructor taking in the
+         * object to do proxy<br>
+         * see ProxyHandler or
+         * <a href="https://github.com/wkgcass/Style/">tutorial</a> for more
+         * info on how to use.
+         * 
+         * @param proxyHandler
+         * @return proxy object generated with Proxy.newProxyInstance(...)
+         * @see ProxyHandler
+         * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
+         */
+        default <P> P proxy(ProxyHandler<P> proxyHandler) {
+                return Style.proxy(proxyHandler);
+        }
+
+        /**
          * generate proxy object with given InvocationHandler and the object to
          * do proxy
          * 
@@ -1759,29 +1776,12 @@ public interface var {
          * @see InvocationHandler
          * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
          */
-        default <P> P proxy(ProxyHandler<P> proxyHandler) {
-                return Style.proxy(proxyHandler);
-        }
-
-        /**
-         * generate proxy object with given ProxyHandler<br/>
-         * ProxyHandler is an abstract class with a constructor taking in the
-         * object to do proxy<br/>
-         * see ProxyHandler or
-         * <a href="https://github.com/wkgcass/Style/">tutorial</a> for more
-         * info on how to use.
-         * 
-         * @param proxyHandler
-         * @return proxy object generated with Proxy.newProxyInstance(...)
-         * @see ProxyHandler
-         * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
-         */
         default <T> T proxy(InvocationHandler handler, T toProxy) {
                 return Style.proxy(handler, toProxy);
         }
 
         /**
-         * Make an object which has interfaces to a read-only one.<br/>
+         * Make an object which has interfaces to a read-only one.<br>
          * When an invocation comes, the InvocatinHandler will check the method.
          * 
          * <pre>

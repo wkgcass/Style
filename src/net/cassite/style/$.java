@@ -10,7 +10,7 @@ import net.cassite.style.interfaces.RFunc2;
 import net.cassite.style.interfaces.VFunc1;
 
 /**
- * Constants that's usually used with <b>Style tool box</b><br/>
+ * Constants that's usually used with <b>Style tool box</b><br>
  * Recommended context are provided, but they are not limited to those
  * recommendations.
  * 
@@ -25,7 +25,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link A1FuncSup#forThose(RFunc1, def)} or
-         * {@link MapFuncSup#forThose(RFunc2, def)} <br/>
+         * {@link MapFuncSup#forThose(RFunc2, def)} <br>
          * When its supposed to be always true
          * 
          * @return
@@ -39,7 +39,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link A1Transformer#via(RFunc1)} or
-         * {@link A1ArrTransformer#via(RFunc1)} <br/>
+         * {@link A1ArrTransformer#via(RFunc1)} <br>
          * When its supposed to fill new collection/array with exactly same
          * values.
          * 
@@ -54,7 +54,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link A1Transformer#via(def)} or
-         * {@link A1ArrTransformer#via(def)} <br/>
+         * {@link A1ArrTransformer#via(def)} <br>
          * When its supposed to fill new collection/array with exactly same
          * values.
          * 
@@ -69,7 +69,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link A1Transformer#via(RFunc1)} or
-         * {@link A1ArrTransformer#via(RFunc1)} <br/>
+         * {@link A1ArrTransformer#via(RFunc1)} <br>
          * When its supposed to fill collection/array with trimmed values.
          * 
          * @return
@@ -82,7 +82,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link A1Transformer#via(def)} or
-         * {@link A1ArrTransformer#via(def)} <br/>
+         * {@link A1ArrTransformer#via(def)} <br>
          * When its supposed to fill collection/array with trimmed values.
          * 
          * @return
@@ -95,7 +95,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in
-         * {@link MapFuncSup.TransformerColl#via(RFunc2)}<br/>
+         * {@link MapFuncSup.TransformerColl#via(RFunc2)}<br>
          * When its supposed to fill collection with values of the map
          * 
          * @return
@@ -109,7 +109,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerColl#via(def)}
-         * <br/>
+         * <br>
          * When its supposed to fill collection with values of the map
          * 
          * @return
@@ -123,7 +123,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in
-         * {@link MapFuncSup.TransformerColl#via(RFunc2)}<br/>
+         * {@link MapFuncSup.TransformerColl#via(RFunc2)}<br>
          * When its supposed to fill collection with keys of the map
          * 
          * @return
@@ -137,7 +137,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerColl#via(def)}
-         * <br/>
+         * <br>
          * When its supposed to fill collection with keys of the map
          * 
          * @return
@@ -151,7 +151,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerMap#via(RFunc2)}
-         * <br/>
+         * <br>
          * When its supposed to fill map with exactly the same entries.
          * 
          * @return
@@ -165,7 +165,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerMap#via(def)}
-         * <br/>
+         * <br>
          * When its supposed to fill map with exactly the same entries.
          * 
          * @return
@@ -179,8 +179,8 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerMap#via(RFunc2)}
-         * <br/>
-         * When its supposed to fill map with exactly the same entries.<br/>
+         * <br>
+         * When its supposed to fill map with exactly the same entries.<br>
          * an alias of {@link #entries()}
          * 
          * @return
@@ -195,8 +195,8 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link MapFuncSup.TransformerMap#via(def)}
-         * <br/>
-         * When its supposed to fill map with exactly the same entries.<br/>
+         * <br>
+         * When its supposed to fill map with exactly the same entries.<br>
          * an alias of {@link #entriesFunc()}
          * 
          * @return
@@ -248,7 +248,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from lower case characters
          */
         public static final String fromLowerCases = "abcdefghijklmnopqrstuvwxyz";
@@ -256,7 +256,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from upper case characters
          */
         public static final String fromUpperCases = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -264,7 +264,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from 0-9
          */
         public static final String fromNumbers = "0123456789";
@@ -272,7 +272,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from 0-F
          */
         public static final String fromHex = fromNumbers + "ABCDEF";
@@ -280,7 +280,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from
          * <code>fromLowerCases + fromUpperCases + fromNumbers</code>
          */
@@ -289,7 +289,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from
          * 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'(without those
          * easily mistaken)
@@ -299,7 +299,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link Style#rand(String, int)} or
          * {@link Style#rand(String, int, boolean)} or
-         * {@link Style#rand(String, int, boolean, boolean)}<br/>
+         * {@link Style#rand(String, int, boolean, boolean)}<br>
          * When required to generating strings from all keys(with or without
          * shift)
          */
@@ -308,7 +308,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link AsyncGroup#onError(VFunc1)} or
          * {@link Async#onError(VFunc1)} or {@link Async#awaitError(VFunc1)}
-         * <br/>
+         * <br>
          * When the error needs to be thrown.
          */
         public static final VFunc1<StyleRuntimeException> throwHandler = (err) -> {
@@ -317,7 +317,7 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link AsyncGroup#onError(def)} or
-         * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br/>
+         * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br>
          * When the error needs to be thrown.
          */
         public static final def<Object> throwHandlerFunc = $(throwHandler);
@@ -325,7 +325,7 @@ public class $ extends Style {
         /**
          * Used as 1st argument in {@link AsyncGroup#onError(VFunc1)} or
          * {@link Async#onError(VFunc1)} or {@link Async#awaitError(VFunc1)}
-         * <br/>
+         * <br>
          * When the its needed to call <code>err.printStackTract()</code>
          */
         public static final VFunc1<StyleRuntimeException> printHandler = (err) -> {
@@ -334,14 +334,14 @@ public class $ extends Style {
 
         /**
          * Used as 1st argument in {@link AsyncGroup#onError(def)} or
-         * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br/>
+         * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br>
          * When the its needed to call <code>err.printStackTract()</code>
          */
         public static final def<Object> printHandlerFunc = $(printHandler);
 
         /**
          * Used as 3rd argument in {@link Style#Switch(Object, Class, RFunc2)}
-         * <br/>
+         * <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
          */
@@ -349,7 +349,7 @@ public class $ extends Style {
 
         /**
          * Used as 3rd argument in {@link Style#Switch(Object, Class, RFunc2)}
-         * <br/>
+         * <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
          * 
@@ -361,12 +361,9 @@ public class $ extends Style {
         }
 
         /**
-         * Used as 3rd argument in {@link Style#Switch(Object, Class, def)}
-         * <br/>
+         * Used as 3rd argument in {@link Style#Switch(Object, Class, def)} <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
-         * 
-         * @return
          */
         public static final def<Boolean> eqlFunc = $(eql);
 

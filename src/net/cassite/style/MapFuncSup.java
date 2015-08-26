@@ -30,7 +30,7 @@ public class MapFuncSup<K, V> {
          * 
          * @param func
          *                a function takes in each entry from map
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -46,7 +46,7 @@ public class MapFuncSup<K, V> {
          * @param func
          *                a function takes in each entry from map and iterator
          *                info
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -62,7 +62,7 @@ public class MapFuncSup<K, V> {
          * @param func
          *                a function takes in each entry from map and returns
          *                'last loop value'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -76,9 +76,9 @@ public class MapFuncSup<K, V> {
          * 
          * @param func
          *                a function takes in each entry from map and iterator
-         *                info<br/>
+         *                info<br>
          *                and returns 'last loop result'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -93,7 +93,7 @@ public class MapFuncSup<K, V> {
          * 
          * @param func
          *                a function returns 'last loop result'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -110,7 +110,7 @@ public class MapFuncSup<K, V> {
          *                true or false(or null)
          * @param func
          *                a function takes in each element from map
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -129,7 +129,7 @@ public class MapFuncSup<K, V> {
          * @param func
          *                a function takes in each element from map and iterator
          *                info
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -149,7 +149,7 @@ public class MapFuncSup<K, V> {
          * @param func
          *                a function takes in each element from map and returns
          *                'last loop info'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -166,9 +166,9 @@ public class MapFuncSup<K, V> {
          *                true or false(or null)
          * @param func
          *                a function takes in each element from map and iterator
-         *                info<br/>
+         *                info<br>
          *                and returns 'last loop result'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -186,7 +186,7 @@ public class MapFuncSup<K, V> {
          *                true or false(or null)
          * @param func
          *                a function returns 'last loop result'
-         * @return return 'last loop value'.<br/>
+         * @return return 'last loop value'.<br>
          *         check
          *         <a href="https://github.com/wkgcass/Style/">tutorial</a> for
          *         more info about 'last loop value'
@@ -417,7 +417,7 @@ public class MapFuncSup<K, V> {
         /**
          * Entrance of transformer
          * 
-         * @param collection
+         * @param m
          *                the map to support
          * @return new MapFuncSup.TransformerMap
          * @see MapFuncSup.TransformerMap
@@ -442,7 +442,7 @@ public class MapFuncSup<K, V> {
         }
 
         /**
-         * retrieve mapped value with given key<br/>
+         * retrieve mapped value with given key<br>
          * simply invoke {@link Map#get(Object)}
          * 
          * @param key
@@ -456,7 +456,7 @@ public class MapFuncSup<K, V> {
          * find the first matched entry
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each entry in map and returns
          *                true/false/null
          * @return first matched entry
@@ -469,7 +469,7 @@ public class MapFuncSup<K, V> {
          * find the first matched entry
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @return first matched entry
          */
@@ -481,7 +481,7 @@ public class MapFuncSup<K, V> {
          * put all matched entries to a new map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each entry in map and returns
          *                true/false/null
          * @return all matched entries in a HashMap
@@ -494,7 +494,7 @@ public class MapFuncSup<K, V> {
          * put all matched entries to a new map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @return all matched entries in a HashMap
          */
@@ -506,7 +506,7 @@ public class MapFuncSup<K, V> {
          * put all matched entries to given map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each entry in map and returns
          *                true/false/null
          * @param map
@@ -521,7 +521,7 @@ public class MapFuncSup<K, V> {
          * put all matched entries to given map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @param map
          *                the map to put entries to
@@ -535,7 +535,7 @@ public class MapFuncSup<K, V> {
          * put limited number of matched entries to given map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which takes in each entry in map and returns
          *                true/false/null
          * @param map
@@ -551,7 +551,7 @@ public class MapFuncSup<K, V> {
          * put limited number of matched entries to given map
          * 
          * @param filter
-         *                matching function,<br/>
+         *                matching function,<br>
          *                which returns true/false/null
          * @param map
          *                the map to put entries to

@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A Reg expression supporter that simplifies usage of RegEx<br/>
+ * A Reg expression supporter that simplifies usage of RegEx<br>
  * and make it look like doing regex in JavaScript
  * 
  * @author wkgcass
@@ -30,8 +30,8 @@ public class RegEx extends Style {
 
         /**
          * initialize the regex with given string in the form of a regex
-         * JavaScript<br/>
-         * e.g. <code>/ .* /g</code><br/>
+         * JavaScript<br>
+         * e.g. <code>/ .* /g</code><br>
          * g for global, i for case insensitive, m for multiline, s for dotall,
          * d for unix_lines, u for unicode_case
          * 
@@ -43,7 +43,7 @@ public class RegEx extends Style {
 
         /**
          * initialize the regex with given string in the form of a regex
-         * JavaScript<br/>
+         * JavaScript<br>
          * e.g. <code>/ .* /g</code>
          * 
          * @param regex
@@ -92,7 +92,7 @@ public class RegEx extends Style {
 
         /**
          * initialize the regex with given Pattern object and set whether it
-         * means global<br/>
+         * means global<br>
          * All patterns in java are global
          * 
          * @param pattern
@@ -121,7 +121,7 @@ public class RegEx extends Style {
         }
 
         /**
-         * same as JavaScript test<br/>
+         * same as JavaScript test<br>
          * simply invokes {@link Matcher#find()}
          * 
          * @param toTest
@@ -163,8 +163,8 @@ public class RegEx extends Style {
         }
 
         /**
-         * replace the found substring with replacement<br/>
-         * for global regex, invoke {@link Matcher#replaceAll(String)}<br/>
+         * replace the found substring with replacement<br>
+         * for global regex, invoke {@link Matcher#replaceAll(String)}<br>
          * others, invoke {@link Matcher#replaceFirst(String)}
          * 
          * @param str

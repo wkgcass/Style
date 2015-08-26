@@ -8,7 +8,7 @@ import java.util.Map;
 import net.cassite.style.interfaces.RFunc1;
 
 /**
- * Supporter of java.util.Date<br/>
+ * Supporter of java.util.Date<br>
  * Provide Date add/subtract/toStringformat
  * 
  * @author wkgcass
@@ -82,7 +82,7 @@ public class DateFuncSup extends Style {
         /**
          * Add date to supported date
          * 
-         * @param d
+         * @param dateFunction
          *                date to add
          * @return <code>this</code>
          */
@@ -94,7 +94,7 @@ public class DateFuncSup extends Style {
         /**
          * Add date to supported date
          * 
-         * @param d
+         * @param dateFunction
          *                date to add
          * @return <code>this</code>
          */
@@ -106,7 +106,7 @@ public class DateFuncSup extends Style {
          * subtract date to supported date
          * 
          * @param d
-         *                date to add
+         *                date to subtract
          * @return <code>this</code>
          */
         public DateFuncSup subtract(DateSeperator d) {
@@ -117,8 +117,8 @@ public class DateFuncSup extends Style {
         /**
          * subtract date to supported date
          * 
-         * @param d
-         *                date to add
+         * @param dateFunction
+         *                date to subtract
          * @return <code>this</code>
          */
         public DateFuncSup subtract(def<DateSeperator> dateFunction) {
@@ -129,8 +129,8 @@ public class DateFuncSup extends Style {
         /**
          * subtract date to supported date
          * 
-         * @param d
-         *                date to add
+         * @param dateFunction
+         *                date to subtract
          * @return <code>this</code>
          */
         public DateFuncSup subtract(RFunc1<DateSeperator, DateSeperator> dateFunction) {
@@ -206,7 +206,7 @@ public class DateFuncSup extends Style {
         /**
          * set date to previous months
          * 
-         * @param next
+         * @param previous
          *                count of previous months to set to
          * @return <code>this</code>
          */
@@ -217,7 +217,7 @@ public class DateFuncSup extends Style {
         /**
          * set date to previous years
          * 
-         * @param next
+         * @param previous
          *                count of previous years to set to
          * @return <code>this</code>
          */
@@ -226,7 +226,7 @@ public class DateFuncSup extends Style {
         }
 
         /**
-         * format the date to string.<br/>
+         * format the date to string.<br>
          * check <a href="https://github.com/wkgcass/Style/">tutorial</a> for a
          * table about format details
          * 

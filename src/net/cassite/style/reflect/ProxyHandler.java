@@ -4,14 +4,14 @@ import net.cassite.style.Style;
 
 /**
  * Use {@link Style#proxy(ProxyHandler)} with ProxyHandler to simplify Dynamic
- * Proxy creation.<br/>
- * Here's an example:<br/>
+ * Proxy creation.<br>
+ * Here's an example:<br>
  * If you need to print "before get invoked with arg0:"+index before invoking
- * List.get(int)<br/>
+ * List.get(int)<br>
  * and print "after get invoked with res:"+result after invoking it.
  * 
  * <pre>
- * List<String> listProxy = proxy(new ProxyHandler<List<String>>(list) {
+ * List&lt;String&gt; listProxy = proxy(new ProxyHandler&lt;List&lt;String&gt;&gt;(list) {
  *         String get(int index) {
  *                 System.out.println("before get invoked with arg0:" + index);
  *                 String res = target.get(index);
@@ -32,7 +32,7 @@ public abstract class ProxyHandler<T> extends Style {
         public T target;
 
         /**
-         * Create a proxy handler.<br/>
+         * Create a proxy handler.<br>
          * Check doc on ProxyHandler for more info
          * 
          * @param target

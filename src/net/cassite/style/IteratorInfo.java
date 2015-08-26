@@ -1,7 +1,7 @@
 package net.cassite.style;
 
 /**
- * Info about current Iterator.<br/>
+ * Info about current Iterator.<br>
  * It's a subclass of LoopInfo
  * 
  * @author wkgcass
@@ -11,12 +11,12 @@ package net.cassite.style;
  */
 public class IteratorInfo<R> extends LoopInfo<R> {
         /**
-         * previous index<br/>
+         * previous index<br>
          * usually currentIndex - 1
          */
         public int previousIndex;
         /**
-         * next index<br/>
+         * next index<br>
          * usually currentIndex + 1
          */
         public int nextIndex;

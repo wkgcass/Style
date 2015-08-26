@@ -3,7 +3,7 @@ package net.cassite.style;
 import net.cassite.style.interfaces.*;
 
 /**
- * an object representing a function<br/>
+ * an object representing a function<br>
  * 
  * @author wkgcass
  *
@@ -154,9 +154,9 @@ public class def<R> {
          * invoke the supported function on current thread
          * 
          * @param args
-         *                args to fill the function.<br/>
+         *                args to fill the function.<br>
          *                arguments can be more or less than the function can
-         *                take.<br/>
+         *                take.<br>
          *                more then the more args would be ignored, less then
          *                the less args would be set to null
          * @return return value of the function
@@ -238,9 +238,9 @@ public class def<R> {
          * invoke the supported function on a new thread
          * 
          * @param args
-         *                args to fill the function.<br/>
+         *                args to fill the function.<br>
          *                arguments can be more or less than the function can
-         *                take.<br/>
+         *                take.<br>
          *                more then the more args would be ignored, less then
          *                the less args would be set to null
          * @return an Async object representing the async call

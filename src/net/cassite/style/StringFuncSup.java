@@ -19,7 +19,7 @@ public class StringFuncSup extends Style {
 
         /**
          * fill the string like <code>My name is {0}, I'm {1} years old</code>
-         * with given objects.<br/>
+         * with given objects.<br>
          * simply invoke {@link MessageFormat#format(String, Object...)}
          * 
          * @param fill

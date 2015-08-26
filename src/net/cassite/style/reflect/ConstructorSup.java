@@ -28,7 +28,7 @@ public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>
 
         /**
          * Returns this element's annotation for the specified type if such an
-         * annotation is present, else null.<br/>
+         * annotation is present, else null.<br>
          * Simply invokes {@link Constructor#getAnnotation(Class)}
          * 
          * @param annoCls
@@ -44,7 +44,7 @@ public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>
         /**
          * Returns true if an annotation for the specified type is present on
          * this element, else false. This method is designed primarily for
-         * convenient access to marker annotations.<br/>
+         * convenient access to marker annotations.<br>
          * Simply invokes {@link Constructor#getAnnotations()}
          * 
          * @param annoCls
@@ -99,7 +99,7 @@ public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>
          * Returns an array of Class objects that represent the formal parameter
          * types, in declaration order, of the executable represented by this
          * object. Returns an array of length 0 if the underlying executable
-         * takes no parameters.<br/>
+         * takes no parameters.<br>
          * Simply invokes {@link Constructor#getParameterTypes()}
          * 
          * @return the parameter types for the executable this object represents

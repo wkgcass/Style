@@ -1,7 +1,7 @@
 package net.cassite.style;
 
 /**
- * Info about current Iterator.<br/>
+ * Info about current Iterator.<br>
  * It's a subclass of LoopInfo
  * 
  * @author wkgcass
@@ -29,7 +29,7 @@ public class LoopInfo<R> {
          * @param currentIndex
          * @param effectiveIndex
          *                the times 'last loop value' has been modified
-         * @param res
+         * @param lastRes
          *                last loop result
          * @return <code>this</code>
          */

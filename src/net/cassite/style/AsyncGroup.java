@@ -34,7 +34,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked when all async operations are
-         * finished or thrown with an exception.<br/>
+         * finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -49,7 +49,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -64,7 +64,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -79,7 +79,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -94,7 +94,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -109,7 +109,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -124,7 +124,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -139,7 +139,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -154,7 +154,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on a new thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -172,7 +172,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -187,7 +187,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -202,7 +202,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -217,7 +217,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -232,7 +232,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -247,7 +247,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -262,7 +262,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -277,7 +277,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -292,7 +292,7 @@ public class AsyncGroup {
 
         /**
          * The given lambda will be invoked on current thread when all async
-         * operations are finished or thrown with an exception.<br/>
+         * operations are finished or thrown with an exception.<br>
          * Arguments would be filled with result of the Asyncs in the order of
          * async operations were added.
          * 
@@ -323,14 +323,14 @@ public class AsyncGroup {
         }
 
         /**
-         * Handle exceptions that callback function thrown.<br/>
+         * Handle exceptions that callback function thrown.<br>
          * if there's already an exception thrown when this method invoked, the
-         * handling process would be taken in current thread.<br/>
+         * handling process would be taken in current thread.<br>
          * Otherwise, the process would be taken at callback thread when
          * exception occurred.
          * 
          * @param handler
-         *                a function takes in StyleRuntimeException<br/>
+         *                a function takes in StyleRuntimeException<br>
          *                for all Throwable caught from the callback function
          *                would be packed into StyleRuntimeException
          * @see StyleRuntimeException
@@ -340,14 +340,14 @@ public class AsyncGroup {
         }
 
         /**
-         * Handle exceptions that callback function thrown.<br/>
+         * Handle exceptions that callback function thrown.<br>
          * if there's already an exception thrown when this method invoked, the
-         * handling process would be taken in current thread.<br/>
+         * handling process would be taken in current thread.<br>
          * Otherwise, the process would be taken at callback thread when
          * exception occurred.
          * 
          * @param handler
-         *                a function to invoke when occurred an exception<br/>
+         *                a function to invoke when occurred an exception<br>
          *                for all Throwable caught from the callback function
          *                would be packed into StyleRuntimeException
          * @see StyleRuntimeException
@@ -365,7 +365,7 @@ public class AsyncGroup {
         }
 
         /**
-         * retrieve exception that this supporter occurred.<br/>
+         * retrieve exception that this supporter occurred.<br>
          * the method will only return exception that's already found. It will
          * not guarantee exception won't occur after invoking this method.
          * 

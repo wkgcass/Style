@@ -23,7 +23,7 @@ import net.cassite.style.reflect.MethodSupport;
 import net.cassite.style.reflect.ProxyHandler;
 
 /**
- * All functions in <b>Style tool box</b> are provided here.<br/>
+ * All functions in <b>Style tool box</b> are provided here.<br>
  * Let your class <code>extends Style</code> to avoid retyping
  * <code>Style.</code> which makes your coding prettier
  * 
@@ -402,11 +402,11 @@ public abstract class Style {
         // function support
 
         /**
-         * generate a pointer pointed to given object<br/>
+         * generate a pointer pointed to given object<br>
          * A <b>pointer</b> here means a container contains an object with
-         * initial type<br/>
-         * Type of the pointer is guaranteed by Generic System.<br/>
-         * You can access it's contained value using <b>ptr.item</b>, <br/>
+         * initial type<br>
+         * Type of the pointer is guaranteed by Generic System.<br>
+         * You can access it's contained value using <b>ptr.item</b>, <br>
          * Or using {@link #$(ptr)} and {@link #$(ptr, Object)}.
          * 
          * @param o
@@ -458,7 +458,7 @@ public abstract class Style {
 
         /**
          * Join async objects for further usage and attach each of them with
-         * given exception handler.<br/>
+         * given exception handler.<br>
          * see {@link Async#onError(def)}, {@link Async#awaitError(def)} for
          * more info about exception handling.
          * 
@@ -478,10 +478,10 @@ public abstract class Style {
 
         /**
          * Join async objects for further usage and attach each of them with
-         * given exception handler.<br/>
+         * given exception handler.<br>
          * see {@link Async#onError(def)}, {@link Async#awaitError(def)} for
-         * more info about exception handling.<br/>
-         * <br/>
+         * more info about exception handling.<br>
+         * <br>
          * This method simply invoke {@link #$(def, Async...)} with $(handler)
          * 
          * @param handler
@@ -502,7 +502,7 @@ public abstract class Style {
 
         /**
          * Block current thread and wait for a Async call to return its value.
-         * <br/>
+         * <br>
          * This method simply invokes {@link Async#await()}
          * 
          * @param async
@@ -531,7 +531,7 @@ public abstract class Style {
         /**
          * Create a new thread and invoke start on it.
          * 
-         * @param runnable
+         * @param toRun
          *                function run on the new thread
          * @return created thread
          */
@@ -572,7 +572,7 @@ public abstract class Style {
         }
 
         /**
-         * Remove an object from current iterator.<br/>
+         * Remove an object from current iterator.<br>
          * Only works for loops on Iterators and Maps
          * 
          * @return
@@ -593,7 +593,7 @@ public abstract class Style {
         }
 
         /**
-         * Set the value to ListIterator<br/>
+         * Set the value to ListIterator<br>
          * Only works for loops on ListIterators
          * 
          * @param toSet
@@ -604,7 +604,7 @@ public abstract class Style {
         }
 
         /**
-         * Add the value to ListIterator<br/>
+         * Add the value to ListIterator<br>
          * Only works for loops on ListIterators
          * 
          * @param toAdd
@@ -632,8 +632,8 @@ public abstract class Style {
         // └─────────────────────────────────┘
 
         /**
-         * Create an array supporter with int[]<br/>
-         * This method converts int[] into a new array:Integer[]<br/>
+         * Create an array supporter with int[]<br>
+         * This method converts int[] into a new array:Integer[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -649,8 +649,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with double[]<br/>
-         * This method converts double[] into a new array:Double[]<br/>
+         * Create an array supporter with double[]<br>
+         * This method converts double[] into a new array:Double[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -666,8 +666,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with float[]<br/>
-         * This method converts float[] into a new array:Float[]<br/>
+         * Create an array supporter with float[]<br>
+         * This method converts float[] into a new array:Float[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -683,8 +683,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with boolean[]<br/>
-         * This method converts boolean[] into a new array:Boolean[]<br/>
+         * Create an array supporter with boolean[]<br>
+         * This method converts boolean[] into a new array:Boolean[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -700,8 +700,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with char[]<br/>
-         * This method converts char[] into a new array:char[]<br/>
+         * Create an array supporter with char[]<br>
+         * This method converts char[] into a new array:char[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -717,8 +717,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with byte[]<br/>
-         * This method converts byte[] into a new array:Byte[]<br/>
+         * Create an array supporter with byte[]<br>
+         * This method converts byte[] into a new array:Byte[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -734,8 +734,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with long[]<br/>
-         * This method converts long[] into a new array:Long[]<br/>
+         * Create an array supporter with long[]<br>
+         * This method converts long[] into a new array:Long[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -751,8 +751,8 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with short[]<br/>
-         * This method converts short[] into a new array:Short[]<br/>
+         * Create an array supporter with short[]<br>
+         * This method converts short[] into a new array:Short[]<br>
          * and invoke {@link #$(Object[])}
          * 
          * @param array
@@ -768,7 +768,7 @@ public abstract class Style {
         }
 
         /**
-         * Create an array supporter with T[]<br/>
+         * Create an array supporter with T[]<br>
          * 
          * @param array
          *                the array to support
@@ -812,8 +812,8 @@ public abstract class Style {
         }
 
         /**
-         * add these elements into given collection.<br/>
-         * usually used when initializing a collection.<br/>
+         * add these elements into given collection.<br>
+         * usually used when initializing a collection.<br>
          * however you can also add elements into already existed collections.
          * 
          * @param collection
@@ -842,18 +842,18 @@ public abstract class Style {
         }
 
         /**
-         * put entries into the given map.<br/>
-         * usually used when initializing a map.<br/>
+         * put entries into the given map.<br>
+         * usually used when initializing a map.<br>
          * however you can also put entries into already existed maps.
          * 
          * @param map
          *                the map to put entries into
          * @param entries
-         *                entries to put, in the form of a JSONLike object.<br/>
+         *                entries to put, in the form of a JSONLike object.<br>
          *                a JSONLike object can be created with
-         *                {@link #map(Object, Object)}<br/>
+         *                {@link #map(Object, Object)}<br>
          *                and can put in entries using
-         *                {@link JSONLike#$(Object, Object)}<br/>
+         *                {@link JSONLike#$(Object, Object)}<br>
          *                e.g.
          * 
          *                <pre>
@@ -877,8 +877,8 @@ public abstract class Style {
         // for
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'
          * 
@@ -929,10 +929,10 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -953,10 +953,10 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -976,10 +976,10 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -1001,10 +1001,10 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced for expression.<br/>
-         * For with return value: returns 'last loop value'.<br/>
+         * Enhanced for expression.<br>
+         * For with return value: returns 'last loop value'.<br>
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
-         * more info about 'last loop value'<br/>
+         * more info about 'last loop value'<br>
          * This method simply invokes
          * {@link #For(Object, Predicate, UnaryOperator, def)}
          * 
@@ -1025,7 +1025,7 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of For-to-step loop<br/>
+         * Entrance of For-to-step loop<br>
          * See ForSupport for more info
          * 
          * @param start
@@ -1038,8 +1038,8 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of For-to-step loop<br/>
-         * See ForSupport for more info<br/>
+         * Entrance of For-to-step loop<br>
+         * See ForSupport for more info<br>
          * It's an alias of For(Number)
          * 
          * @param start
@@ -1100,7 +1100,7 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1116,7 +1116,7 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1131,7 +1131,7 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1147,7 +1147,7 @@ public abstract class Style {
         }
 
         /**
-         * Enhanced While expression with return value<br/>
+         * Enhanced While expression with return value<br>
          * It simply invokes {@link #While(BooleanSupplier, def)}
          * 
          * @param condition
@@ -1165,10 +1165,10 @@ public abstract class Style {
         // switch
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1181,10 +1181,10 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1201,10 +1201,10 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance see the type to switch as return type.<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance see the type to switch as return type.<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1221,10 +1221,10 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1239,10 +1239,10 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1260,10 +1260,10 @@ public abstract class Style {
         }
 
         /**
-         * Entrance of enhanced Switch with return value<br/>
-         * java switch only support few number types and String,<br/>
-         * with enhanced Switch, you can switch any type.<br/>
-         * This entrance specifies Switch's return type<br/>
+         * Entrance of enhanced Switch with return value<br>
+         * java switch only support few number types and String,<br>
+         * with enhanced Switch, you can switch any type.<br>
+         * This entrance specifies Switch's return type<br>
          * Check SwitchBlock for more info
          * 
          * @param t
@@ -1536,7 +1536,7 @@ public abstract class Style {
 
         /**
          * Generate a StyleRuntimeException with 'cause' of given Throwable
-         * object.<br/>
+         * object.<br>
          * if t instanceof StyleRuntimeException, the method would return t
          * itself
          * 
@@ -1560,7 +1560,7 @@ public abstract class Style {
         // json like
 
         /**
-         * Create a JSONLike object.<br/>
+         * Create a JSONLike object.<br>
          * it helps you create a map with similar method as how JSON initializes
          * 
          * @param key
@@ -1578,7 +1578,7 @@ public abstract class Style {
          * Create a JSONLike object from an array similar to JSON
          * 
          * @param json
-         *                an array look like JSON.<br/>
+         *                an array look like JSON.<br>
          *                e.g.
          * 
          *                <pre>
@@ -1635,7 +1635,7 @@ public abstract class Style {
 
         /**
          * Enables you to compare two comparable objects with more readable
-         * coding.<br/>
+         * coding.<br>
          * e.g.
          * 
          * <pre>
@@ -1708,7 +1708,7 @@ public abstract class Style {
          *                characters. false otherwise.
          * @param ignoreCase
          *                true if the serial doesn't contain repeating
-         *                case-ignored characters. false otherwise.<br/>
+         *                case-ignored characters. false otherwise.<br>
          *                Only consider this argument when $unrepeatable is true
          * @return random string serial
          */
@@ -1791,15 +1791,15 @@ public abstract class Style {
         }
 
         /**
-         * Type Conversion.<br/>
-         * In order to use Style's type conversion,<br/>
+         * Type Conversion.<br>
+         * In order to use Style's type conversion,<br>
          * the class <b>to be converted to</b> may contain methods like this:
-         * <br/>
-         * <code>static R from(T o)</code><br/>
+         * <br>
+         * <code>static R from(T o)</code><br>
          * <b>OR</b> the class of the object (param 'o') <b>to convert</b> may
-         * contain methods like this:<br/>
-         * <code>toT</code><br/>
-         * e.g.<br/>
+         * contain methods like this:<br>
+         * <code>toT</code><br>
+         * e.g.<br>
          * The following definition means you can convert String to User or
          * convert User to String.
          * 
@@ -1848,7 +1848,7 @@ public abstract class Style {
         }
 
         /**
-         * Avoid null values.<br/>
+         * Avoid null values.<br>
          * firstly check the first argument, if it's null, invoke the the second
          * argument (lambda expression), otherwise return the first argument.
          * 
@@ -1933,9 +1933,9 @@ public abstract class Style {
         }
 
         /**
-         * generate proxy object with given ProxyHandler<br/>
+         * generate proxy object with given ProxyHandler<br>
          * ProxyHandler is an abstract class with a constructor taking in the
-         * object to do proxy<br/>
+         * object to do proxy<br>
          * see ProxyHandler or
          * <a href="https://github.com/wkgcass/Style/">tutorial</a> for more
          * info on how to use.
@@ -1967,7 +1967,7 @@ public abstract class Style {
         }
 
         /**
-         * Make an object which has interfaces to a read-only one.<br/>
+         * Make an object which has interfaces to a read-only one.<br>
          * When an invocation comes, the InvocatinHandler will check the method.
          * 
          * <pre>

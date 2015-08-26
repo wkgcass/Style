@@ -3,7 +3,7 @@ package net.cassite.style;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * A RuntimeException to simplify exception handling.<br/>
+ * A RuntimeException to simplify exception handling.<br>
  * it is recommended to create this exception using {@link Style#$(Throwable)}
  * 
  * @author wkgcass

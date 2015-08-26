@@ -30,7 +30,7 @@ public class FieldSupport<FieldType, ObjectType> extends Style implements Member
 
         /**
          * Returns this element's annotation for the specified type if such an
-         * annotation is present, else null.<br/>
+         * annotation is present, else null.<br>
          * Simply invokes {@link Field#getAnnotation(Class)}
          * 
          * @param annoCls
@@ -46,7 +46,7 @@ public class FieldSupport<FieldType, ObjectType> extends Style implements Member
         /**
          * Returns true if an annotation for the specified type is present on
          * this element, else false. This method is designed primarily for
-         * convenient access to marker annotations.<br/>
+         * convenient access to marker annotations.<br>
          * Simply invokes {@link Field#getAnnotations()}
          * 
          * @param annoCls

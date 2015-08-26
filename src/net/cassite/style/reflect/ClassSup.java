@@ -39,7 +39,7 @@ public class ClassSup<T> extends Style {
         /**
          * Returns the name of the entity (class, interface, array class,
          * primitive type, or void) represented by this Class object, as a
-         * String.<br/>
+         * String.<br>
          * Simply invokes {@link Class#getName()}
          * 
          * @return the name of the class or interface represented by this
@@ -53,7 +53,7 @@ public class ClassSup<T> extends Style {
         /**
          * Returns the simple name of the underlying class as given in the
          * source code. Returns an empty string if the underlying class is
-         * anonymous.<br/>
+         * anonymous.<br>
          * Simply invokes {@link Class#getSimpleName()}
          * 
          * @return the simple name of the underlying class
@@ -65,7 +65,7 @@ public class ClassSup<T> extends Style {
 
         /**
          * Returns this element's annotation for the specified type if such an
-         * annotation is present, else null.<br/>
+         * annotation is present, else null.<br>
          * Simply invokes {@link Class#getAnnotation(Class)}
          * 
          * @param annoCls
@@ -81,7 +81,7 @@ public class ClassSup<T> extends Style {
         /**
          * Returns true if an annotation for the specified type is present on
          * this element, else false. This method is designed primarily for
-         * convenient access to marker annotations.<br/>
+         * convenient access to marker annotations.<br>
          * Simply invoke {@link Class#isAnnotationPresent(Class)}
          * 
          * @param annoCls
@@ -99,7 +99,7 @@ public class ClassSup<T> extends Style {
          * equivalent of the Java language instanceof operator. The method
          * returns true if the specified Object argument is non-null and can be
          * cast to the reference type represented by this Class object without
-         * raising a ClassCastException. It returns false otherwise.<br/>
+         * raising a ClassCastException. It returns false otherwise.<br>
          * Simply invoke {@link Class#isInstance(Object)}
          * 
          * @param obj

@@ -38,7 +38,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define the value to return if the condition is false or null<br/>
+         * define the value to return if the condition is false or null<br>
          * and execute if expression
          * 
          * @param value
@@ -50,11 +50,11 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define the function to apply if the condition is false or null<br/>
+         * define the function to apply if the condition is false or null<br>
          * and execute if expression
          * 
-         * @param value
-         *                the value to return
+         * @param func
+         *                function to invoke
          * @return if-expression result
          */
         @SuppressWarnings("unchecked")
@@ -64,11 +64,11 @@ public class IfBlock<T, INIT> extends Style {
 
         /**
          * define the function of whose result is to return if the condition is
-         * false or null<br/>
+         * false or null<br>
          * and execute if expression
          * 
-         * @param value
-         *                the value to return
+         * @param func
+         *                function to invoke with result
          * @return if-expression result
          */
         public T Else(RFunc0<T> func) {
@@ -77,11 +77,11 @@ public class IfBlock<T, INIT> extends Style {
 
         /**
          * define the function of whose result is to return if the condition is
-         * false or null<br/>
+         * false or null<br>
          * and execute if expression
          * 
-         * @param value
-         *                the value to return
+         * @param func
+         *                function to invoke with result
          * @return if-expression result
          */
         public T Else(def<T> func) {
@@ -96,7 +96,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                an object or boolean value, init==null ||
@@ -112,7 +112,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                an object or boolean value, init==null ||
@@ -130,7 +130,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                an object or boolean value, init==null ||
@@ -147,7 +147,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                an object or boolean value, init==null ||
@@ -164,7 +164,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                an object or boolean value, init==null ||
@@ -180,7 +180,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,
@@ -196,7 +196,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,
@@ -214,7 +214,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,
@@ -231,7 +231,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,
@@ -248,7 +248,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,
@@ -264,7 +264,7 @@ public class IfBlock<T, INIT> extends Style {
         }
 
         /**
-         * define an ElseIf block.<br/>
+         * define an ElseIf block.<br>
          * 
          * @param init
          *                lambda expression returns an object or boolean value,

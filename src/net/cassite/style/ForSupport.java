@@ -59,14 +59,14 @@ public class ForSupport<N extends Number> extends Style {
                 }
 
                 /**
-                 * start to do the loop<br/>
-                 * if start < end, then step would be 1 as default.<br/>
-                 * if end > start, then step would be -1 as default.
+                 * start to do the loop<br>
+                 * if start &lt; end, then step would be 1 as default.<br>
+                 * if end &gt; start, then step would be -1 as default.
                  * 
                  * @param doLoop
-                 *                the loop to take<br/>
+                 *                the loop to take<br>
                  *                which takes in current cursor
-                 * @return last loop result<br/>
+                 * @return last loop result<br>
                  *         check
                  *         <a href="https://github.com/wkgcass/Style/">tutorial
                  *         </a> for more info about 'last loop result'.
@@ -78,15 +78,15 @@ public class ForSupport<N extends Number> extends Style {
                 }
 
                 /**
-                 * start to do the loop<br/>
-                 * if start < end, then step would be 1 as default.<br/>
-                 * if end > start, then step would be -1 as default.
+                 * start to do the loop<br>
+                 * if start &lt; end, then step would be 1 as default.<br>
+                 * if end &gt; start, then step would be -1 as default.
                  * 
                  * @param doLoop
-                 *                the loop to take<br/>
+                 *                the loop to take<br>
                  *                which takes in current cursor and returns
                  *                'last loop result'
-                 * @return last loop result<br/>
+                 * @return last loop result<br>
                  *         check
                  *         <a href="https://github.com/wkgcass/Style/">tutorial
                  *         </a> for more info about 'last loop result'.
@@ -97,14 +97,14 @@ public class ForSupport<N extends Number> extends Style {
                 }
 
                 /**
-                 * start to do the loop<br/>
-                 * if start < end, then step would be 1 as default.<br/>
-                 * if end > start, then step would be -1 as default.
+                 * start to do the loop<br>
+                 * if start &lt; end, then step would be 1 as default.<br>
+                 * if end &gt; start, then step would be -1 as default.
                  * 
                  * @param doLoop
-                 *                the loop to take<br/>
+                 *                the loop to take<br>
                  *                which takes in current cursor and LoopInfo
-                 * @return last loop result<br/>
+                 * @return last loop result<br>
                  *         check
                  *         <a href="https://github.com/wkgcass/Style/">tutorial
                  *         </a> for more info about 'last loop result'.
@@ -116,15 +116,15 @@ public class ForSupport<N extends Number> extends Style {
                 }
 
                 /**
-                 * start to do the loop<br/>
-                 * if start < end, then step would be 1 as default.<br/>
-                 * if end > start, then step would be -1 as default.
+                 * start to do the loop<br>
+                 * if start &lt; end, then step would be 1 as default.<br>
+                 * if end &gt; start, then step would be -1 as default.
                  * 
                  * @param doLoop
-                 *                the loop to take<br/>
+                 *                the loop to take<br>
                  *                which takes in current cursor and LoopInfo and
                  *                returns 'last loop result'
-                 * @return last loop result<br/>
+                 * @return last loop result<br>
                  *         check
                  *         <a href="https://github.com/wkgcass/Style/">tutorial
                  *         </a> for more info about 'last loop result'.
@@ -135,14 +135,14 @@ public class ForSupport<N extends Number> extends Style {
                 }
 
                 /**
-                 * start to do the loop<br/>
-                 * if start < end, then step would be 1 as default.<br/>
-                 * if end > start, then step would be -1 as default.
+                 * start to do the loop<br>
+                 * if start &lt; end, then step would be 1 as default.<br>
+                 * if end &gt; start, then step would be -1 as default.
                  * 
                  * @param doLoop
-                 *                the loop to take<br/>
+                 *                the loop to take<br>
                  *                which returns 'last loop result'
-                 * @return last loop result<br/>
+                 * @return last loop result<br>
                  *         check
                  *         <a href="https://github.com/wkgcass/Style/">tutorial
                  *         </a> for more info about 'last loop result'.

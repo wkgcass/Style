@@ -4,7 +4,7 @@ import net.cassite.style.interfaces.RFunc0;
 import net.cassite.style.interfaces.VFunc0;
 
 /**
- * Supporter for switch expression<br/>
+ * Supporter for switch expression<br>
  * Note that it doesn't support break, because it doesn't go through other cases
  * except the matched one.
  * 
@@ -88,8 +88,8 @@ public class SwitchBlock<T, R> extends Style {
         }
 
         /**
-         * set the default result for the switch-expression<br/>
-         * and execute the expression<br/>
+         * set the default result for the switch-expression<br>
+         * and execute the expression<br>
          * and return the result
          * 
          * @param func
@@ -106,8 +106,8 @@ public class SwitchBlock<T, R> extends Style {
         }
 
         /**
-         * set the default result for the switch-expression<br/>
-         * and execute the expression<br/>
+         * set the default result for the switch-expression<br>
+         * and execute the expression<br>
          * and return the result
          * 
          * @param func
@@ -120,8 +120,8 @@ public class SwitchBlock<T, R> extends Style {
         }
 
         /**
-         * set the default result for the switch-expression<br/>
-         * and execute the expression<br/>
+         * set the default result for the switch-expression<br>
+         * and execute the expression<br>
          * and return the result
          * 
          * @param func

@@ -1,10 +1,10 @@
 package net.cassite.style;
 
 /**
- * Supporter of Comparable objects.<br/>
+ * Supporter of Comparable objects.<br>
  * Usually we don't need to know how much larger or smaller one object is than
- * another<br/>
- * We only need to know whether one is larger or smaller than the other.<br/>
+ * another<br>
+ * We only need to know whether one is larger or smaller than the other.<br>
  * Readable methods are provided to determine larger/smaller/equal
  * 
  * @author wkgcass
