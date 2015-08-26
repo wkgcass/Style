@@ -1,4 +1,4 @@
-点击[这里](http://blog.cassite.net/JAVA/Style)获取中文文档
+点击[这里](http://blog.cassite.net/JAVA/Style)或[这里](Style1CN.md)获取中文文档
 
 #Style
 
@@ -41,6 +41,19 @@ I am using *Style* everywhere since I built it.
 Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com).  
 And pls execuse me for my poor english...
 
+#Update
+1.0.1 --> 1.0.2
+
+* Now Enhanced If expression can receive lambda as its first argument.
+* functions can receive more or less values than its argument length.
+* StringFuncSup.fill has changed to directly invoking Message.fill
+* Dynamic Proxy Simplify
+* Read-Only objects
+* use arrays to simulate JSON and generate a map
+* Document Revision
+* BUG solved:
+	* Async.onError or AsyncGroup.onError used to have a chance to lock current thread forever in few cases.
+
 #Directory
 
 * Starting
@@ -61,6 +74,8 @@ And pls execuse me for my poor english...
 		* Constructor
 		* Field
 		* Method
+		* Dynamic Proxy
+			* Read-Only objects
 	* Thread
 		* callback
 		* (async)
@@ -91,6 +106,9 @@ And pls execuse me for my poor english...
 	* Comparable
 	* Rand
 	* String
+	* JSON
+* Appendix
+	* last loop result
 
 #Starting
 
@@ -152,6 +170,15 @@ Use *apply* to call a function on caller's thread.
 e.g.
 	
 	check.apply(list, "cass");
+	
+Functions can receive more or less values than its argument length.
+
+e.g.
+	
+	check.apply(list, "cass", "arg"); 
+	// "arg" will be ignored
+	check.apply(list) 
+	// same as 'check.apply(list, null)'
 	
 ##Async, Await and Exception Handling
 
@@ -281,7 +308,7 @@ This *Style* version(1.0.1) only support few new features about reflect.
 
 More features will come out in the next version.
 
-Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.reflect* for more info.
+Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.style.reflect* for more info.
 
 ###Class
 We used to write this:
@@ -303,12 +330,12 @@ ClassSup let you easily get *Generic Supported* constructors', fields', and meth
 	// with args
 	ConstructorSup<TYPE> con = cls.constructor(T0.class, T1.class, ...);
 
-	FieldSup<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
+	FieldSupport<FIELD_TYPE, TYPE> f = cls.field(fieldName, FIELD_TYPE.class);
 	
 	// no args
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class);
 	// with args
-	MethodSup<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
+	MethodSupport<RETURN_TYPE, TYPE> f m = cls.method(methodName, RETURN_TYPE.class, T0.class, T1.class, ...);
 	
 Also, you can get all declaired methods or fields from the class and its super classes.
 
@@ -340,6 +367,71 @@ All these supporting classes contain methods like
 	...(9 more)
 
 which help you check modifiers.
+
+###Dynamic Proxy
+
+We used to create a dynamic proxy in this way:
+
+	Proxy.newProxyInstance(
+		toProxy.getClass().getClassLoader()
+		, toProxy.getClass().getInterfaces()
+		,handler);
+Though JDK designed it this way for better reusable programming. But usually we don't need too many features.
+
+As a result, it contains many repeating codes. *Style* helps you simplify this operation.
+
+	<T> T proxy(handler, toProxy);
+	
+Also，*Style* provide aother way.  
+Use List.get method as an example
+
+* Use anoymous class to create a ProxyHandler instance:
+		
+		ProxyHandler<List<String>> handler = new ProxyHandler<List<String>>(list) {
+			@SuppressWarnings("unused")
+			String get(int index) {
+				System.out.println("before get invoked with arg0:" + index);
+				String res = target.get(index);
+				System.out.println("after get invoked with res:" + res);
+				return res;
+			}
+		};
+	
+	>
+	>ProxyHandler receive an object as the object to proxy, it's stored in a field called target.
+	>
+	>As you can see, it uses **RETURN_TYPE methodName(Args)** to define an 'Around' proxy. This method looks exactly the same as the method to proxy.
+	
+* generate
+
+		List<String> listProxy = proxy(handler);
+		
+this way makes proxy more readable.
+
+####Read-Only objects
+Usually, we need to create readonly objects in case someone change them. 
+>e.g. We may have to pack an object into another and expose it to other modules. However we cannot guarantee other people not changing it.
+
+*Style* provides you a easy way of turning an object with interfaces into a read-only one.
+
+Usually it doesn't require you doing any extra work.  
+
+	R readOnly(R r);
+
+When an invocation comes, *Style* will check the method.
+
+* if methodName.contains elements in $.readOnlyToSearch
+	* Check whether the method has ReadOnly annotation
+		* if has
+			* do invoking
+		* else
+			* throw an exception(ModifyReadOnlyException)
+* else
+	* Check whether the method has Writable annotation
+		* if has
+			* throw an exception(ModifyReadOnlyException)
+		* else
+			* do invoking
 	
 ##Thread
 ###callback
@@ -398,6 +490,8 @@ The way of using 'If' is similar to ordinary if-expression.
 * else
 	* process expressions defined in elseif and else block.
 
+INIT can also be a lambda expression. e.g. ()->INIT or more complex expressions.
+
 >The If expression can also end with *End()* instead of Else(()->{})
 >
 >If Expression Return Value is [applied function's return value] or given variable.
@@ -447,7 +541,13 @@ e.g.
 Maybe you want to retrieve last loop result, *Style* provide this kind of support, do it this way:
 
 	For(T t, t->{boolean}, t->{increment}, 
-		(t,res)->{loop}); // res is last loop result
+		(t,info)->{loop}); // info contains last loop result
+		
+	/* 
+		info.currentIndex
+		info.effectiveIndex // how many time 'last loop result' was modified
+		info.lastRes // value of 'last loop result'
+	*/
 		
 
 ####For-to-step
@@ -469,25 +569,13 @@ It has the same function as :
 	
 e.g.
 
-	For(1).to(21).step(2).loop((Integer i, LOOP_RES_TYPE res) -> {...});
+	For(1).to(21).step(2).loop((Integer i, LoopInfo info) -> {...});
 	// which means for(int i=1;i<=21;i+=2){...}
-	// res is optional
+	// info is optional
 
 It also has return value. The behavior is the same as For.
-
-In *net.cassite.style.ArrayFuncSup*, you can see, 
-
-	return For(0).to(array.length - 1).loop((i, res) -> {
-		if (predicate.test(array[i]))
-			if (func.argCount() == 2)
-				return func.apply(array[i], info.setValues(i - 1, i + 1, i != 0, i != array.length - 1, i, res));
-			else
-				return func.apply(array[i]);
-		else
-			return null;
-	});
 	
-it really help save a lot of coding.
+it really help save a lot of coding. Scala uses expressions with return value.
 
 
 ####While
@@ -496,7 +584,7 @@ it really help save a lot of coding.
 	
 Similarly, you can retrieve 'last loop result' using
 
-	While(()->{boolean}, res->{loop});
+	While(()->{boolean}, info->{loop});
 	
 The return value behavior is the same as For.
 
@@ -788,3 +876,29 @@ You can write:
 	System.out.println(
 		$("My name is ${name}, I'm ${age} years old, and I'm ${sex}.")
 			.from(sample));
+
+will return
+
+	My name is cass, I'm 20 years old, and I'm male.
+	
+##JSON
+You can create a JSONLike object from a json-like Object array.  
+e.g. you can create a JSONLike object like this:
+
+	map(new Object[]{
+		"name"	, "cass",
+		"age"	, 20,
+		"sex"	, "male"
+	});
+>JSONLike extends LinkedHashMap
+			
+#Appendix
+
+##last loop result
+For, For-to-step, While, forEach/forThose loops all have return values.  
+when a loop finished, it may return a result to the loop controller. 
+
+Loop controllers store a value called 'last loop value'.The controller examine the result from loop, 
+
+if it's not null, overwrite the 'last loop value' with received result. if it's null, the controller ignore the null value and goes on.
+>Loop controller is not a class, it's a method. More specificly, Style.For(i,c,inc,loop) and Style.While(c,loop). They are bases of most loops in *Style*.
