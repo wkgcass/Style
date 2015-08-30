@@ -1,6 +1,6 @@
 package net.cassite.style.control;
 
-public class Continue extends RuntimeException {
+public class Continue extends IterationControl {
 
 	/**
 	 * 

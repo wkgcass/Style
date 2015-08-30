@@ -42,17 +42,18 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 有任何问题，您可以随时通过[wkgcass@hotmail.com](mailto:wkgcass@hotmail.com)与我联系.  
 
 #更新内容
-1.0.1 --> 1.0.2
+1.0.2 --> 1.1.1
 
-* 增强的If表达式可以接收lambda作为第一个参数
-* 函数可以接收比参数表更多或更少的参数
-* StringFuncSup.fill 调整为调用 Message.fill
-* 动态代理简化
-* 只读对象
-* 使用数组模拟JSON对象生成map
-* 文档更正
-* BUG修复:
-	* Async.onError 和 AsyncGroup.onError 曾在少部分情况下将当前线程永久挂起。
+* 详细的功能分类. 现在你可以使用 **Core/Aggregation/Utils/Reflect** 来获取特定模块下的功能. 不过 **Style** 和 **var** 依然包含所有Style函数式编程工具集的所有功能
+* 对*def*类增添了一个新方法，现在你可以使用
+		
+		def.applyCheckPrimitive(Class<?> primitive, Object... args)
+		
+  来自动将null值转化为基本类型的初始值。  
+  比如说 boolean-->false, int-->0, long-->0L, ...
+* 聚合模块(Aggregation)添加了一个新方法. 现在你可以把多个List **join** 在一起
+* ClassSup增加了一个新方法. 现在你可以获取一个类中所有的setter
+* 反射模块(Reflect)现在支持更多的功能
 
 #目录
 
@@ -107,6 +108,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	* Rand
 	* 字符串
 	* JSON
+	* join
 * 附录
 	* 上次循环结果
 
@@ -131,6 +133,20 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	e.g.
 	
 		Style.$(list).forEach(e->...);
+		
+4. 另外, 如果你只需要某个模块的功能，你可以这么写：
+
+		class YourClass extends Core
+		class YourClass extends Aggregation
+		class YourClass extends Utils
+		class YourClass extends Reflect
+		
+	或者这么写：
+	
+		Aggregation.$(list).findOne(e->...);
+		
+	>**Aggregation/Utils/Reflect** 继承自 **Core**
+
 		
 >下述指引将通过*继承*的方式进行叙述.
 
@@ -179,6 +195,13 @@ e.g.
 	// "arg" 会被忽略
 	check.apply(list) 
 	// 相当于 'check.apply(list, null)'
+	
+使用 applyCheckPrimitive 来避免自动拆箱时遭遇null值
+
+e.g.
+
+	def<Boolean> predicate = function(...);
+	boolean b = predicate.applyCheckPrimitive(boolean.class, arg);
 	
 ##Async, Await 以及异常处理
 Async, Await是一个非常好用的多线程模型. 你可以通过*Style*来使用Async/Await，而且不需要编写任何额外代码。
@@ -885,6 +908,16 @@ g表示全局，i表示忽略大小写，m表示多行。
 		"sex"	, "male"
 	});
 >JSONLike 继承了 LinkedHashMap
+
+##join
+有时候我们希望对多个List中的元素进行排序，但不希望改变它们的长度，这时可以使用**join**
+
+当你join List时, 一个代理List将被生成, 它不支持任何可能改变长度的方法. 而且，所有操作将直接在被代理list上进行.
+
+	List<T> joinedList = join(list1, list2, list3, list4, ...);
+	Collections.sort(joinedList);
+	// list1, list2, list3, list4, ... will be modified.
+
 			
 #附录
 

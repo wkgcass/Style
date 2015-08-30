@@ -4,8 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 
 import net.cassite.style.$;
-import net.cassite.style.A1FuncSup;
 import net.cassite.style.Style;
+import net.cassite.style.aggregation.A1FuncSup;
 
 /**
  * Supporter for Constructors
@@ -75,6 +75,7 @@ public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>
          */
         public T newInstance(Object... args) {
                 try {
+                        con.setAccessible(true);
                         return con.newInstance(args);
                 } catch (Exception e) {
                         throw $(e);
@@ -106,6 +107,10 @@ public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>
          */
         public Class<?>[] argTypes() {
                 return con.getParameterTypes();
+        }
+
+        public int argCount() {
+                return con.getParameterCount();
         }
 
         public String toString() {

@@ -22,7 +22,16 @@ public class FieldSupport<FieldType, ObjectType> extends Style implements Member
                 return f;
         }
 
-        FieldSupport(Field f, Class<FieldType> cls, Class<ObjectType> objCls) {
+        /**
+         * 
+         * @param f
+         *                field to support
+         * @param cls
+         *                field type
+         * @param objCls
+         *                resolved object's type
+         */
+        public FieldSupport(Field f, Class<FieldType> cls, Class<ObjectType> objCls) {
                 if (f == null)
                         throw $(new NoSuchFieldException());
                 this.f = f;

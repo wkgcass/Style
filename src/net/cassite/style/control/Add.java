@@ -1,6 +1,6 @@
 package net.cassite.style.control;
 
-public class Add extends RuntimeException {
+public class Add extends IterationControl {
 	/**
 	 * 
 	 */

@@ -6,16 +6,24 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
-import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
+import net.cassite.style.aggregation.ArrayFuncSup;
+import net.cassite.style.aggregation.CollectionFuncSup;
+import net.cassite.style.aggregation.IterableFuncSup;
+import net.cassite.style.aggregation.IteratorInfo;
+import net.cassite.style.aggregation.ListFuncSup;
+import net.cassite.style.aggregation.MapFuncSup;
 import net.cassite.style.control.Break;
 import net.cassite.style.control.Continue;
 import net.cassite.style.control.Remove;
 import net.cassite.style.interfaces.*;
 import net.cassite.style.reflect.ClassSup;
 import net.cassite.style.reflect.ProxyHandler;
+import net.cassite.style.util.ComparableFuncSup;
+import net.cassite.style.util.DateFuncSup;
+import net.cassite.style.util.RegEx;
+import net.cassite.style.util.StringFuncSup;
 
 /**
  * All functions in <b>Style tool box</b> are provided both in <b>Style</b> and
@@ -847,7 +855,7 @@ public interface var {
          *                the loop to run
          * @return last not null loop value
          */
-        default <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, def<R> loop) {
+        default <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, def<R> loop) {
                 return Style.For(i, condition, increment, loop);
         }
 
@@ -857,7 +865,7 @@ public interface var {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -868,9 +876,9 @@ public interface var {
          * @param loop
          *                the loop takes in i and run without results
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        default <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, VFunc1<T> loop) {
+        default <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, VFunc1<T> loop) {
                 return Style.For(i, condition, increment, loop);
         }
 
@@ -880,7 +888,7 @@ public interface var {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -891,9 +899,9 @@ public interface var {
          * @param loop
          *                the loop takes in i and run and return a result
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        default <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, RFunc1<R, T> loop) {
+        default <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, RFunc1<R, T> loop) {
                 return Style.For(i, condition, increment, loop);
         }
 
@@ -903,7 +911,7 @@ public interface var {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -915,9 +923,9 @@ public interface var {
          *                the loop takes in i and loop info and run without
          *                results
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        default <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, VFunc2<T, LoopInfo<R>> loop) {
+        default <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, VFunc2<T, LoopInfo<R>> loop) {
                 return Style.For(i, condition, increment, loop);
         }
 
@@ -927,7 +935,7 @@ public interface var {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -939,9 +947,9 @@ public interface var {
          *                the loop takes in i and loop info and run and return a
          *                result
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        default <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, RFunc2<R, T, LoopInfo<R>> loop) {
+        default <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, RFunc2<R, T, LoopInfo<R>> loop) {
                 return Style.For(i, condition, increment, loop);
         }
 
@@ -984,58 +992,58 @@ public interface var {
          *                the loop to run
          * @return loop result
          */
-        default <R> R While(BooleanSupplier condition, def<R> loop) {
+        default <R> R While(RFunc0<Boolean> condition, def<R> loop) {
                 return Style.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop to run without results
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        default <R> R While(BooleanSupplier condition, VFunc0 loop) {
+        default <R> R While(RFunc0<Boolean> condition, VFunc0 loop) {
                 return Style.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop to run and return a result
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        default <R> R While(BooleanSupplier condition, RFunc0<R> loop) {
+        default <R> R While(RFunc0<Boolean> condition, RFunc0<R> loop) {
                 return Style.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop takes in loop info and run without results
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        default <R> R While(BooleanSupplier condition, VFunc1<LoopInfo<R>> loop) {
+        default <R> R While(RFunc0<Boolean> condition, VFunc1<LoopInfo<R>> loop) {
                 return Style.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
@@ -1043,9 +1051,9 @@ public interface var {
          *                the loop takes in loop info and run and return a
          *                result
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        default <R> R While(BooleanSupplier condition, RFunc1<R, LoopInfo<R>> loop) {
+        default <R> R While(RFunc0<Boolean> condition, RFunc1<R, LoopInfo<R>> loop) {
                 return Style.While(condition, loop);
         }
 
@@ -1805,6 +1813,22 @@ public interface var {
          */
         default <R> R readOnly(R toReadOnly) {
                 return Style.readOnly(toReadOnly);
+        }
+
+        /**
+         * Join lists into one, the joined list's elements are in order of
+         * argument order and original lists' element order<br>
+         * you cannot modify the returned joined list's size.<br>
+         * in other words, the joined list doesn't support methods like add,
+         * remove, addAll, retainAll, removeAll...
+         * 
+         * @param toJoin
+         *                the lists to join
+         * @return a joined list
+         */
+        @SuppressWarnings("unchecked")
+        default <T> List<T> join(List<T>... toJoin) {
+                return Style.join(toJoin);
         }
 
 }

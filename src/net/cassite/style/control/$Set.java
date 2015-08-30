@@ -1,6 +1,6 @@
 package net.cassite.style.control;
 
-public class $Set extends RuntimeException {
+public class $Set extends IterationControl {
 
 	/**
 	 * 

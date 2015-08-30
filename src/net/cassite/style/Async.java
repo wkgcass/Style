@@ -19,8 +19,6 @@ public class Async<R> {
         private def<Object> handler = null;
         private Object lock = new Object();
 
-        private boolean hasHandler = false;
-
         private static class Container<R> {
                 R ret = null;
                 boolean inProcess = false;
@@ -127,12 +125,11 @@ public class Async<R> {
          * @see StyleRuntimeException
          */
         public void onError(def<Object> handler) {
-                hasHandler = true;
+                this.handler = handler;
                 while (!container.inProcess) {
                         // block
                 }
                 synchronized (lock) {
-                        this.handler = handler;
                         if (null != throwable) {
                                 handler.apply(Style.$(throwable));
                         }
@@ -185,7 +182,7 @@ public class Async<R> {
          *         otherwise
          */
         public boolean hasErrHandler() {
-                return hasHandler;
+                return handler != null;
         }
 
         /**

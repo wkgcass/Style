@@ -1,6 +1,6 @@
 package net.cassite.style.control;
 
-public class Break extends RuntimeException {
+public class Break extends IterationControl {
 
 	/**
 	 * 

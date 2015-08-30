@@ -2,6 +2,10 @@ package net.cassite.style;
 
 import java.util.Date;
 
+import net.cassite.style.aggregation.A1ArrTransformer;
+import net.cassite.style.aggregation.A1FuncSup;
+import net.cassite.style.aggregation.A1Transformer;
+import net.cassite.style.aggregation.MapFuncSup;
 import net.cassite.style.control.Break;
 import net.cassite.style.control.Continue;
 import net.cassite.style.control.Remove;
@@ -367,6 +371,6 @@ public class $ extends Style {
          */
         public static final def<Boolean> eqlFunc = $(eql);
 
-        static final String[] readOnlyToSearch = new String[] { "add", "set", "update", "append", "put", "push", "pop", "remove", "delete",
+        public static final String[] readOnlyToSearch = new String[] { "add", "set", "update", "append", "put", "push", "pop", "remove", "delete",
                         "insert" };
 }

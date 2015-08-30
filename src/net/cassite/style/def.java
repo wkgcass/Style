@@ -234,6 +234,34 @@ public class def<R> {
                 }
         }
 
+        @SuppressWarnings("unchecked")
+        public R applyCheckPrimitive(Class<?> primitive, Object... args) {
+                R r = apply(args);
+                if (null == r) {
+                        if (primitive.equals(int.class) || primitive.equals(Integer.class)) {
+                                return (R) new Integer(0);
+                        } else if (primitive.equals(long.class) || primitive.equals(Long.class)) {
+                                return (R) new Long(0);
+                        } else if (primitive.equals(short.class) || primitive.equals(Short.class)) {
+                                return (R) new Short((short) 0);
+                        } else if (primitive.equals(float.class) || primitive.equals(Float.class)) {
+                                return (R) new Float(0);
+                        } else if (primitive.equals(double.class) || primitive.equals(Double.class)) {
+                                return (R) new Double(0);
+                        } else if (primitive.equals(boolean.class) || primitive.equals(Boolean.class)) {
+                                return (R) new Boolean(false);
+                        } else if (primitive.equals(byte.class) || primitive.equals(Byte.class)) {
+                                return (R) new Byte((byte) 0);
+                        } else if (primitive.equals(char.class) || primitive.equals(Character.class)) {
+                                return (R) new Character((char) 0);
+                        } else {
+                                return r;
+                        }
+                } else {
+                        return r;
+                }
+        }
+
         /**
          * invoke the supported function on a new thread
          * 

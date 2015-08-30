@@ -22,7 +22,16 @@ public class MethodSupport<R, ObjectType> extends Style implements MemberSup<Met
                 return method;
         }
 
-        MethodSupport(Method method, Class<R> retType, Class<ObjectType> objType) {
+        /**
+         * 
+         * @param method
+         *                method to support
+         * @param retType
+         *                return type
+         * @param objType
+         *                resolved object's type
+         */
+        public MethodSupport(Method method, Class<R> retType, Class<ObjectType> objType) {
                 if (method == null)
                         throw $(new NoSuchMethodException());
                 this.method = method;
@@ -104,5 +113,9 @@ public class MethodSupport<R, ObjectType> extends Style implements MemberSup<Met
 
         public String toString() {
                 return method.toString();
+        }
+
+        public Class<?> returnType() {
+                return method.getReturnType();
         }
 }

@@ -1,12 +1,13 @@
 package net.cassite.style.reflect;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.cassite.style.A1FuncSup;
 import net.cassite.style.Style;
+import net.cassite.style.aggregation.A1FuncSup;
 
 /**
  * Supporter for Class objects
@@ -356,6 +357,34 @@ public class ClassSup<T> extends Style {
          */
         public boolean isVolatile() {
                 return Modifier.isVolatile(getCls().getModifiers());
+        }
+
+        /**
+         * retrieve all setters
+         * 
+         * @return setters in the form of MethodSupport
+         */
+        public List<MethodSupport<?, T>> setters() {
+                List<MethodSupport<?, T>> methods = allMethods();
+                List<MethodSupport<?, T>> toReturn = new ArrayList<>();
+                methods.forEach(e -> {
+                        if (e.name().startsWith("set") && e.name().length() > 3 && e.name().charAt(3) >= 'A' && e.name().charAt(3) <= 'Z'
+                                        && e.argCount() == 1 && e.returnType().equals(Void.TYPE) && !e.isStatic())
+                                toReturn.add(e);
+                });
+                return toReturn;
+        }
+
+        /**
+         * retrieve all constructors
+         * 
+         * @return constructors in the form of ConstructorSup
+         */
+        @SuppressWarnings("unchecked")
+        public List<ConstructorSup<T>> constructors() {
+                List<ConstructorSup<T>> toReturn = new ArrayList<>();
+                $(cls.getDeclaredConstructors()).forEach(c -> toReturn.add(new ConstructorSup<T>((Constructor<T>) c)));
+                return toReturn;
         }
 
 }

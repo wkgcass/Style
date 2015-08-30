@@ -1,26 +1,29 @@
 package net.cassite.style;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
-import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 import net.cassite.style.control.*;
-import net.cassite.style.control.$Set;
+import net.cassite.style.aggregation.Aggregation;
+import net.cassite.style.aggregation.ArrayFuncSup;
+import net.cassite.style.aggregation.CollectionFuncSup;
+import net.cassite.style.aggregation.IterableFuncSup;
+import net.cassite.style.aggregation.ListFuncSup;
+import net.cassite.style.aggregation.MapFuncSup;
 import net.cassite.style.interfaces.*;
-import net.cassite.style.readonly.ModifyReadOnlyException;
-import net.cassite.style.readonly.ReadOnly;
-import net.cassite.style.readonly.Writable;
 import net.cassite.style.reflect.ClassSup;
-import net.cassite.style.reflect.MethodSupport;
 import net.cassite.style.reflect.ProxyHandler;
+import net.cassite.style.reflect.Reflect;
+import net.cassite.style.util.ComparableFuncSup;
+import net.cassite.style.util.DateFuncSup;
+import net.cassite.style.util.RegEx;
+import net.cassite.style.util.StringFuncSup;
+import net.cassite.style.util.Utils;
 
 /**
  * All functions in <b>Style tool box</b> are provided here.<br>
@@ -49,7 +52,7 @@ public abstract class Style {
          * @return a function with 0 input and void output
          */
         public static def<Object> function(VFunc0 body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -60,7 +63,7 @@ public abstract class Style {
          * @return a function with 1 input and void output
          */
         public static def<Object> function(VFunc1<?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -71,7 +74,7 @@ public abstract class Style {
          * @return a function with 2 inputs and void output
          */
         public static def<Object> function(VFunc2<?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -82,7 +85,7 @@ public abstract class Style {
          * @return a function with 3 inputs and void output
          */
         public static def<Object> function(VFunc3<?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -93,7 +96,7 @@ public abstract class Style {
          * @return a function with 4 inputs and void output
          */
         public static def<Object> function(VFunc4<?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -104,7 +107,7 @@ public abstract class Style {
          * @return a function with 5 inputs and void output
          */
         public static def<Object> function(VFunc5<?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -115,7 +118,7 @@ public abstract class Style {
          * @return a function with 6 inputs and void output
          */
         public static def<Object> function(VFunc6<?, ?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -126,7 +129,7 @@ public abstract class Style {
          * @return a function with 7 inputs and void output
          */
         public static def<Object> function(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         // functions with return value
@@ -139,7 +142,7 @@ public abstract class Style {
          * @return a function with 0 input and an output
          */
         public static <R> def<R> function(RFunc0<R> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -150,7 +153,7 @@ public abstract class Style {
          * @return a function with 1 input and an output
          */
         public static <R> def<R> function(RFunc1<R, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -161,7 +164,7 @@ public abstract class Style {
          * @return a function with 2 inputs and an output
          */
         public static <R> def<R> function(RFunc2<R, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -172,7 +175,7 @@ public abstract class Style {
          * @return a function with 3 inputs and an output
          */
         public static <R> def<R> function(RFunc3<R, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -183,7 +186,7 @@ public abstract class Style {
          * @return a function with 4 inputs and an output
          */
         public static <R> def<R> function(RFunc4<R, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -194,7 +197,7 @@ public abstract class Style {
          * @return a function with 5 inputs and an output
          */
         public static <R> def<R> function(RFunc5<R, ?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -205,7 +208,7 @@ public abstract class Style {
          * @return a function with 6 inputs and an output
          */
         public static <R> def<R> function(RFunc6<R, ?, ?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         /**
@@ -216,7 +219,7 @@ public abstract class Style {
          * @return a function with 7 inputs and an output
          */
         public static <R> def<R> function(RFunc7<R, ?, ?, ?, ?, ?, ?, ?> body) {
-                return $(body);
+                return Core.$(body);
         }
 
         // void functions
@@ -229,7 +232,7 @@ public abstract class Style {
          * @return a function with 0 input and void output
          */
         public static def<Object> $(VFunc0 body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -240,7 +243,7 @@ public abstract class Style {
          * @return a function with 1 input and void output
          */
         public static def<Object> $(VFunc1<?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -251,7 +254,7 @@ public abstract class Style {
          * @return a function with 2 inputs and void output
          */
         public static def<Object> $(VFunc2<?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -262,7 +265,7 @@ public abstract class Style {
          * @return a function with 3 inputs and void output
          */
         public static def<Object> $(VFunc3<?, ?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -273,7 +276,7 @@ public abstract class Style {
          * @return a function with 4 inputs and void output
          */
         public static def<Object> $(VFunc4<?, ?, ?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -284,7 +287,7 @@ public abstract class Style {
          * @return a function with 5 inputs and void output
          */
         public static def<Object> $(VFunc5<?, ?, ?, ?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -295,7 +298,7 @@ public abstract class Style {
          * @return a function with 6 inputs and void output
          */
         public static def<Object> $(VFunc6<?, ?, ?, ?, ?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         /**
@@ -306,7 +309,7 @@ public abstract class Style {
          * @return a function with 7 inputs and void output
          */
         public static def<Object> $(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
-                return new def<Object>(body);
+                return Core.$(body);
         }
 
         // functions with return value
@@ -319,7 +322,7 @@ public abstract class Style {
          * @return a function with 0 input and an output
          */
         public static <R> def<R> $(RFunc0<R> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -330,7 +333,7 @@ public abstract class Style {
          * @return a function with 1 input and an output
          */
         public static <R> def<R> $(RFunc1<R, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -341,7 +344,7 @@ public abstract class Style {
          * @return a function with 2 inputs and an output
          */
         public static <R> def<R> $(RFunc2<R, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -352,7 +355,7 @@ public abstract class Style {
          * @return a function with 3 inputs and an output
          */
         public static <R> def<R> $(RFunc3<R, ?, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -363,7 +366,7 @@ public abstract class Style {
          * @return a function with 4 inputs and an output
          */
         public static <R> def<R> $(RFunc4<R, ?, ?, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -374,7 +377,7 @@ public abstract class Style {
          * @return a function with 5 inputs and an output
          */
         public static <R> def<R> $(RFunc5<R, ?, ?, ?, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -385,7 +388,7 @@ public abstract class Style {
          * @return a function with 6 inputs and an output
          */
         public static <R> def<R> $(RFunc6<R, ?, ?, ?, ?, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         /**
@@ -396,7 +399,7 @@ public abstract class Style {
          * @return a function with 7 inputs and an output
          */
         public static <R> def<R> $(RFunc7<R, ?, ?, ?, ?, ?, ?, ?> body) {
-                return new def<R>(body);
+                return Core.$(body);
         }
 
         // function support
@@ -414,7 +417,7 @@ public abstract class Style {
          * @return a new pointer points to given object
          */
         public static <T> ptr<T> ptr(T o) {
-                return new ptr<T>(o);
+                return Core.ptr(o);
         }
 
         /**
@@ -425,7 +428,7 @@ public abstract class Style {
          * @return pointed value
          */
         public static <T> T $(ptr<T> store) {
-                return store.item;
+                return Core.$(store);
         }
 
         /**
@@ -437,8 +440,7 @@ public abstract class Style {
          * @return
          */
         public static <T> ptr<T> $(ptr<T> ptr, T newItem) {
-                ptr.item = newItem;
-                return ptr;
+                return Core.$(ptr, newItem);
         }
 
         // ┌─────────────────────────────────┐
@@ -453,7 +455,7 @@ public abstract class Style {
          * @return a group of async objects
          */
         public static AsyncGroup $(Async<?>... asyncs) {
-                return new AsyncGroup(null, asyncs);
+                return Core.$(asyncs);
         }
 
         /**
@@ -473,7 +475,7 @@ public abstract class Style {
          * @see Async#awaitError(def)
          */
         public static AsyncGroup $(def<Object> handler, Async<?>... asyncs) {
-                return new AsyncGroup(handler, asyncs);
+                return Core.$(handler, asyncs);
         }
 
         /**
@@ -497,7 +499,7 @@ public abstract class Style {
          * @see #$(VFunc1)
          */
         public static AsyncGroup $(VFunc1<StyleRuntimeException> handler, Async<?>... asyncs) {
-                return new AsyncGroup($(handler), asyncs);
+                return Core.$(asyncs);
         }
 
         /**
@@ -512,7 +514,7 @@ public abstract class Style {
          * @see Async#await()
          */
         public static <R> R await(Async<R> async) {
-                return async.await();
+                return Core.await(async);
         }
 
         /**
@@ -525,7 +527,7 @@ public abstract class Style {
          * @see #run(def)
          */
         public static Thread run(VFunc0 runnable) {
-                return run($(runnable));
+                return Utils.run(runnable);
         }
 
         /**
@@ -536,11 +538,7 @@ public abstract class Style {
          * @return created thread
          */
         public static Thread run(def<Object> toRun) {
-                Thread t = new Thread(() -> {
-                        toRun.apply();
-                });
-                t.start();
-                return t;
+                return Utils.run(toRun);
         }
 
         /**
@@ -550,11 +548,7 @@ public abstract class Style {
          *                milliseconds to sleep
          */
         public static void sleep(long millis) {
-                try {
-                        Thread.sleep(millis);
-                } catch (InterruptedException e) {
-                        throw $(e);
-                }
+                Core.sleep(millis);
         }
 
         // ┌─────────────────────────────────┐
@@ -568,7 +562,7 @@ public abstract class Style {
          * @throws Break
          */
         public static <T> T Break() throws Break {
-                throw $.Control_Break;
+                return Core.Break();
         }
 
         /**
@@ -579,7 +573,7 @@ public abstract class Style {
          * @throws Remove
          */
         public static <T> T Remove() throws Remove {
-                throw $.Control_Remove;
+                return Core.Remove();
         }
 
         /**
@@ -589,7 +583,7 @@ public abstract class Style {
          * @throws Continue
          */
         public static <T> T Continue() throws Continue {
-                throw $.Control_Continue;
+                return Core.Continue();
         }
 
         /**
@@ -600,7 +594,7 @@ public abstract class Style {
          * @return
          */
         public static <T> T Set(T toSet) {
-                throw new $Set(toSet);
+                return Core.Set(toSet);
         }
 
         /**
@@ -611,7 +605,7 @@ public abstract class Style {
          * @return
          */
         public static <T> T Add(T toAdd) {
-                throw new Add(toAdd);
+                return Core.Add(toAdd);
         }
 
         /**
@@ -624,7 +618,7 @@ public abstract class Style {
          * @return
          */
         public static <T> T BreakWithResult(T res) {
-                throw new BreakWithResult(res);
+                return Core.BreakWithResult(res);
         }
 
         // ┌─────────────────────────────────┐
@@ -641,11 +635,7 @@ public abstract class Style {
          * @return Integer[] array supporter
          */
         public static ArrayFuncSup<Integer> $(int[] array) {
-                Integer[] arr = new Integer[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -658,11 +648,7 @@ public abstract class Style {
          * @return Double[] array supporter
          */
         public static ArrayFuncSup<Double> $(double[] array) {
-                Double[] arr = new Double[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -675,11 +661,7 @@ public abstract class Style {
          * @return Float[] array supporter
          */
         public static ArrayFuncSup<Float> $(float[] array) {
-                Float[] arr = new Float[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -692,11 +674,7 @@ public abstract class Style {
          * @return Boolean[] array supporter
          */
         public static ArrayFuncSup<Boolean> $(boolean[] array) {
-                Boolean[] arr = new Boolean[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -709,11 +687,7 @@ public abstract class Style {
          * @return Character[] array supporter
          */
         public static ArrayFuncSup<Character> $(char[] array) {
-                Character[] arr = new Character[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -726,11 +700,7 @@ public abstract class Style {
          * @return Byte[] array supporter
          */
         public static ArrayFuncSup<Byte> $(byte[] array) {
-                Byte[] arr = new Byte[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -743,11 +713,7 @@ public abstract class Style {
          * @return Long[] array supporter
          */
         public static ArrayFuncSup<Long> $(long[] array) {
-                Long[] arr = new Long[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -760,11 +726,7 @@ public abstract class Style {
          * @return Short[] array supporter
          */
         public static ArrayFuncSup<Short> $(short[] array) {
-                Short[] arr = new Short[array.length];
-                For(0).to(array.length - 1).loop(i -> {
-                        arr[i] = array[i];
-                });
-                return $(arr);
+                return Aggregation.$(array);
         }
 
         /**
@@ -775,7 +737,7 @@ public abstract class Style {
          * @return Short[] array supporter
          */
         public static <T> ArrayFuncSup<T> $(T[] array) {
-                return new ArrayFuncSup<T>(array);
+                return Aggregation.$(array);
         }
 
         /**
@@ -786,7 +748,7 @@ public abstract class Style {
          * @return Iterable supporter
          */
         public static <T> IterableFuncSup<T> $(Iterable<T> it) {
-                return new IterableFuncSup<>(it);
+                return Aggregation.$(it);
         }
 
         /**
@@ -797,7 +759,7 @@ public abstract class Style {
          * @return Collection supporter
          */
         public static <T> CollectionFuncSup<T> $(Collection<T> coll) {
-                return new CollectionFuncSup<>(coll);
+                return Aggregation.$(coll);
         }
 
         /**
@@ -808,7 +770,7 @@ public abstract class Style {
          * @return List supporter
          */
         public static <T> ListFuncSup<T> $(List<T> coll) {
-                return new ListFuncSup<T>(coll);
+                return Aggregation.$(coll);
         }
 
         /**
@@ -824,10 +786,7 @@ public abstract class Style {
          */
         @SafeVarargs
         public static <E, Coll extends Collection<E>> Coll $(Coll collection, E... elements) {
-                for (E e : elements) {
-                        collection.add(e);
-                }
-                return collection;
+                return Aggregation.$(collection, elements);
         }
 
         /**
@@ -838,7 +797,7 @@ public abstract class Style {
          * @return Map supporter
          */
         public static <K, V> MapFuncSup<K, V> $(Map<K, V> map) {
-                return new MapFuncSup<>(map);
+                return Aggregation.$(map);
         }
 
         /**
@@ -865,10 +824,7 @@ public abstract class Style {
          * @see #map(Object, Object)
          */
         public static <K, V, M extends Map<K, V>> M $(M map, JSONLike<K, V> entries) {
-                for (K key : entries.keySet()) {
-                        map.put(key, entries.get(key));
-                }
-                return map;
+                return Aggregation.$(map, entries);
         }
 
         // ┌─────────────────────────────────┐
@@ -892,40 +848,8 @@ public abstract class Style {
          *                the loop to run
          * @return last not null loop value
          */
-        public static <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, def<R> loop) {
-                R res = null;
-                LoopInfo<R> info = new LoopInfo<R>();
-                int cursor = 0;
-                int effctiveCursor = 0;
-                for (T ii = i; condition.test(ii); ii = increment.apply(ii)) {
-                        try {
-                                R tmpRes;
-                                tmpRes = loop.apply(ii, info.setValues(cursor, effctiveCursor, res));
-                                if (tmpRes != null) {
-                                        res = tmpRes;
-                                        ++effctiveCursor;
-                                }
-                        } catch (Throwable e) {
-                                if (e instanceof StyleRuntimeException) {
-                                        Throwable origin = ((StyleRuntimeException) e).origin();
-                                        if (origin instanceof Break) {
-                                                break;
-                                        } else if (origin instanceof Continue) {
-                                                continue;
-                                        } else if (origin instanceof BreakWithResult) {
-                                                res = ((BreakWithResult) origin).getRes();
-                                                break;
-                                        } else {
-                                                throw ((StyleRuntimeException) e);
-                                        }
-                                } else {
-                                        throw $(e);
-                                }
-                        } finally {
-                                ++cursor;
-                        }
-                }
-                return res;
+        public static <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, def<R> loop) {
+                return Core.For(i, condition, increment, loop);
         }
 
         /**
@@ -934,7 +858,7 @@ public abstract class Style {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -945,11 +869,10 @@ public abstract class Style {
          * @param loop
          *                the loop takes in i and run without results
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        @SuppressWarnings("unchecked")
-        public static <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, VFunc1<T> loop) {
-                return (R) For(i, condition, increment, $(loop));
+        public static <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, VFunc1<T> loop) {
+                return Core.For(i, condition, increment, loop);
         }
 
         /**
@@ -958,7 +881,7 @@ public abstract class Style {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -969,10 +892,10 @@ public abstract class Style {
          * @param loop
          *                the loop takes in i and run and return a result
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        public static <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, RFunc1<R, T> loop) {
-                return (R) For(i, condition, increment, $(loop));
+        public static <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, RFunc1<R, T> loop) {
+                return Core.For(i, condition, increment, loop);
         }
 
         /**
@@ -981,7 +904,7 @@ public abstract class Style {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -993,11 +916,10 @@ public abstract class Style {
          *                the loop takes in i and loop info and run without
          *                results
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        @SuppressWarnings("unchecked")
-        public static <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, VFunc2<T, LoopInfo<R>> loop) {
-                return (R) For(i, condition, increment, $(loop));
+        public static <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, VFunc2<T, LoopInfo<R>> loop) {
+                return Core.For(i, condition, increment, loop);
         }
 
         /**
@@ -1006,7 +928,7 @@ public abstract class Style {
          * Check <a href="https://github.com/wkgcass/Style">tutorial</a> for
          * more info about 'last loop value'<br>
          * This method simply invokes
-         * {@link #For(Object, Predicate, UnaryOperator, def)}
+         * {@link #For(Object, RFunc1, UnaryOperator, def)}
          * 
          * @param i
          *                init value
@@ -1018,10 +940,10 @@ public abstract class Style {
          *                the loop takes in i and loop info and run and return a
          *                result
          * @return last not null loop value
-         * @see #For(Object, Predicate, UnaryOperator, def)
+         * @see #For(Object, RFunc1, UnaryOperator, def)
          */
-        public static <T, R> R For(T i, Predicate<T> condition, UnaryOperator<T> increment, RFunc2<R, T, LoopInfo<R>> loop) {
-                return (R) For(i, condition, increment, $(loop));
+        public static <T, R> R For(T i, RFunc1<Boolean, T> condition, UnaryOperator<T> increment, RFunc2<R, T, LoopInfo<R>> loop) {
+                return Core.For(i, condition, increment, loop);
         }
 
         /**
@@ -1034,7 +956,7 @@ public abstract class Style {
          * @see ForSupport
          */
         public static <N extends Number> ForSupport<N> For(N start) {
-                return new ForSupport<N>(start);
+                return Core.For(start);
         }
 
         /**
@@ -1049,7 +971,7 @@ public abstract class Style {
          * @see #For(Number)
          */
         public static <N extends Number> ForSupport<N> from(N start) {
-                return new ForSupport<N>(start);
+                return Core.from(start);
         }
 
         // while
@@ -1063,92 +985,58 @@ public abstract class Style {
          *                the loop to run
          * @return loop result
          */
-        public static <R> R While(BooleanSupplier condition, def<R> loop) {
-                R res = null;
-                LoopInfo<R> info = new LoopInfo<>();
-                int currentIndex = 0;
-                int effectiveIndex = 0;
-                while (condition.getAsBoolean()) {
-                        try {
-                                R tmpRes;
-                                tmpRes = loop.apply(info.setValues(currentIndex, effectiveIndex, res));
-                                if (tmpRes != null) {
-                                        res = tmpRes;
-                                        ++effectiveIndex;
-                                }
-                        } catch (Throwable e) {
-                                if (e instanceof StyleRuntimeException) {
-                                        Throwable origin = ((StyleRuntimeException) e).origin();
-                                        if (origin instanceof Break) {
-                                                break;
-                                        } else if (origin instanceof Continue) {
-                                                continue;
-                                        } else if (origin instanceof BreakWithResult) {
-                                                res = ((BreakWithResult) origin).getRes();
-                                                break;
-                                        } else {
-                                                throw ((StyleRuntimeException) e);
-                                        }
-                                } else {
-                                        throw $(e);
-                                }
-                        } finally {
-                                ++currentIndex;
-                        }
-                }
-                return res;
+        public static <R> R While(RFunc0<Boolean> condition, def<R> loop) {
+                return Core.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop to run without results
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        @SuppressWarnings("unchecked")
-        public static <R> R While(BooleanSupplier condition, VFunc0 loop) {
-                return While(condition, (def<R>) $(loop));
+        public static <R> R While(RFunc0<Boolean> condition, VFunc0 loop) {
+                return Core.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop to run and return a result
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        public static <R> R While(BooleanSupplier condition, RFunc0<R> loop) {
-                return While(condition, $(loop));
+        public static <R> R While(RFunc0<Boolean> condition, RFunc0<R> loop) {
+                return Core.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
          * @param loop
          *                the loop takes in loop info and run without results
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        @SuppressWarnings("unchecked")
-        public static <R> R While(BooleanSupplier condition, VFunc1<LoopInfo<R>> loop) {
-                return While(condition, (def<R>) $(loop));
+        public static <R> R While(RFunc0<Boolean> condition, VFunc1<LoopInfo<R>> loop) {
+                return Core.While(condition, loop);
         }
 
         /**
          * Enhanced While expression with return value<br>
-         * It simply invokes {@link #While(BooleanSupplier, def)}
+         * It simply invokes {@link #While(RFunc0, def)}
          * 
          * @param condition
          *                only when conditon return true, the loop goes on
@@ -1156,10 +1044,10 @@ public abstract class Style {
          *                the loop takes in loop info and run and return a
          *                result
          * @return loop result
-         * @see #While(BooleanSupplier, def)
+         * @see #While(RFunc0, def)
          */
-        public static <R> R While(BooleanSupplier condition, RFunc1<R, LoopInfo<R>> loop) {
-                return While(condition, $(loop));
+        public static <R> R While(RFunc0<Boolean> condition, RFunc1<R, LoopInfo<R>> loop) {
+                return Core.While(condition, loop);
         }
 
         // switch
@@ -1177,7 +1065,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T> SwitchBlock<T, T> Switch(T t) {
-                return Switch(t, $.eqlFunc);
+                return Core.Switch(t);
         }
 
         /**
@@ -1197,7 +1085,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T> SwitchBlock<T, T> Switch(T t, RFunc2<Boolean, T, T> method) {
-                return Switch(t, $(method));
+                return Core.Switch(t, method);
         }
 
         /**
@@ -1217,7 +1105,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T> SwitchBlock<T, T> Switch(T t, def<Boolean> method) {
-                return new SwitchBlock<T, T>(t, method);
+                return Core.Switch(t, method);
         }
 
         /**
@@ -1235,7 +1123,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T, R> SwitchBlock<T, R> Switch(T t, Class<R> cls) {
-                return Switch(t, cls, $.eqlFunc);
+                return Core.Switch(t, cls);
         }
 
         /**
@@ -1256,7 +1144,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T, R> SwitchBlock<T, R> Switch(T t, Class<R> cls, RFunc2<Boolean, T, T> method) {
-                return Switch(t, cls, $(method));
+                return Core.Switch(t, cls, method);
         }
 
         /**
@@ -1277,7 +1165,7 @@ public abstract class Style {
          * @see SwitchBlock
          */
         public static <T, R> SwitchBlock<T, R> Switch(T t, Class<R> cls, def<Boolean> method) {
-                return new SwitchBlock<T, R>(t, method);
+                return Core.Switch(t, cls, method);
         }
 
         // if
@@ -1299,7 +1187,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, T val) {
-                return If(init, () -> val);
+                return Core.If(init, val);
         }
 
         /**
@@ -1320,7 +1208,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, RFunc1<T, INIT> body) {
-                return If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1340,9 +1228,8 @@ public abstract class Style {
          *         {@link IfBlock#Else(def)}
          * @see IfBlock
          */
-        @SuppressWarnings("unchecked")
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, VFunc1<INIT> body) {
-                return (IfBlock<T, INIT>) If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1362,7 +1249,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, RFunc0<T> body) {
-                return If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1381,9 +1268,8 @@ public abstract class Style {
          *         {@link IfBlock#Else(def)}
          * @see IfBlock
          */
-        @SuppressWarnings("unchecked")
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, VFunc0 body) {
-                return (IfBlock<T, INIT>) If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1403,7 +1289,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(INIT init, def<T> body) {
-                return new IfBlock<>(() -> init, body);
+                return Core.If(init, body);
         }
 
         /**
@@ -1423,7 +1309,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, T val) {
-                return If(init, () -> val);
+                return Core.If(init, val);
         }
 
         /**
@@ -1444,7 +1330,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, RFunc1<T, INIT> body) {
-                return If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1464,9 +1350,8 @@ public abstract class Style {
          *         {@link IfBlock#Else(def)}
          * @see IfBlock
          */
-        @SuppressWarnings("unchecked")
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, VFunc1<INIT> body) {
-                return (IfBlock<T, INIT>) If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1486,7 +1371,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, RFunc0<T> body) {
-                return If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1505,9 +1390,8 @@ public abstract class Style {
          *         {@link IfBlock#Else(def)}
          * @see IfBlock
          */
-        @SuppressWarnings("unchecked")
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, VFunc0 body) {
-                return (IfBlock<T, INIT>) If(init, $(body));
+                return Core.If(init, body);
         }
 
         /**
@@ -1527,7 +1411,7 @@ public abstract class Style {
          * @see IfBlock
          */
         public static <T, INIT> IfBlock<T, INIT> If(RFunc0<INIT> init, def<T> body) {
-                return new IfBlock<>(init, body);
+                return Core.If(init, body);
         }
 
         // ┌─────────────────────────────────┐
@@ -1547,11 +1431,7 @@ public abstract class Style {
          * @see StyleRuntimeException
          */
         public static StyleRuntimeException $(Throwable t) {
-                if (t instanceof StyleRuntimeException) {
-                        return (StyleRuntimeException) t;
-                } else {
-                        return new StyleRuntimeException(t);
-                }
+                return Core.$(t);
         }
 
         // ┌─────────────────────────────────┐
@@ -1571,7 +1451,7 @@ public abstract class Style {
          * @see JSONLike
          */
         public static <K, V> JSONLike<K, V> map(K key, V value) {
-                return new JSONLike<K, V>(key, value);
+                return Aggregation.map(key, value);
         }
 
         /**
@@ -1591,16 +1471,7 @@ public abstract class Style {
          * @see JSONLike
          */
         public static JSONLike<String, Object> map(Object[] json) {
-                if (json.length % 2 != 0 || json.length == 0) {
-                        throw new RuntimeException("Wrong json format");
-                }
-                JSONLike<String, Object> map = new JSONLike<String, Object>(json[0].toString(), json[1]);
-                for (int i = 2; i < json.length; i += 2) {
-                        String key = json[i].toString();
-                        Object value = json[i + 1];
-                        map.$(key, value);
-                }
-                return map;
+                return Aggregation.map(json);
         }
 
         // date
@@ -1614,7 +1485,7 @@ public abstract class Style {
          * @see DateFuncSup
          */
         public static DateFuncSup $(Date date) {
-                return new DateFuncSup(date);
+                return Utils.$(date);
         }
 
         // regex
@@ -1628,7 +1499,7 @@ public abstract class Style {
          * @see RegEx
          */
         public static RegEx regex(String regex) {
-                return new RegEx(regex);
+                return Utils.regex(regex);
         }
 
         // comparable
@@ -1648,7 +1519,7 @@ public abstract class Style {
          * @see ComparableFuncSup
          */
         public static <T> ComparableFuncSup<T> $(Comparable<T> comparable) {
-                return new ComparableFuncSup<>(comparable);
+                return Utils.$(comparable);
         }
 
         // rand
@@ -1661,7 +1532,7 @@ public abstract class Style {
          * @return random integer
          */
         public static int rand(int start, int end) {
-                return (int) (Math.random() * (end - start + 1)) + start;
+                return Utils.rand(start, end);
         }
 
         /**
@@ -1672,7 +1543,7 @@ public abstract class Style {
          * @return random double
          */
         public static double rand(double start, double end) {
-                return Math.random() * (end - start) + start;
+                return Utils.rand(start, end);
         }
 
         /**
@@ -1682,7 +1553,7 @@ public abstract class Style {
          * @return random integer
          */
         public static int rand(int max) {
-                return (int) (Math.random() * (max + 1));
+                return Utils.rand(max);
         }
 
         /**
@@ -1692,7 +1563,7 @@ public abstract class Style {
          * @return random double
          */
         public static double rand(double max) {
-                return Math.random() * max;
+                return Utils.rand(max);
         }
 
         /**
@@ -1713,27 +1584,7 @@ public abstract class Style {
          * @return random string serial
          */
         public static String rand(String chooseFrom, int length, boolean unrepeatable, boolean ignoreCase) {
-                if (length > chooseFrom.length() && unrepeatable) {
-                        throw new RuntimeException("unrepeatable but length > chooseFrom.length");
-                }
-                StringBuilder sb = new StringBuilder();
-                ptr<String> $chooseFrom = ptr(chooseFrom);
-                For(1).to(length).loop(i -> {
-                        char c = $chooseFrom.item.charAt(rand($chooseFrom.item.length() - 1));
-                        while (sb.indexOf("" + c) != -1 && unrepeatable) {
-                                c = $chooseFrom.item.charAt(rand(chooseFrom.length() - 1));
-                        }
-                        sb.append(c);
-                        if (unrepeatable) {
-                                if (ignoreCase) {
-                                        $chooseFrom.item = $chooseFrom.item.replace(("" + c).toLowerCase(), "");
-                                        $chooseFrom.item = $chooseFrom.item.replace(("" + c).toUpperCase(), "");
-                                } else {
-                                        $chooseFrom.item = $chooseFrom.item.replace(("" + c), "");
-                                }
-                        }
-                });
-                return sb.toString();
+                return Utils.rand(chooseFrom, length, unrepeatable, ignoreCase);
         }
 
         /**
@@ -1750,7 +1601,7 @@ public abstract class Style {
          * @return random string serial
          */
         public static String rand(String chooseFrom, int length, boolean unrepeatable) {
-                return rand(chooseFrom, length, unrepeatable, false);
+                return Utils.rand(chooseFrom, length, unrepeatable, false);
         }
 
         /**
@@ -1764,7 +1615,7 @@ public abstract class Style {
          * @return random string serial
          */
         public static String rand(String chooseFrom, int length) {
-                return rand(chooseFrom, length, false, false);
+                return Utils.rand(chooseFrom, length);
         }
 
         /**
@@ -1775,7 +1626,7 @@ public abstract class Style {
          * @see LoopInfo
          */
         public static int $(LoopInfo<?> info) {
-                return info.currentIndex;
+                return Core.$(info);
         }
 
         /**
@@ -1787,7 +1638,7 @@ public abstract class Style {
          * @see StringFuncSup
          */
         public static StringFuncSup $(String base) {
-                return new StringFuncSup(base);
+                return Utils.$(base);
         }
 
         /**
@@ -1816,35 +1667,8 @@ public abstract class Style {
          *                the type to convert to
          * @return object of converted type
          */
-        @SuppressWarnings("unchecked")
         public static <T> T imp(Object o, Class<T> cls) {
-                Method m;
-                try {
-                        m = o.getClass().getMethod("to" + cls.getSimpleName(), new Class[0]);
-                        if (m.getReturnType() != cls) {
-                                throw new RuntimeException("Invalid implicit type conversion definition. Return type mismatch");
-                        }
-                        m.setAccessible(true);
-                        return (T) m.invoke(o, new Object[0]);
-                } catch (NoSuchMethodException e) {
-                        try {
-                                m = cls.getMethod("from", o.getClass());
-                                if (m.getReturnType() != cls) {
-                                        throw new RuntimeException("Invalid implicit type conversion definition. Return type mismatch");
-                                } else if (!Modifier.isStatic(m.getModifiers())) {
-                                        throw new RuntimeException(
-                                                        "Invalid implicit type conversion definition. Method starts with 'from' should be static.");
-                                }
-                                m.setAccessible(true);
-                                return (T) m.invoke(null, o);
-                        } catch (NoSuchMethodException e1) {
-                                throw new RuntimeException("No implicit type conversion definition.");
-                        } catch (Exception e1) {
-                                throw $(e1);
-                        }
-                } catch (Exception e) {
-                        throw $(e);
-                }
+                return Core.imp(o, cls);
         }
 
         /**
@@ -1859,14 +1683,22 @@ public abstract class Style {
          * @return value of which null has been avoided
          */
         public static <T> T avoidNull(T t, RFunc0<T> Default) {
-                if (t == null)
-                        try {
-                                return Default.apply();
-                        } catch (Throwable throwable) {
-                                throw $(throwable);
-                        }
-                else
-                        return t;
+                return Core.avoidNull(t, Default);
+        }
+
+        /**
+         * Avoid null values.<br>
+         * firstly check the first argument, if it's null, invoke the the second
+         * argument (lambda expression), otherwise return the first argument.
+         * 
+         * @param t
+         *                the value to be checked
+         * @param Default
+         *                return its value if $t is null
+         * @return value of which null has been avoided
+         */
+        public static <T> T avoidNull(T t, T Default) {
+                return Core.avoidNull(t, Default);
         }
 
         // ┌─────────────────────────────────┐
@@ -1882,7 +1714,7 @@ public abstract class Style {
          * @see ClassSup
          */
         public static <T> ClassSup<T> cls(Class<T> cls) {
-                return new ClassSup<>(cls);
+                return Reflect.cls(cls);
         }
 
         /**
@@ -1893,13 +1725,8 @@ public abstract class Style {
          * @return Class supporter
          * @see ClassSup
          */
-        @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(String clsName) {
-                try {
-                        return (ClassSup<T>) cls(Class.forName(clsName));
-                } catch (Exception e) {
-                        throw $(e);
-                }
+                return Reflect.cls(clsName);
         }
 
         /**
@@ -1910,9 +1737,8 @@ public abstract class Style {
          * @return Class supporter
          * @see ClassSup
          */
-        @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(T obj) {
-                return (ClassSup<T>) cls(obj.getClass());
+                return Reflect.cls(obj);
         }
 
         /**
@@ -1927,9 +1753,8 @@ public abstract class Style {
          * @see InvocationHandler
          * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
          */
-        @SuppressWarnings("unchecked")
         public static <T> T proxy(InvocationHandler handler, T toProxy) {
-                return (T) Proxy.newProxyInstance(toProxy.getClass().getClassLoader(), toProxy.getClass().getInterfaces(), handler);
+                return Reflect.proxy(handler, toProxy);
         }
 
         /**
@@ -1945,25 +1770,8 @@ public abstract class Style {
          * @see ProxyHandler
          * @see Proxy#newProxyInstance(ClassLoader, Class[], InvocationHandler)
          */
-        @SuppressWarnings("unchecked")
         public static <P> P proxy(ProxyHandler<P> proxyHandler) {
-                List<MethodSupport<?, ProxyHandler<P>>> methods = cls(proxyHandler).allMethods();
-                P toProxy = proxyHandler.target;
-
-                return (P) Proxy.newProxyInstance(toProxy.getClass().getClassLoader(), toProxy.getClass().getInterfaces(), (p, m, args) -> {
-                        return If($(methods).forEach(e -> {
-                                if (e.name().equals(m.getName()) && e.argCount() == m.getParameterCount()
-                                                && avoidNull($(m.getParameterTypes()).forEach((pt, i) -> {
-                                        if (!pt.isAssignableFrom(e.argTypes()[$(i)]))
-                                                return BreakWithResult(false);
-                                        else
-                                                return true;
-                                }), () -> true))
-                                        return BreakWithResult(e);
-                                else
-                                        return null;
-                        }), res -> (Object) res.invoke(proxyHandler, args)).Else(() -> m.invoke(toProxy, args));
-                });
+                return Reflect.proxy(proxyHandler);
         }
 
         /**
@@ -1990,24 +1798,23 @@ public abstract class Style {
          * @return read-only object(dynamic proxy supported)
          */
         public static <R> R readOnly(R toReadOnly) {
-                return proxy((p, m, args) -> {
-                        return If($($.readOnlyToSearch).forEach(s -> {
-                                if (m.getName().contains(s))
-                                        return BreakWithResult(m);
-                                else
-                                        return null;
-                        }), rm -> {
-                                if (rm.isAnnotationPresent(ReadOnly.class))
-                                        return m.invoke(toReadOnly, args);
-                                else
-                                        throw new ModifyReadOnlyException(toReadOnly, m);
-                        }).Else(() -> {
-                                if (m.isAnnotationPresent(Writable.class))
-                                        throw new ModifyReadOnlyException(toReadOnly, m);
-                                else
-                                        return m.invoke(toReadOnly, args);
-                        });
-                } , toReadOnly);
+                return Reflect.readOnly(toReadOnly);
+        }
+
+        /**
+         * Join lists into one, the joined list's elements are in order of
+         * argument order and original lists' element order<br>
+         * you cannot modify the returned joined list's size.<br>
+         * in other words, the joined list doesn't support methods like add,
+         * remove, addAll, retainAll, removeAll...
+         * 
+         * @param toJoin
+         *                the lists to join
+         * @return a joined list
+         */
+        @SafeVarargs
+        public static <T> List<T> join(List<T>... toJoin) {
+                return Aggregation.join(toJoin);
         }
 
 }

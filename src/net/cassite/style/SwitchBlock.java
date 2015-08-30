@@ -38,7 +38,7 @@ public class SwitchBlock<T, R> extends Style {
          */
         public SwitchBlock<T, R> Case(T ca, def<R> func) {
                 if (!found) {
-                        if (method.apply(toSwitch, ca)) {
+                        if (method.applyCheckPrimitive(boolean.class, toSwitch, ca)) {
                                 res = func.apply();
                                 found = true;
                         }

@@ -1,5 +1,7 @@
 package net.cassite.style;
 
+import net.cassite.style.control.BreakWithResult;
+import net.cassite.style.control.IterationControl;
 import net.cassite.style.interfaces.*;
 
 /**
@@ -150,77 +152,161 @@ public class ForSupport<N extends Number> extends Style {
                 @SuppressWarnings("unchecked")
                 public <R> R loop(def<R> doLoop) {
                         if (start instanceof Integer) {
+                                if (((Integer) start).compareTo((Integer) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Integer) start).compareTo((Integer) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Integer(-1);
+                                        } else if ((int) step > 0) {
+                                                return null;
                                         }
                                         return For((Integer) start, i -> i.compareTo((Integer) end) >= 0, i -> i + (Integer) step, doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Integer(1);
+                                        } else if ((int) step < 0) {
+                                                return null;
                                         }
                                         return For((Integer) start, i -> i.compareTo((Integer) end) <= 0, i -> i + (Integer) step, doLoop);
                                 }
                         } else if (start instanceof Double) {
+                                if (((Double) start).compareTo((Double) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Double) start).compareTo((Double) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Double(-1);
+                                        } else if ((double) step > 0) {
+                                                return null;
                                         }
                                         return For((Double) start, i -> i.compareTo((Double) end) >= 0, i -> i + (Double) step, doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Double(1);
+                                        } else if ((double) step < 0) {
+                                                return null;
                                         }
                                         return For((Double) start, i -> i.compareTo((Double) end) <= 0, i -> i + (Double) step, doLoop);
                                 }
                         } else if (start instanceof Long) {
+                                if (((Long) start).compareTo((Long) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Long) start).compareTo((Long) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Long(-1);
+                                        } else if ((long) step > 0) {
+                                                return null;
                                         }
                                         return For((Long) start, i -> i.compareTo((Long) end) >= 0, i -> i + (Long) step, doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Long(1);
+                                        } else if ((long) step < 0) {
+                                                return null;
                                         }
                                         return For((Long) start, i -> i.compareTo((Long) end) <= 0, i -> i + (Long) step, doLoop);
                                 }
                         } else if (start instanceof Short) {
+                                if (((Short) start).compareTo((Short) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Short) start).compareTo((Short) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Short((short) -1);
+                                        } else if ((short) step > 0) {
+                                                return null;
                                         }
                                         return For((Short) start, i -> i.compareTo((Short) end) >= 0,
                                                         i -> (short) (i.shortValue() + step.shortValue()), doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Short((short) 1);
+                                        } else if ((short) step < 0) {
+                                                return null;
                                         }
                                         return For((Short) start, i -> i.compareTo((Short) end) <= 0,
                                                         i -> (short) (i.shortValue() + step.shortValue()), doLoop);
                                 }
                         } else if (start instanceof Float) {
+                                if (((Float) start).compareTo((Float) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Float) start).compareTo((Float) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Float(-1);
+                                        } else if ((float) step > 0) {
+                                                return null;
                                         }
                                         return For((Float) start, i -> i.compareTo((Float) end) >= 0, i -> i + (Float) step, doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Float(1);
+                                        } else if ((float) step < 0) {
+                                                return null;
                                         }
                                         return For((Float) start, i -> i.compareTo((Float) end) <= 0, i -> i + (Float) step, doLoop);
                                 }
                         } else if (start instanceof Byte) {
+                                if (((Byte) start).compareTo((Byte) end) == 0) {
+                                        try {
+                                                return doLoop.apply(start, new LoopInfo<>().setValues(0, 0, null));
+                                        } catch (StyleRuntimeException ctrl) {
+                                                ctrl.throwNotIn(IterationControl.class);
+                                                if (ctrl.origin() instanceof BreakWithResult)
+                                                        return ((BreakWithResult) ctrl.origin()).getRes();
+                                                return null;
+                                        }
+                                }
                                 if (((Byte) start).compareTo((Byte) end) > 0) {
                                         if (null == step) {
                                                 step = (N) new Byte((byte) -1);
+                                        } else if ((byte) step > 0) {
+                                                return null;
                                         }
                                         return For((Byte) start, i -> i.compareTo((Byte) end) >= 0, i -> (byte) (i.byteValue() + step.byteValue()),
                                                         doLoop);
                                 } else {
                                         if (null == step) {
                                                 step = (N) new Byte((byte) 1);
+                                        } else if ((byte) step < 0) {
+                                                return null;
                                         }
                                         return For((Byte) start, i -> i.compareTo((Byte) end) <= 0, i -> (byte) (i.byteValue() + step.byteValue()),
                                                         doLoop);

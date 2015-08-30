@@ -42,17 +42,20 @@ Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com
 And pls execuse me for my poor english...
 
 #Update
-1.0.1 --> 1.0.2
+1.0.2 --> 1.1.1
 
-* Now Enhanced If expression can receive lambda as its first argument.
-* functions can receive more or less values than its argument length.
-* StringFuncSup.fill has changed to directly invoking Message.fill
-* Dynamic Proxy Simplify
-* Read-Only objects
-* use arrays to simulate JSON and generate a map
-* Document Revision
-* BUG solved:
-	* Async.onError or AsyncGroup.onError used to have a chance to lock current thread forever in few cases.
+* detailed function classify. Now you can use **Core/Aggregation/Utils/Reflect** to access different functions in different modules. Still **Style** and **var** contain all functions provided in Style functional programming toolbox.
+
+* a new method for class *def*. Now you can invoke 
+
+ 		def.applyCheckPrimitive(Class<?> primitive, Object... args)
+ 		
+ to automatically turn null values into primitive initial values.  
+ e.g. boolean-->false, int-->0, long-->0L, ...
+ 
+* Aggregation supports a new method. Now you can **join** multiple lists into one.
+* ClassSup adds a new method. Now you can retrieve setters in the form of MethodSupport.
+* More methods are now provided in Reflection module.
 
 #Directory
 
@@ -107,6 +110,7 @@ And pls execuse me for my poor english...
 	* Rand
 	* String
 	* JSON
+	* join
 * Appendix
 	* last loop result
 
@@ -131,6 +135,19 @@ And pls execuse me for my poor english...
 	e.g.
 	
 		Style.$(list).forEach(e->...);
+		
+4. Also, if you only need functions in one module, you can write this:
+
+		class YourClass extends Core
+		class YourClass extends Aggregation
+		class YourClass extends Utils
+		class YourClass extends Reflect
+		
+	or, you can use coding like this:
+	
+		Aggregation.$(list).findOne(e->...);
+		
+	>**Aggregation/Utils/Reflect** extends from **Core**
 		
 >The following turtorial are using *extends* method.
 
@@ -179,6 +196,13 @@ e.g.
 	// "arg" will be ignored
 	check.apply(list) 
 	// same as 'check.apply(list, null)'
+	
+Use applyCheckPrimitive to avoid null values when result is auto-unboxed.
+
+e.g.
+
+	def<Boolean> predicate = function(...);
+	boolean b = predicate.applyCheckPrimitive(boolean.class, arg);
 	
 ##Async, Await and Exception Handling
 
@@ -304,9 +328,6 @@ But there're 2 more methods to simplify writings using var:
 	<T> T var.$(Class<T>) // use this to force type conversion
 	
 ##Reflection
-This *Style* version(1.0.1) only support few new features about reflect.
-
-More features will come out in the next version.
 
 Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.style.reflect* for more info.
 
@@ -891,6 +912,15 @@ e.g. you can create a JSONLike object like this:
 		"sex"	, "male"
 	});
 >JSONLike extends LinkedHashMap
+
+##join
+Sometimes we need to sort elements in many lists but don't want to change each list's size. You can use **join**
+
+when you join lists, a proxy list will be generated, it doesn't support any methods that would cause the size changing. And all operations will be directly operate on proxyed lists.
+
+	List<T> joinedList = join(list1, list2, list3, list4, ...);
+	Collections.sort(joinedList);
+	// list1, list2, list3, list4, ... will be modified.
 			
 #Appendix
 

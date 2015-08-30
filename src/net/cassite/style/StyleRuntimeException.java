@@ -28,7 +28,7 @@ public class StyleRuntimeException extends RuntimeException {
          */
         public void throwIn(@SuppressWarnings("unchecked") Class<? extends Throwable>... classes) {
                 for (Class<? extends Throwable> cls : classes) {
-                        if (cls.isInstance(getCause())) {
+                        if (cls.isInstance(super.getCause())) {
                                 throw this;
                         }
                 }
@@ -44,7 +44,7 @@ public class StyleRuntimeException extends RuntimeException {
         public void throwNotIn(@SuppressWarnings("unchecked") Class<? extends Throwable>... classes) {
                 boolean toThrow = true;
                 for (Class<? extends Throwable> cls : classes) {
-                        if (cls.isInstance(getCause())) {
+                        if (cls.isInstance(super.getCause())) {
                                 toThrow = false;
                                 break;
                         }
