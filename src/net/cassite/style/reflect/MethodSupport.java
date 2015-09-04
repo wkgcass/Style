@@ -16,7 +16,7 @@ import net.cassite.style.Style;
  *                type of class this field resolves to
  */
 public class MethodSupport<R, ObjectType> extends Style implements MemberSup<Method> {
-        private Method method;
+        private final Method method;
 
         public Method getMember() {
                 return method;

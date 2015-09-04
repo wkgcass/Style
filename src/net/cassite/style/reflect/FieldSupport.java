@@ -16,7 +16,7 @@ import net.cassite.style.Style;
  *                type of class this field resolves to
  */
 public class FieldSupport<FieldType, ObjectType> extends Style implements MemberSup<Field> {
-        private Field f;
+        private final Field f;
 
         public Field getMember() {
                 return f;

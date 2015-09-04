@@ -42,18 +42,12 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 有任何问题，您可以随时通过[wkgcass@hotmail.com](mailto:wkgcass@hotmail.com)与我联系.  
 
 #更新内容
-1.0.2 --> 1.1.1
+1.1.1 --> 1.1.2
 
-* 详细的功能分类. 现在你可以使用 **Core/Aggregation/Utils/Reflect** 来获取特定模块下的功能. 不过 **Style** 和 **var** 依然包含所有Style函数式编程工具集的所有功能
-* 对*def*类增添了一个新方法，现在你可以使用
-		
-		def.applyCheckPrimitive(Class<?> primitive, Object... args)
-		
-  来自动将null值转化为基本类型的初始值。  
-  比如说 boolean-->false, int-->0, long-->0L, ...
-* 聚合模块(Aggregation)添加了一个新方法. 现在你可以把多个List **join** 在一起
-* ClassSup增加了一个新方法. 现在你可以获取一个类中所有的setter
-* 反射模块(Reflect)现在支持更多的功能
+* PathMapper
+	你可以使用PathMapper来存放只需要生成一次的对象
+* Reflect增强
+	现在，class,field,method,constructor的辅助对象均只生成一次
 
 #目录
 
@@ -917,7 +911,29 @@ g表示全局，i表示忽略大小写，m表示多行。
 	List<T> joinedList = join(list1, list2, list3, list4, ...);
 	Collections.sort(joinedList);
 	// list1, list2, list3, list4, ... will be modified.
+	
+##PathMapper
+将对象以“路径”的格式进行存储。  
+路径根据“.”分割。
 
+实际上是用ConcurrentHashMap实现的，  
+其中，真实存储的值对应的键为"$value"。
+
+put:
+
+	mapper.put("a.b.c", "i am a.b.c");
+
+或者
+
+	mapper.get("a.b", ()->"abc");
+	
+get:
+
+	mapper.get("a.b.c");
+
+用于存储的Map会变为
+	
+	{a={b={c={$value=i am a.b.c}, $value=abc}}}
 			
 #附录
 

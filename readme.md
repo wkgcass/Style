@@ -42,20 +42,12 @@ Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com
 And pls execuse me for my poor english...
 
 #Update
-1.0.2 --> 1.1.1
+1.1.1 --> 1.1.2
 
-* detailed function classify. Now you can use **Core/Aggregation/Utils/Reflect** to access different functions in different modules. Still **Style** and **var** contain all functions provided in Style functional programming toolbox.
-
-* a new method for class *def*. Now you can invoke 
-
- 		def.applyCheckPrimitive(Class<?> primitive, Object... args)
- 		
- to automatically turn null values into primitive initial values.  
- e.g. boolean-->false, int-->0, long-->0L, ...
- 
-* Aggregation supports a new method. Now you can **join** multiple lists into one.
-* ClassSup adds a new method. Now you can retrieve setters in the form of MethodSupport.
-* More methods are now provided in Reflection module.
+* PathMapper
+	You can use PathMapper to store those objects that generate only once.
+* Reflect enhancing
+	Now, supporting classes of classes, fields, methods, constructors only generate once.
 
 #Directory
 
@@ -921,6 +913,29 @@ when you join lists, a proxy list will be generated, it doesn't support any meth
 	List<T> joinedList = join(list1, list2, list3, list4, ...);
 	Collections.sort(joinedList);
 	// list1, list2, list3, list4, ... will be modified.
+
+##PathMapper
+Store objects in the format of 'path'  
+The paths are separated by '.'
+
+It's based on ConcurrentHashMap,    
+keys of the values to store are '$value'.
+
+put:
+
+	mapper.put("a.b.c", "i am a.b.c");
+
+or
+
+	mapper.get("a.b", ()->"abc");
+	
+get:
+
+	mapper.get("a.b.c");
+
+The based map would be:
+	
+	{a={b={c={$value=i am a.b.c}, $value=abc}}}
 			
 #Appendix
 

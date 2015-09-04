@@ -4,10 +4,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.cassite.style.Style;
 import net.cassite.style.aggregation.A1FuncSup;
+import net.cassite.style.util.PathMapper;
 
 /**
  * Supporter for Class objects
@@ -17,7 +19,8 @@ import net.cassite.style.aggregation.A1FuncSup;
  * @param <T>
  */
 public class ClassSup<T> extends Style {
-        private Class<T> cls;
+        private final Class<T> cls;
+        private final PathMapper mapper = new PathMapper();
 
         /**
          * retrieve the supported Class object
@@ -128,7 +131,7 @@ public class ClassSup<T> extends Style {
          */
         public ConstructorSup<T> constructor(Class<?>... argTypes) {
                 try {
-                        return new ConstructorSup<>(cls.getConstructor(argTypes));
+                        return mapper.get("constructors." + Arrays.toString(argTypes), () -> new ConstructorSup<>(cls.getConstructor(argTypes)));
                 } catch (Exception e) {
                         throw $(e);
                 }
@@ -162,14 +165,14 @@ public class ClassSup<T> extends Style {
          */
         public <F> FieldSupport<F, T> field(String name, Class<F> type) {
                 net.cassite.style.ptr<Class<?>> clazz = ptr(cls);
-                return new FieldSupport<F, T>(While(() -> $(clazz) != Object.class, () -> {
+                return mapper.get("fields." + name, () -> new FieldSupport<F, T>(While(() -> $(clazz) != Object.class, () -> {
                         try {
                                 return BreakWithResult(cls.getDeclaredField(name));
                         } catch (NoSuchFieldException e) {
                                 $(clazz, $(clazz).getSuperclass());
                                 return Continue();
                         }
-                }), type, cls);
+                }), type, cls));
         }
 
         /**
@@ -187,7 +190,7 @@ public class ClassSup<T> extends Style {
                                         BreakWithResult(false);
                                 return true;
                         }), () -> true), e -> {
-                                list.add(new FieldSupport<>(e, Object.class, cls));
+                                list.add(mapper.get("fields." + e.getName(), () -> new FieldSupport<>(e, Object.class, cls)));
                         });
                         $(clazz, $(clazz).getSuperclass());
                         return list;
@@ -208,14 +211,15 @@ public class ClassSup<T> extends Style {
          */
         public <R> MethodSupport<R, T> method(String name, Class<R> returnType, Class<?>... argTypes) {
                 net.cassite.style.ptr<Class<?>> clazz = ptr(cls);
-                return new MethodSupport<R, T>(While(() -> $(clazz) != Object.class, () -> {
-                        try {
-                                return BreakWithResult(cls.getDeclaredMethod(name, argTypes));
-                        } catch (NoSuchMethodException e) {
-                                $(clazz, $(clazz).getSuperclass());
-                                return Continue();
-                        }
-                }), returnType, cls);
+                return mapper.get("methods." + name + Arrays.toString(argTypes),
+                                () -> new MethodSupport<R, T>(While(() -> $(clazz) != Object.class, () -> {
+                                        try {
+                                                return BreakWithResult(cls.getDeclaredMethod(name, argTypes));
+                                        } catch (NoSuchMethodException e) {
+                                                $(clazz, $(clazz).getSuperclass());
+                                                return Continue();
+                                        }
+                                }), returnType, cls));
         }
 
         /**
@@ -238,7 +242,8 @@ public class ClassSup<T> extends Style {
                                         BreakWithResult(false);
                                 return true;
                         }), () -> true), e -> {
-                                list.add(new MethodSupport<>(e, Object.class, cls));
+                                list.add(mapper.get("methods." + e.getName() + Arrays.toString(e.getParameterTypes()),
+                                                () -> new MethodSupport<>(e, Object.class, cls)));
                         });
                         $(clazz, $(clazz).getSuperclass());
                         return list;
@@ -383,7 +388,8 @@ public class ClassSup<T> extends Style {
         @SuppressWarnings("unchecked")
         public List<ConstructorSup<T>> constructors() {
                 List<ConstructorSup<T>> toReturn = new ArrayList<>();
-                $(cls.getDeclaredConstructors()).forEach(c -> toReturn.add(new ConstructorSup<T>((Constructor<T>) c)));
+                $(cls.getDeclaredConstructors()).forEach(c -> toReturn.add(mapper.get("constructors." + Arrays.toString(c.getParameterTypes()),
+                                () -> new ConstructorSup<T>((Constructor<T>) c))));
                 return toReturn;
         }
 

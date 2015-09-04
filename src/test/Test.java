@@ -16,6 +16,7 @@ import net.cassite.style.def;
 import net.cassite.style.var;
 import net.cassite.style.reflect.ClassSup;
 import net.cassite.style.reflect.ProxyHandler;
+import net.cassite.style.util.PathMapper;
 
 public class Test implements var {
 
@@ -325,6 +326,9 @@ public class Test implements var {
                 ClassSup<ArrayList> cls = cls(ArrayList.class);
 
                 System.out.println(cls.field("serialVersionUID", Long.class).get(null));
+
+                System.out.println(cls.field("serialVersionUID", Long.class) == cls.field("serialVersionUID", Long.class));
+
                 @SuppressWarnings("unchecked")
                 ArrayList<String> list = cls.constructor(int.class).newInstance(16);
                 list.add("test");
@@ -387,5 +391,13 @@ public class Test implements var {
                 System.out.println("排序");
                 Collections.sort(joined);
                 System.out.println(list0.toString() + list1 + list2 + list3 + list4 + list5);
+
+                System.out.println("Container");
+                PathMapper mapper = new PathMapper();
+                mapper.put("a.b.c", "i am a.b.c");
+                System.out.println((Object) mapper.get("a.b.c"));
+                System.out.println(mapper.getContainMap());
+                System.out.println((Object) mapper.get("a.b", () -> "abc"));
+                System.out.println(mapper.getContainMap());
         }
 }

@@ -16,7 +16,7 @@ import net.cassite.style.aggregation.A1FuncSup;
  *                The type of constructed objects
  */
 public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>> {
-        private Constructor<T> con;
+        private final Constructor<T> con;
 
         public Constructor<T> getMember() {
                 return con;

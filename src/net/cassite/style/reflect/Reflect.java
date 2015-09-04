@@ -9,8 +9,12 @@ import net.cassite.style.aggregation.Aggregation;
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;
 import net.cassite.style.reflect.readonly.ReadOnly;
 import net.cassite.style.reflect.readonly.Writable;
+import net.cassite.style.util.PathMapper;
 
 public abstract class Reflect extends Aggregation {
+
+        private static PathMapper mapper = new PathMapper();
+
         protected Reflect() {
 
         }
@@ -28,7 +32,7 @@ public abstract class Reflect extends Aggregation {
          * @see ClassSup
          */
         public static <T> ClassSup<T> cls(Class<T> cls) {
-                return new ClassSup<>(cls);
+                return mapper.get(cls.getName(), () -> new ClassSup<>(cls));
         }
 
         /**
@@ -42,7 +46,7 @@ public abstract class Reflect extends Aggregation {
         @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(String clsName) {
                 try {
-                        return (ClassSup<T>) cls(Class.forName(clsName));
+                        return mapper.get(clsName, () -> (ClassSup<T>) cls(Class.forName(clsName)));
                 } catch (Exception e) {
                         throw $(e);
                 }
@@ -58,7 +62,7 @@ public abstract class Reflect extends Aggregation {
          */
         @SuppressWarnings("unchecked")
         public static <T> ClassSup<T> cls(T obj) {
-                return (ClassSup<T>) cls(obj.getClass());
+                return mapper.get(obj.getClass().getName(), () -> (ClassSup<T>) cls(obj.getClass()));
         }
 
         /**
