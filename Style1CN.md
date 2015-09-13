@@ -48,6 +48,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	你可以使用PathMapper来存放只需要生成一次的对象
 * Reflect增强
 	现在，class,field,method,constructor的辅助对象均只生成一次
+* LoopInfo/IteratorInfo增加了一个方法，现在可以通过.initRes(R)来设置初始值。在lastRes为null时该方法会将lastRes设为指定值。但不会影响循环中记录的上次循环结果
 
 #目录
 

@@ -48,6 +48,7 @@ And pls execuse me for my poor english...
 	You can use PathMapper to store those objects that generate only once.
 * Reflect enhancing
 	Now, supporting classes of classes, fields, methods, constructors only generate once.
+* LoopInfo/IteratorInfo adds a method, now you can use .initRes(R) to set the initial value. The method will set lastRes to the given value if it is null. But it won't effect the recorded last loop result in Loops.
 
 #Directory
 

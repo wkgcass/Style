@@ -5,3 +5,4 @@ net.cassite.style.interfaces
 net.cassite.style.reflect
 net.cassite.style.reflect.readonly
 net.cassite.style.util
+net.cassite.style.util.lang
