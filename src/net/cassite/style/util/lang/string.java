@@ -1,10 +1,12 @@
-package net.cassite.style.util;
+package net.cassite.style.util.lang;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for strings
@@ -12,10 +14,22 @@ import net.cassite.style.Style;
  * @author wkgcass
  *
  */
-public class StringFuncSup extends Style {
+public class string {
         private String str;
 
-        StringFuncSup(String str) {
+        private static Map<String, string> map = new ConcurrentHashMap<String, string>();
+
+        public static string get(String str) {
+                if (map.containsKey(str)) {
+                        return map.get(str);
+                } else {
+                        string s = new string(str);
+                        map.put(str, s);
+                        return s;
+                }
+        }
+
+        private string(String str) {
                 this.str = str;
         }
 
@@ -100,5 +114,22 @@ public class StringFuncSup extends Style {
                 }
                 str = sb.toString();
                 return str;
+        }
+
+        @Override
+        public String toString() {
+                return str;
+        }
+
+        /**
+         * generate a new string object with a sequence appended to the end of
+         * current string
+         * 
+         * @param str
+         *                the string to append
+         * @return new string object
+         */
+        public string add(String str) {
+                return get(this.str + str);
         }
 }

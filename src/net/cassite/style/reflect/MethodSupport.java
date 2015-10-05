@@ -3,7 +3,7 @@ package net.cassite.style.reflect;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for methods
@@ -15,7 +15,7 @@ import net.cassite.style.Style;
  * @param <ObjectType>
  *                type of class this field resolves to
  */
-public class MethodSupport<R, ObjectType> extends Style implements MemberSup<Method> {
+public class MethodSupport<R, ObjectType> implements MemberSup<Method> {
         private final Method method;
 
         public Method getMember() {

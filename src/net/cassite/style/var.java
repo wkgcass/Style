@@ -23,7 +23,7 @@ import net.cassite.style.reflect.ProxyHandler;
 import net.cassite.style.util.ComparableFuncSup;
 import net.cassite.style.util.DateFuncSup;
 import net.cassite.style.util.RegEx;
-import net.cassite.style.util.StringFuncSup;
+import net.cassite.style.util.lang.string;
 
 /**
  * All functions in <b>Style tool box</b> are provided both in <b>Style</b> and
@@ -1643,9 +1643,9 @@ public interface var {
          * @param base
          *                the string to be supported
          * @return String supporter
-         * @see StringFuncSup
+         * @see string
          */
-        default StringFuncSup $(String base) {
+        default string $(String base) {
                 return Style.$(base);
         }
 

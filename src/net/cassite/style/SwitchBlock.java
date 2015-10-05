@@ -3,6 +3,8 @@ package net.cassite.style;
 import net.cassite.style.interfaces.RFunc0;
 import net.cassite.style.interfaces.VFunc0;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Supporter for switch expression<br>
  * Note that it doesn't support break, because it doesn't go through other cases
@@ -15,7 +17,7 @@ import net.cassite.style.interfaces.VFunc0;
  * @param <R>
  *                type of the return value of switch-expression
  */
-public class SwitchBlock<T, R> extends Style {
+public class SwitchBlock<T, R> {
         private final T toSwitch;
         private final def<Boolean> method;
         private R res;

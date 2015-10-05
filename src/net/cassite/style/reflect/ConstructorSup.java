@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 
 import net.cassite.style.$;
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 import net.cassite.style.aggregation.A1FuncSup;
 
 /**
@@ -15,7 +15,7 @@ import net.cassite.style.aggregation.A1FuncSup;
  * @param <T>
  *                The type of constructed objects
  */
-public class ConstructorSup<T> extends Style implements MemberSup<Constructor<T>> {
+public class ConstructorSup<T> implements MemberSup<Constructor<T>> {
         private final Constructor<T> con;
 
         public Constructor<T> getMember() {

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 import net.cassite.style.def;
 import net.cassite.style.interfaces.RFunc1;
 
@@ -16,7 +16,7 @@ import net.cassite.style.interfaces.RFunc1;
  * @author wkgcass
  * @see Date
  */
-public class DateFuncSup extends Style {
+public class DateFuncSup {
         public static class DateSeperator {
                 private long day;
                 private long hour;

@@ -6,6 +6,15 @@ import net.cassite.style.Core;
 import net.cassite.style.def;
 import net.cassite.style.ptr;
 import net.cassite.style.interfaces.VFunc0;
+import net.cassite.style.util.lang.MBoolean;
+import net.cassite.style.util.lang.MByte;
+import net.cassite.style.util.lang.MCharacter;
+import net.cassite.style.util.lang.MDouble;
+import net.cassite.style.util.lang.MFloat;
+import net.cassite.style.util.lang.MInteger;
+import net.cassite.style.util.lang.MLong;
+import net.cassite.style.util.lang.MShort;
+import net.cassite.style.util.lang.string;
 
 public abstract class Utils extends Core {
         protected Utils() {
@@ -182,10 +191,10 @@ public abstract class Utils extends Core {
          * @param base
          *                the string to be supported
          * @return String supporter
-         * @see StringFuncSup
+         * @see string
          */
-        public static StringFuncSup $(String base) {
-                return new StringFuncSup(base);
+        public static string $(String base) {
+                return string.get(base);
         }
 
         /**
@@ -214,5 +223,37 @@ public abstract class Utils extends Core {
                 });
                 t.start();
                 return t;
+        }
+
+        public static MInteger $(Integer n) {
+                return new MInteger(n);
+        }
+
+        public static MDouble $(Double n) {
+                return new MDouble(n);
+        }
+
+        public static MFloat $(Float n) {
+                return new MFloat(n);
+        }
+
+        public static MLong $(Long n) {
+                return new MLong(n);
+        }
+
+        public static MShort $(Short n) {
+                return new MShort(n);
+        }
+
+        public static MByte $(Byte n) {
+                return new MByte(n);
+        }
+
+        public static MCharacter $(Character c) {
+                return new MCharacter(c);
+        }
+
+        public static MBoolean $(Boolean b) {
+                return new MBoolean(b);
         }
 }

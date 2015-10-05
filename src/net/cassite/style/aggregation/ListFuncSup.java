@@ -9,6 +9,8 @@ import net.cassite.style.StyleRuntimeException;
 import net.cassite.style.def;
 import net.cassite.style.control.*;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Supporter of lists
  * 

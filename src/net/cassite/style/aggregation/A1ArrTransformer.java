@@ -1,7 +1,7 @@
 package net.cassite.style.aggregation;
 
 import net.cassite.style.def;
-import net.cassite.style.var;
+import static net.cassite.style.Style.*;
 import net.cassite.style.interfaces.RFunc1;
 
 /**
@@ -15,7 +15,7 @@ import net.cassite.style.interfaces.RFunc1;
  * @param <T>
  *                input array/iterable type
  */
-public interface A1ArrTransformer<R, T> extends var {
+public interface A1ArrTransformer<R, T> {
         /**
          * define the transform process
          * 

@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import net.cassite.style.$;
 import net.cassite.style.def;
-import net.cassite.style.var;
+import static net.cassite.style.Style.*;
 import net.cassite.style.interfaces.RFunc1;
 import net.cassite.style.interfaces.RFunc2;
 import net.cassite.style.interfaces.VFunc1;
@@ -19,7 +19,7 @@ import net.cassite.style.interfaces.VFunc2;
  * @param <T>
  *                element type of the array or iterable
  */
-public interface A1FuncSup<T> extends var {
+public interface A1FuncSup<T> {
         /**
          * define a function to deal with each element in the array/iterable
          * 

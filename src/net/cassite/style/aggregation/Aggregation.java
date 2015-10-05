@@ -1,6 +1,8 @@
 package net.cassite.style.aggregation;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -316,5 +318,23 @@ public abstract class Aggregation extends Core {
         @SafeVarargs
         public static <T> List<T> join(List<T>... toJoin) {
                 return new JoinedList<>(toJoin);
+        }
+
+        @SafeVarargs
+        public static <E> List<E> list(E... elements) {
+                List<E> toReturn = new ArrayList<E>();
+                $(elements).forEach(e -> {
+                        toReturn.add(e);
+                });
+                return toReturn;
+        }
+
+        @SafeVarargs
+        public static <E> java.util.Set<E> set(E... elements) {
+                java.util.Set<E> toReturn = new LinkedHashSet<E>();
+                $(elements).forEach(e -> {
+                        toReturn.add(e);
+                });
+                return toReturn;
         }
 }

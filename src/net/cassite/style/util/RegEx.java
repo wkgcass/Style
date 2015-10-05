@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 
 /**
  * A Reg expression supporter that simplifies usage of RegEx<br>
@@ -16,7 +16,7 @@ import net.cassite.style.Style;
  * @author wkgcass
  *
  */
-public class RegEx extends Style {
+public class RegEx {
         private Pattern p;
         private boolean isGlobal;
         private Map<String, Matcher> matchers = new HashMap<String, Matcher>();

@@ -1,7 +1,5 @@
 package net.cassite.style.reflect;
 
-import net.cassite.style.Style;
-
 /**
  * Use {@link Style#proxy(ProxyHandler)} with ProxyHandler to simplify Dynamic
  * Proxy creation.<br>
@@ -28,7 +26,7 @@ import net.cassite.style.Style;
  * @param <T>
  * @since 1.0.2
  */
-public abstract class ProxyHandler<T> extends Style {
+public abstract class ProxyHandler<T> {
         public T target;
 
         /**

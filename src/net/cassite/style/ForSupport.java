@@ -4,6 +4,8 @@ import net.cassite.style.control.BreakWithResult;
 import net.cassite.style.control.IterationControl;
 import net.cassite.style.interfaces.*;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Supporter for For-to-step expression
  * 
@@ -12,7 +14,7 @@ import net.cassite.style.interfaces.*;
  * @param <N>
  *                Start, End or Step number type
  */
-public class ForSupport<N extends Number> extends Style {
+public class ForSupport<N extends Number> {
         private N start;
 
         ForSupport(N start) {

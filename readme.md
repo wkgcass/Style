@@ -42,13 +42,12 @@ Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com
 And pls execuse me for my poor english...
 
 #Update
-1.1.1 --> 1.1.2
+1.1.2 --> 1.1.3
 
-* PathMapper
-	You can use PathMapper to store those objects that generate only once.
-* Reflect enhancing
-	Now, supporting classes of classes, fields, methods, constructors only generate once.
-* LoopInfo/IteratorInfo adds a method, now you can use .initRes(R) to set the initial value. The method will set lastRes to the given value if it is null. But it won't effect the recorded last loop result in Loops.
+* Tuple  
+	provides a scala-style tuple ranging 1 element to 7 elements
+* pointer  
+	Now, the *ptr* generates a proxy object if the given object has interface(s)
 
 #Directory
 
@@ -65,6 +64,7 @@ And pls execuse me for my poor english...
 		* Type Conversion
 		* Pointers
 		* var
+		* Tuple
 	* Reflection
 		* Class
 		* Constructor
@@ -303,6 +303,15 @@ Also, you can access the packed object using :
 	
 Pointers may be helpful when dealing with non-final variables using anoymous classes.
 
+If the given object has interface(s), a proxy object would automatically be generated.  
+Use 
+
+	p.proxy
+	
+to access the proxy object.
+
+*p.proxy* simply invokes methods on *p.item*, which looks exactly like what a pointer would do in C/C++.
+
 ###var
 var often appears in js,C#...
 
@@ -319,6 +328,31 @@ But there're 2 more methods to simplify writings using var:
 
 	<T> T var.$(); // use this when an method require type X
 	<T> T var.$(Class<T>) // use this to force type conversion
+
+###Tuple
+Tuples are offered since 1.1.3.  
+They are scala-style tuples, but with some convenient methods to use when needed.
+
+Use fields like *tuple._1* / *tuple._2* to get elements.  
+Use *tuple(e1, e2, ...) to create tuples
+
+There are 7 built in tuples  
+Tuple1, Tuple2, ... , Tuple7, all of them offer *_index* when accessing elements. (index starts at 1)  
+They all implement *interface Tuple*
+
+	interface Tuple{
+		<T> T $(int index); // retrieve element, starting with 1
+		int count(); // amount of elements in the tuple
+	}
+
+You can use $(index) to get same element as *_index*  
+and use count() as the end of an iteration.
+
+e.g.
+
+	for(int i=1;i<=tuple.count();++i){
+		...
+	}
 	
 ##Reflection
 

@@ -5,6 +5,8 @@ import net.cassite.style.interfaces.RFunc1;
 import net.cassite.style.interfaces.VFunc0;
 import net.cassite.style.interfaces.VFunc1;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Supporter for if expression
  * 
@@ -15,7 +17,7 @@ import net.cassite.style.interfaces.VFunc1;
  * @param <INIT>
  *                type of condition of if expression
  */
-public class IfBlock<T, INIT> extends Style {
+public class IfBlock<T, INIT> {
         private def<T> body;
         private final boolean procceed;
         private T val;

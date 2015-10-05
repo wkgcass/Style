@@ -3,7 +3,7 @@ package net.cassite.style.reflect;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for fields
@@ -15,7 +15,7 @@ import net.cassite.style.Style;
  * @param <ObjectType>
  *                type of class this field resolves to
  */
-public class FieldSupport<FieldType, ObjectType> extends Style implements MemberSup<Field> {
+public class FieldSupport<FieldType, ObjectType> implements MemberSup<Field> {
         private final Field f;
 
         public Field getMember() {

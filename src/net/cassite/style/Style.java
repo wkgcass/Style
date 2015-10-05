@@ -22,8 +22,16 @@ import net.cassite.style.reflect.Reflect;
 import net.cassite.style.util.ComparableFuncSup;
 import net.cassite.style.util.DateFuncSup;
 import net.cassite.style.util.RegEx;
-import net.cassite.style.util.StringFuncSup;
 import net.cassite.style.util.Utils;
+import net.cassite.style.util.lang.MBoolean;
+import net.cassite.style.util.lang.MByte;
+import net.cassite.style.util.lang.MCharacter;
+import net.cassite.style.util.lang.MDouble;
+import net.cassite.style.util.lang.MFloat;
+import net.cassite.style.util.lang.MInteger;
+import net.cassite.style.util.lang.MLong;
+import net.cassite.style.util.lang.MShort;
+import net.cassite.style.util.lang.string;
 
 /**
  * All functions in <b>Style tool box</b> are provided here.<br>
@@ -1635,9 +1643,9 @@ public abstract class Style {
          * @param base
          *                the string to be supported
          * @return String supporter
-         * @see StringFuncSup
+         * @see string
          */
-        public static StringFuncSup $(String base) {
+        public static string $(String base) {
                 return Utils.$(base);
         }
 
@@ -1815,6 +1823,48 @@ public abstract class Style {
         @SafeVarargs
         public static <T> List<T> join(List<T>... toJoin) {
                 return Aggregation.join(toJoin);
+        }
+
+        public static MInteger $(Integer n) {
+                return Utils.$(n);
+        }
+
+        public static MDouble $(Double n) {
+                return Utils.$(n);
+        }
+
+        public static MFloat $(Float n) {
+                return Utils.$(n);
+        }
+
+        public static MLong $(Long n) {
+                return Utils.$(n);
+        }
+
+        public static MShort $(Short n) {
+                return Utils.$(n);
+        }
+
+        public static MByte $(Byte n) {
+                return Utils.$(n);
+        }
+
+        public static MCharacter $(Character c) {
+                return Utils.$(c);
+        }
+
+        public static MBoolean $(Boolean b) {
+                return Utils.$(b);
+        }
+
+        @SafeVarargs
+        public static <E> List<E> list(E... elements) {
+                return Aggregation.list(elements);
+        }
+
+        @SafeVarargs
+        public static <E> java.util.Set<E> set(E... elements) {
+                return Aggregation.set(elements);
         }
 
 }

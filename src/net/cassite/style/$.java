@@ -13,6 +13,8 @@ import net.cassite.style.interfaces.RFunc1;
 import net.cassite.style.interfaces.RFunc2;
 import net.cassite.style.interfaces.VFunc1;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Constants that's usually used with <b>Style tool box</b><br>
  * Recommended context are provided, but they are not limited to those
@@ -21,7 +23,7 @@ import net.cassite.style.interfaces.VFunc1;
  * @author wkgcass
  *
  */
-public class $ extends Style {
+public class $ {
         private $() {
         }
 

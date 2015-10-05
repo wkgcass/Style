@@ -5,13 +5,13 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 
 import net.cassite.style.$;
-import net.cassite.style.aggregation.Aggregation;
+import static net.cassite.style.aggregation.Aggregation.*;
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;
 import net.cassite.style.reflect.readonly.ReadOnly;
 import net.cassite.style.reflect.readonly.Writable;
 import net.cassite.style.util.PathMapper;
 
-public abstract class Reflect extends Aggregation {
+public abstract class Reflect {
 
         private static PathMapper mapper = new PathMapper();
 

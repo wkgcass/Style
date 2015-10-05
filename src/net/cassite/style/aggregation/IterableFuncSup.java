@@ -9,6 +9,8 @@ import net.cassite.style.ptr;
 import net.cassite.style.control.*;
 import net.cassite.style.interfaces.RFunc1;
 
+import static net.cassite.style.Style.*;
+
 /**
  * Supporter of iterables
  * 

@@ -3,7 +3,7 @@ package net.cassite.style.aggregation;
 import java.util.Collection;
 
 import net.cassite.style.def;
-import net.cassite.style.var;
+import static net.cassite.style.Style.*;
 import net.cassite.style.interfaces.RFunc1;
 
 /**
@@ -18,7 +18,7 @@ import net.cassite.style.interfaces.RFunc1;
  * @param <Coll>
  *                collection
  */
-public interface A1Transformer<R, T, Coll extends Collection<R>> extends var {
+public interface A1Transformer<R, T, Coll extends Collection<R>> {
         /**
          * define the transform process
          * 

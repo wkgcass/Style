@@ -3,6 +3,7 @@ package net.cassite.style.aggregation;
 import net.cassite.style.$;
 import net.cassite.style.def;
 import net.cassite.style.interfaces.*;
+import static net.cassite.style.Style.*;
 
 import java.util.Collection;
 

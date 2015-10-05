@@ -42,13 +42,12 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 有任何问题，您可以随时通过[wkgcass@hotmail.com](mailto:wkgcass@hotmail.com)与我联系.  
 
 #更新内容
-1.1.1 --> 1.1.2
+1.1.2 --> 1.1.3
 
-* PathMapper
-	你可以使用PathMapper来存放只需要生成一次的对象
-* Reflect增强
-	现在，class,field,method,constructor的辅助对象均只生成一次
-* LoopInfo/IteratorInfo增加了一个方法，现在可以通过.initRes(R)来设置初始值。在lastRes为null时该方法会将lastRes设为指定值。但不会影响循环中记录的上次循环结果
+* Tuple  
+	提供 元素个数1到7的 Scala风格的tuple
+* 指针
+	现在，如果创建*ptr*时给定的对象拥有接口，那么将自动生成一个代理对象
 
 #目录
 
@@ -65,6 +64,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 		* 类型转换
 		* 指针
 		* var
+		* Tuple
 	* 反射
 		* 类
 		* 构造函数
@@ -322,6 +322,39 @@ var 提供和*Style*一模一样的default方法。
 	<T> T var.$(); // 当一个方法需要使用X类型时
 	<T> T var.$(Class<T>) // 强制转型为指定类型
 	
+如果给定的对象拥有接口，那么一个代理对象将自动创建。  
+使用 
+
+	p.proxy
+	
+来获取这个代理对象。
+
+*p.proxy*直接在*p.item*上调用方法，这使得*ptr*和C/C++的指针的行为一模一样。
+
+###Tuple
+从版本1.1.3开始提供Tuples  
+他们和Scala的tuple基本一致，但多了一些方便更的方法。
+
+使用成员变量来获取元素 *tuple._1* / *tuple._2*  
+使用*tuple(e1, e2, ...)*来创建tuple
+
+有7种内建的Tuple  
+Tuple1, Tuple2, ... , Tuple7, 它们都提供*_index*来获取元素。（index从1开始）  
+它们都实现*interface Tuple*
+
+	interface Tuple{
+		<T> T $(int index); // 获取元素，下标从1开始
+		int count(); // Tuple的元素个数
+	}
+
+使用$(index)和*_index*会取得同样的元素  
+使用*count()*作为循环结尾
+
+e.g.
+
+	for(int i=1;i<=tuple.count();++i){
+		...
+	}	
 
 ##反射
 

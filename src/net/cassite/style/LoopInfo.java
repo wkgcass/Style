@@ -39,4 +39,20 @@ public class LoopInfo<R> {
                 this.lastRes = lastRes;
                 return this;
         }
+
+        /**
+         * set the last result to given value if it's <code>null</code><br>
+         * it won't effect the last value of the loop.<br>
+         * it's only a simplified way of reducing null value of lastRes.
+         * 
+         * @param init
+         *                the initial value
+         * @return the init value itself
+         */
+        public R initRes(R init) {
+                if (lastRes == null) {
+                        lastRes = init;
+                }
+                return init;
+        }
 }

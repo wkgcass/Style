@@ -14,9 +14,20 @@ import net.cassite.style.Async;
 import net.cassite.style.Style;
 import net.cassite.style.def;
 import net.cassite.style.var;
+import net.cassite.style.aggregation.ListFuncSup;
 import net.cassite.style.reflect.ClassSup;
 import net.cassite.style.reflect.ProxyHandler;
+import net.cassite.style.util.Description;
 import net.cassite.style.util.PathMapper;
+import net.cassite.style.util.lang.MBoolean;
+import net.cassite.style.util.lang.MByte;
+import net.cassite.style.util.lang.MCharacter;
+import net.cassite.style.util.lang.MDouble;
+import net.cassite.style.util.lang.MFloat;
+import net.cassite.style.util.lang.MInteger;
+import net.cassite.style.util.lang.MLong;
+import net.cassite.style.util.lang.MShort;
+import net.cassite.style.util.lang.string;
 
 public class Test implements var {
 
@@ -38,9 +49,10 @@ public class Test implements var {
         def<Integer> rarg6;
         def<Integer> rarg7;
 
+        @Description("strArr")
         String[] strArr;
         Collection<Integer> coll;
-        List<Integer> list;
+        List<@Description("") Integer> list;
         Map<String, Integer> map;
 
         public static void main(String[] args) {
@@ -57,6 +69,7 @@ public class Test implements var {
                 t.reflectionTest();
 
                 t.other();
+                t.moreTest();
         }
 
         public void testFuncCreation() {
@@ -399,5 +412,31 @@ public class Test implements var {
                 System.out.println(mapper.getContainMap());
                 System.out.println((Object) mapper.get("a.b", () -> "abc"));
                 System.out.println(mapper.getContainMap());
+
+                System.out.println("mutable primitive boxing classes and string");
+                MInteger i = new MInteger(1);
+                MDouble d = new MDouble(1.0);
+                MFloat f = new MFloat(1f);
+                MLong l = new MLong(1l);
+                MShort s = new MShort((short) 1);
+                MByte b = new MByte((byte) 1);
+                MCharacter c = new MCharacter('a');
+                MBoolean bool = new MBoolean(true);
+                System.out.println(i + " " + d + " " + f + " " + l + " " + s + " " + b + " " + c + " " + bool);
+                System.out.println(i.inc() + " " + d.inc() + " " + f.inc() + " " + l.inc() + " " + s.inc() + " " + b.inc() + " " + c.assign('b') + " "
+                                + bool.inverse());
+                string ss = string.get("abc");
+                string ss2 = string.get("abc");
+                System.out.println(ss);
+                System.out.println(ss == ss2);
+        }
+
+        void moreTest() {
+                net.cassite.style.ptr<List<String>> ip = ptr($(new ArrayList<>(), "c", "a", "s", "s"));
+                List<String> list = ip.proxy;
+                ListFuncSup<String> listSup = $(list);
+                listSup.forEach(System.out::print);
+                ip.item = $(new ArrayList<>(), "i", "s", " ", "c", "l", "e", "v", "e", "r");
+                listSup.forEach(System.out::print);
         }
 }

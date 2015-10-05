@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.cassite.style.Style;
+import static net.cassite.style.Style.*;
 import net.cassite.style.aggregation.A1FuncSup;
 import net.cassite.style.util.PathMapper;
 
@@ -18,7 +18,7 @@ import net.cassite.style.util.PathMapper;
  *
  * @param <T>
  */
-public class ClassSup<T> extends Style {
+public class ClassSup<T> {
         private final Class<T> cls;
         private final PathMapper mapper = new PathMapper();
 
