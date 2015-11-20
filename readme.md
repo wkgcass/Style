@@ -42,12 +42,16 @@ Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com
 And pls execuse me for my poor english...
 
 #Update
-1.1.2 --> 1.1.3
+1.1.3 --> 2.0.1
 
-* Tuple  
-	provides a scala-style tuple ranging 1 element to 7 elements
-* pointer  
-	Now, the *ptr* generates a proxy object if the given object has interface(s)
+This upgrade may be incompatible with original versions.
+
+* Removed class `Style`, and renamed class `Core` into Style
+* `Aggregation`,`Reflect`,`Utils` no longer extends `Style`
+* removed interface var
+* Added Maven support
+* Full unit test support.
+* Revision in readme.md
 
 #Directory
 
@@ -63,7 +67,6 @@ And pls execuse me for my poor english...
 		* Exceptions
 		* Type Conversion
 		* Pointers
-		* var
 		* Tuple
 	* Reflection
 		* Class
@@ -110,39 +113,22 @@ And pls execuse me for my poor english...
 #Starting
 
 1. import *net.cassite.style.jar*
-2. Create a Class, let it implements *net.cassite.style.var*  
+2. Create a Class, and then `import static net.cassite.style.Style;`  
 	e.g.
 	
-		class YourClass implements var{}
-	
-	If you need to use *Style* in a static method, you need to let your class extends *net.cassite.style.Style*  
-	e.g.
-	
-		public class YourClass extends Style{
-			public static void main(String[] args){
-				...
-			}
-		}
-		
-3. In other cases, you have to use *Style.(methods)* to use *Style*  
-	e.g.
-	
-		Style.$(list).forEach(e->...);
-		
-4. Also, if you only need functions in one module, you can write this:
+		import static net.cassite.style.Style.*;
+		class YourClass {}
 
-		class YourClass extends Core
-		class YourClass extends Aggregation
-		class YourClass extends Utils
-		class YourClass extends Reflect
+3. If you need other modules, here's what you might need.
+
+		import static net.cassite.style.Style.*;
+		import static net.cassite.style.Aggregation.*;
+		import static net.cassite.style.Utils.*;
+		import static net.cassite.style.Reflect.*;
 		
 	or, you can use coding like this:
 	
 		Aggregation.$(list).findOne(e->...);
-		
-	>**Aggregation/Utils/Reflect** extends from **Core**
-		
->The following turtorial are using *extends* method.
 
 #Functions
 
@@ -311,23 +297,6 @@ Use
 to access the proxy object.
 
 *p.proxy* simply invokes methods on *p.item*, which looks exactly like what a pointer would do in C/C++.
-
-###var
-var often appears in js,C#...
-
-You can see an interface named *net.cassite.style.var*.
-
-So you can write something like this:
-
-	class X implements var{...}
-	var x=new X(...);
-	
-var provides default methods same as class *Style* provided.
-
-But there're 2 more methods to simplify writings using var:
-
-	<T> T var.$(); // use this when an method require type X
-	<T> T var.$(Class<T>) // use this to force type conversion
 
 ###Tuple
 Tuples are offered since 1.1.3.  

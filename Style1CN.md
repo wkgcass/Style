@@ -42,12 +42,16 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 有任何问题，您可以随时通过[wkgcass@hotmail.com](mailto:wkgcass@hotmail.com)与我联系.  
 
 #更新内容
-1.1.2 --> 1.1.3
+1.1.3 --> 2.0.1
 
-* Tuple  
-	提供 元素个数1到7的 Scala风格的tuple
-* 指针
-	现在，如果创建*ptr*时给定的对象拥有接口，那么将自动生成一个代理对象
+本版本更新可能导致与以往版本不兼容
+
+* 移除了`Style`类, 并将`Core`重命名为 Style
+* `Aggregation`,`Reflect`,`Utils`不再继承`Style`
+* 删除var接口
+* 增加Maven支持
+* 完整的单元测试
+* readme.md修订
 
 #目录
 
@@ -63,7 +67,6 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 		* 异常
 		* 类型转换
 		* 指针
-		* var
 		* Tuple
 	* 反射
 		* 类
@@ -110,10 +113,11 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 #起步
 
 1. 导入*net.cassite.style.jar*
-2. 创建一个类，并让它实现*net.cassite.style.var*  
+2. 创建一个类，并加入`import static net.cassite.style.Style.*;`  
 	e.g.
 	
-		class YourClass implements var{}
+		import static net.cassite.style.Style.*;
+        class YourClass {}
 	
 	如果你需要在一个static方法中使用*Style*，那么你需要让你的类继承*net.cassite.style.Style*  
 	e.g.
@@ -124,26 +128,16 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 			}
 		}
 		
-3. 其他情况下, 你需要通过*Style.(methods)*来使用*Style*  
-	e.g.
-	
-		Style.$(list).forEach(e->...);
-		
-4. 另外, 如果你只需要某个模块的功能，你可以这么写：
+3. 如果你需要其它模块,你也许会需要这些:
 
-		class YourClass extends Core
-		class YourClass extends Aggregation
-		class YourClass extends Utils
-		class YourClass extends Reflect
+		import static net.cassite.style.Style.*;
+		import static net.cassite.style.Aggregation.*;
+		import static net.cassite.style.Utils.*;
+		import static net.cassite.style.Reflect.*;
 		
 	或者这么写：
 	
 		Aggregation.$(list).findOne(e->...);
-		
-	>**Aggregation/Utils/Reflect** 继承自 **Core**
-
-		
->下述指引将通过*继承*的方式进行叙述.
 
 #函数式
 
@@ -304,23 +298,6 @@ Java没有指针供我们使用。 不过我们可以把“包装着一个对象
 	p.item
 	
 指针在使用匿名类需要使用非final变量时会非常有用。
-
-###var
-var 常常出现在 js,C#中
-
-你可以看到这样一个接口： *net.cassite.style.var*.
-
-所以说，你可以写出这样的代码：
-
-	class X implements var{...}
-	var x=new X(...);
-	
-var 提供和*Style*一模一样的default方法。
-
-不过var额外多了两个方法，用来让你更好的使用
-
-	<T> T var.$(); // 当一个方法需要使用X类型时
-	<T> T var.$(Class<T>) // 强制转型为指定类型
 	
 如果给定的对象拥有接口，那么一个代理对象将自动创建。  
 使用 
