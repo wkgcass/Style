@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 import net.cassite.style.aggregation.A1FuncSup;
@@ -151,11 +151,24 @@ public class ClassSup<T> {
         }
 
         /**
+         * Retrieve a field supporter with given field name
+         *
+         * @param name name of the field
+         * @param <F>  field type
+         * @return a field supporter which supports found field
+         */
+        @SuppressWarnings("unchecked")
+        public <F> FieldSupport<F, T> field(String name) {
+                return field(name, (Class<F>) Object.class);
+        }
+
+        /**
          * Retrieve a field supporter with given field name, and specify its
          * type with the 2nd arg
          *
          * @param name name of the field
          * @param type field type
+         * @param <F>  field type
          * @return a field supporter which supports found field
          */
         public <F> FieldSupport<F, T> field(String name, Class<F> type) {
@@ -179,7 +192,7 @@ public class ClassSup<T> {
         public List<FieldSupport<?, T>> allFields() {
                 net.cassite.style.ptr<Class<?>> clazz = ptr(cls);
                 return While(() -> $(clazz) != Object.class, (i) -> {
-                        List<FieldSupport<?, T>> list = avoidNull(i.lastRes, () -> new ArrayList<FieldSupport<?,T>>());
+                        List<FieldSupport<?, T>> list = avoidNull(i.lastRes, () -> new ArrayList<>());
                         $($(clazz).getDeclaredFields()).forThose(e -> avoidNull($(list).forEach(t -> {
                                 if (e.getName().equals(t.name()))
                                         BreakWithResult(false);
@@ -366,7 +379,25 @@ public class ClassSup<T> {
                 List<MethodSupport<?, T>> toReturn = new ArrayList<>();
                 methods.forEach(e -> {
                         if (e.name().startsWith("set") && e.name().length() > 3 && e.name().charAt(3) >= 'A' && e.name().charAt(3) <= 'Z'
-                                && e.argCount() == 1 && e.returnType().equals(Void.TYPE) && !e.isStatic())
+                                && e.argCount() == 1 &&
+                                (e.returnType().equals(Void.TYPE) || e.returnType().equals(e.getMember().getDeclaringClass()))
+                                && !e.isStatic())
+                                toReturn.add(e);
+                });
+                return toReturn;
+        }
+
+        /**
+         * retrieve all getters
+         *
+         * @return getters in the form of MethodSupport
+         */
+        public List<MethodSupport<?, T>> getters() {
+                List<MethodSupport<?, T>> methods = allMethods();
+                List<MethodSupport<?, T>> toReturn = new ArrayList<>();
+                methods.forEach(e -> {
+                        if (e.name().startsWith("get") && e.name().length() > 3 && e.name().charAt(3) >= 'A' && e.name().charAt(3) <= 'Z'
+                                && e.argCount() == 0 && !e.returnType().equals(Void.TYPE) && !e.isStatic())
                                 toReturn.add(e);
                 });
                 return toReturn;
@@ -383,6 +414,16 @@ public class ClassSup<T> {
                 $(cls.getDeclaredConstructors()).forEach((VFunc1<Constructor<?>>) c -> toReturn.add(mapper.get("constructors." + Arrays.toString(c.getParameterTypes()),
                         () -> new ConstructorSup<>((Constructor<T>) c))));
                 return toReturn;
+        }
+
+        /**
+         * create a new instance invoking constructor().newInstance;
+         *
+         * @return new instance
+         * @see ConstructorSup#newInstance()
+         */
+        public T newInstance() {
+                return constructor().newInstance();
         }
 
 }

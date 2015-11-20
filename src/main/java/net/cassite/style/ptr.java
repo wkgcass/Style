@@ -8,11 +8,9 @@ import net.cassite.style.reflect.Reflect;
 /**
  * A container of objects, usually used when accessing a non-final value from
  * inner classes.
- * 
- * @author wkgcass
  *
- * @param <T>
- *                type of the object to contain
+ * @param <T> type of the object to contain
+ * @author wkgcass
  */
 public class ptr<T> implements InvocationHandler {
         /**
@@ -24,10 +22,14 @@ public class ptr<T> implements InvocationHandler {
 
         ptr(T o) {
                 this.item = o;
-                if (o.getClass().getInterfaces() != null && o.getClass().getInterfaces().length != 0) {
-                        proxy = Reflect.proxy(this, o);
-                } else {
+                if (o == null) {
                         proxy = null;
+                } else {
+                        if (o.getClass().getInterfaces() != null && o.getClass().getInterfaces().length != 0) {
+                                proxy = Reflect.proxy(this, o);
+                        } else {
+                                proxy = null;
+                        }
                 }
         }
 

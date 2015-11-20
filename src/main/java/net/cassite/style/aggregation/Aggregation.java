@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 import net.cassite.style.JSONLike;
 

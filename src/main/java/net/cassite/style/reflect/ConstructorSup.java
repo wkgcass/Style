@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 
 import net.cassite.style.$;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 import net.cassite.style.aggregation.A1FuncSup;
 

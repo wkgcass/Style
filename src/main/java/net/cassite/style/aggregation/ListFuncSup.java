@@ -9,7 +9,7 @@ import net.cassite.style.StyleRuntimeException;
 import net.cassite.style.def;
 import net.cassite.style.control.*;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 /**

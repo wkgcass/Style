@@ -52,6 +52,10 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 * 增加Maven支持
 * 完整的单元测试
 * readme.md修订
+* 所有无返回值的函数被定义为`def<Void>`
+* [新]现在可以通过`ClassSup`调用`newInstance()`直接生成实例
+* [新]现在`ClassSup`增加了一个`getters()`方法用于获取所有getter
+* [新]`MInteger`增加了一个方法，用于生成包含连续整数序列的List，见文档
 
 #目录
 
@@ -68,6 +72,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 		* 类型转换
 		* 指针
 		* Tuple
+		* 可变包装类
 	* 反射
 		* 类
 		* 构造函数
@@ -252,13 +257,7 @@ StyleRuntimeException.
 StyleRuntimeException提供*origin()*方法，以便获取包装的Throwable对象。
 StyleRuntimeException @Override getCause() 方法,
 
-* 如果 origin() instanceof InvocationTargetException
-	* 返回 .getTargetException();
-* 否则
-	* 返回 .getCause();
-
-由于InvocationTargetException常常会将你需要的异常隐藏起来。  
-我曾经花了整整三个小时尝试解决一个错误，最后发现异常被InvocationTargetException隐藏了起来。
+	返回 super.getCause().getCause();
 
 ###类型转换
 类型转换常常和逻辑代码混杂起来。
@@ -333,6 +332,23 @@ e.g.
 		...
 	}	
 
+###可变包装类
+提供了基本类型的可变包装。使用`Utils.$(对应类型)`获取。  
+
+>虽然string也和其它MType在一个包下，但并不是可变包装之一，详细说明在 其它 一章中
+
+其中MInteger类型（int的可变包装类）提供了`to(int)`和`until(int)`方法，分别用于生成包含/不包含结尾整数连续的序列。
+
+e.g.
+
+	$(0).to(20)
+
+生成从0到20的序列，也就是`list(0,1,2,...,20)`
+
+	$(0).until(20)
+	
+生成从0到19的序列，也就是`list(0,1,2,...,19)`
+
 ##反射
 
 类/成员/方法/构造器被包装在*提供支持的对象*中. 查看*net.cassite.style.reflect*以获取更多信息.
@@ -400,14 +416,14 @@ ClassSup让你轻松的使用*支持泛型的*构造函数、成员、方法的�
 我们曾这样使用动态代理
 
 	Proxy.newProxyInstance(
-		toProxy.getClass().getClassLoader()
-		, toProxy.getClass().getInterfaces()
+		proxyTarget.getClass().getClassLoader()
+		, ProxyTarget.getClass().getInterfaces()
 		,handler);
 虽然JDK这样的设计是为了更好的重用，但大多数情况我们不会指定ClassLoader，不会附带额外的接口。
 
 所以其中包含了许多重复动作。*Style*帮您简化了这种操作
 
-	<T> T proxy(handler, toProxy);
+	<T> T proxy(handler, proxyTarget);
 	
 此外，*Style*还提供另外一种更加便捷的方式，这里对List的get方法进行动态代理：
 
@@ -458,6 +474,8 @@ ClassSup让你轻松的使用*支持泛型的*构造函数、成员、方法的�
 			* 抛出异常(ModifyReadOnlyException)
 		* 否则
 			* 执行调用
+
+>注意，抛出的异常最终都以StyleRuntimeException为包装
 	
 ##线程
 ###回调
@@ -902,6 +920,12 @@ g表示全局，i表示忽略大小写，m表示多行。
 将输出
 
 	My name is cass, I'm 20 years old, and I'm male.
+
+此外，字符串比较比较耗时。string提供了程序内唯一的字符串，比较时只需比较引用即可。
+
+	$("abc")==$("abc")
+
+将为true
 	
 ##JSON
 你可以通过“长得很像JSON”的Object数组创建一个JSONLike对象。  

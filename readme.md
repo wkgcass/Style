@@ -52,6 +52,10 @@ This upgrade may be incompatible with original versions.
 * Added Maven support
 * Full unit test support.
 * Revision in readme.md
+* All functions with void return type are defined as `def<Void>`
+* [New]Now new instances can be generated calling `newInstance` from `ClassSup`
+* [New]Now `ClassSup` added `getters()` to retrieve all getters
+* [New]`MInteger` added a new method to generate consistent sequence of integers, see doc for more info
 
 #Directory
 
@@ -68,6 +72,7 @@ This upgrade may be incompatible with original versions.
 		* Type Conversion
 		* Pointers
 		* Tuple
+		* Mutable Boxed Types
 	* Reflection
 		* Class
 		* Constructor
@@ -243,12 +248,7 @@ then, a StyleRuntimeException would be thrown.
 StyleRuntimeException provides method *origin()* to get packed Throwable object.  
 And it @Override getCause() method,
 
-* if origin() instanceof InvocationTargetException
-	* return .getTargetException();
-* else
-	* return .getCause();
-
-Because InvocationTargetException usually hide exception you need to retrieve. I used to spend 3 hours on trying to find an error, which turned out to be hidden by InvocationTargetException.
+	return super.getCause().getCause();
 
 ###Type Conversion
 Type conversion can take many lines and mix with other logics.
@@ -323,6 +323,23 @@ e.g.
 		...
 	}
 	
+###Mutable Boxed Types
+mutable boxed types are provided. Use `Utils.$(type)` to generate. 
+
+>though string are in same package as other MTypes, it's not a mutable type. detailed explanations will be given in chapter `Other`
+
+MInteger(mutable boxed type for int) provides `to(int)` and `until(int)`, which can be used to generate consistent sequence with/without the last integer.
+
+e.g.
+
+	$(0).to(20)
+
+means `list(0,1,2,...,20)`
+
+	$(0).until(20)
+	
+means `list(0,1,2,...,19)`
+
 ##Reflection
 
 Classes/Fields/Methods/Constructors are packed into a *supporting object*. Check packet *net.cassite.style.reflect* for more info.
@@ -390,14 +407,14 @@ which help you check modifiers.
 We used to create a dynamic proxy in this way:
 
 	Proxy.newProxyInstance(
-		toProxy.getClass().getClassLoader()
-		, toProxy.getClass().getInterfaces()
+		proxyTarget.getClass().getClassLoader()
+		, proxyTarget.getClass().getInterfaces()
 		,handler);
 Though JDK designed it this way for better reusable programming. But usually we don't need too many features.
 
 As a result, it contains many repeating codes. *Style* helps you simplify this operation.
 
-	<T> T proxy(handler, toProxy);
+	<T> T proxy(handler, proxyTarget);
 	
 Also，*Style* provide aother way.  
 Use List.get method as an example
@@ -429,7 +446,7 @@ this way makes proxy more readable.
 Usually, we need to create readonly objects in case someone change them. 
 >e.g. We may have to pack an object into another and expose it to other modules. However we cannot guarantee other people not changing it.
 
-*Style* provides you a easy way of turning an object with interfaces into a read-only one.
+*Style* provides you an easy way of turning an object with interfaces into a read-only one.
 
 Usually it doesn't require you doing any extra work.  
 
@@ -449,6 +466,8 @@ When an invocation comes, *Style* will check the method.
 			* throw an exception(ModifyReadOnlyException)
 		* else
 			* do invoking
+
+>Note that, all exceptions are packed into StyleRuntimeException 
 	
 ##Thread
 ###callback
@@ -468,7 +487,7 @@ If you need to force callback process on current thread, you can invoke
 	
 instead.
 
-###original thread simplify
+###thread operation simplify
 
 When we create a thread, we usually write :
 
@@ -897,6 +916,12 @@ You can write:
 will return
 
 	My name is cass, I'm 20 years old, and I'm male.
+
+Comparating operation between strings can take time. string provides unique object represents a string, with which the comparation can be done simply comparing the reference.
+
+	$("abc")==$("abc")
+
+would return true
 	
 ##JSON
 You can create a JSONLike object from a json-like Object array.  

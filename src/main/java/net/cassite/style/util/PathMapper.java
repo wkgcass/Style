@@ -3,7 +3,7 @@ package net.cassite.style.util;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.cassite.style.Core;
+import net.cassite.style.Style;
 import net.cassite.style.def;
 import net.cassite.style.interfaces.RFunc0;
 
@@ -25,7 +25,7 @@ public class PathMapper {
         private Map<String, Object> getMap(String path) {
                 String[] paths = path.split("\\.");
 
-                def<Map<String, Object>> find = Core.function((Integer cursor, Map<String, Object> base, def<Map<String, Object>> func) -> {
+                def<Map<String, Object>> find = Style.function((Integer cursor, Map<String, Object> base, def<Map<String, Object>> func) -> {
                         if (cursor == paths.length) {
                                 return base;
                         }
@@ -64,7 +64,7 @@ public class PathMapper {
                                 map.put("$value", t);
                                 return t;
                         } catch (Throwable t) {
-                                throw Core.$(t);
+                                throw Style.$(t);
                         }
                 }
         }

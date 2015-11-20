@@ -13,7 +13,7 @@ import net.cassite.style.interfaces.RFunc1;
 import net.cassite.style.interfaces.RFunc2;
 import net.cassite.style.interfaces.VFunc1;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.util.Utils.*;
 
 /**
@@ -323,7 +323,7 @@ public class $ {
          * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br>
          * When the error needs to be thrown.
          */
-        public static final def<Object> throwHandlerFunc = $(throwHandler);
+        public static final def<Void> throwHandlerFunc = $(throwHandler);
 
         /**
          * Used as 1st argument in {@link AsyncGroup#onError(VFunc1)} or
@@ -338,10 +338,10 @@ public class $ {
          * {@link Async#onError(def)} or {@link Async#awaitError(def)} <br>
          * When the its needed to call <code>err.printStackTract()</code>
          */
-        public static final def<Object> printHandlerFunc = $(printHandler);
+        public static final def<Void> printHandlerFunc = $(printHandler);
 
         /**
-         * Used as 3rd argument in {@link Core#Switch(Object, Class, RFunc2)}
+         * Used as 3rd argument in {@link Style#Switch(Object, Class, RFunc2)}
          * <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
@@ -349,7 +349,7 @@ public class $ {
         public static final RFunc2<Boolean, ?, ?> eql = Object::equals;
 
         /**
-         * Used as 3rd argument in {@link Core#Switch(Object, Class, RFunc2)}
+         * Used as 3rd argument in {@link Style#Switch(Object, Class, RFunc2)}
          * <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
@@ -362,7 +362,7 @@ public class $ {
         }
 
         /**
-         * Used as 3rd argument in {@link Core#Switch(Object, Class, def)} <br>
+         * Used as 3rd argument in {@link Style#Switch(Object, Class, def)} <br>
          * When the switch is a normal switch when two objects' value are equal,
          * do case.
          */

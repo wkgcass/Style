@@ -14,7 +14,7 @@ public class Async<R> {
         private Thread t;
 
         private StyleRuntimeException throwable = null;
-        private def<Object> handler = null;
+        private def<Void> handler = null;
         private final Object lock = new Object();
 
         private static class Container<R> {
@@ -44,9 +44,9 @@ public class Async<R> {
                                         container.ret = func.apply(args);
                                 } catch (Throwable t) {
                                         synchronized (lock) {
-                                                throwable = Core.$(t);
+                                                throwable = Style.$(t);
                                                 if (handler != null) {
-                                                        handler.apply(Core.$(throwable));
+                                                        handler.apply(Style.$(throwable));
                                                 }
                                         }
                                 }
@@ -102,7 +102,7 @@ public class Async<R> {
          * @see StyleRuntimeException
          */
         public void onError(VFunc1<StyleRuntimeException> handler) {
-                onError(Core.$(handler));
+                onError(Style.$(handler));
         }
 
         /**
@@ -120,14 +120,14 @@ public class Async<R> {
          * @see #awaitError(def)
          * @see StyleRuntimeException
          */
-        public void onError(def<Object> handler) {
+        public void onError(def<Void> handler) {
                 this.handler = handler;
                 while (!container.inProcess) {
                         // block
                 }
                 synchronized (lock) {
                         if (null != throwable) {
-                                handler.apply(Core.$(throwable));
+                                handler.apply(Style.$(throwable));
                         }
                 }
         }
@@ -144,7 +144,7 @@ public class Async<R> {
          * @see StyleRuntimeException
          */
         public void awaitError(VFunc1<StyleRuntimeException> handler) {
-                awaitError(Core.$(handler));
+                awaitError(Style.$(handler));
         }
 
         /**
@@ -158,13 +158,13 @@ public class Async<R> {
          *                packed into StyleRuntimeException
          * @see StyleRuntimeException
          */
-        public void awaitError(def<Object> handler) {
+        public void awaitError(def<Void> handler) {
                 while (!container.inProcess) {
                         // block
                 }
                 synchronized (container) {
                         if (null != throwable) {
-                                handler.apply(Core.$(throwable));
+                                handler.apply(Style.$(throwable));
                         }
                 }
         }

@@ -3,7 +3,7 @@ package net.cassite.style.reflect;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for methods

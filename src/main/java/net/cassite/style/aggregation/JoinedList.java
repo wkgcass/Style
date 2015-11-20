@@ -10,7 +10,7 @@ import net.cassite.style.Entry;
 import net.cassite.style.interfaces.VFunc1;
 import net.cassite.style.ptr;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 public class JoinedList<E> implements List<E> {

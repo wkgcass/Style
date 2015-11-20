@@ -4,7 +4,7 @@ import net.cassite.style.control.BreakWithResult;
 import net.cassite.style.control.IterationControl;
 import net.cassite.style.interfaces.*;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for For-to-step expression

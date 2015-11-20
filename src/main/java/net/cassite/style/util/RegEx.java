@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 /**
  * A Reg expression supporter that simplifies usage of RegEx<br>

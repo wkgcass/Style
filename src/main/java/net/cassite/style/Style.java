@@ -13,8 +13,8 @@ import net.cassite.style.control.Remove;
 import net.cassite.style.interfaces.*;
 import net.cassite.style.tuple.*;
 
-public abstract class Core {
-        protected Core() {
+public abstract class Style {
+        protected Style() {
         }
 
         // ┌─────────────────────────────────┐
@@ -29,7 +29,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 0 input and void output
          */
-        public static def<Object> function(VFunc0 body) {
+        public static def<Void> function(VFunc0 body) {
                 return $(body);
         }
 
@@ -39,7 +39,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 1 input and void output
          */
-        public static def<Object> function(VFunc1<?> body) {
+        public static def<Void> function(VFunc1<?> body) {
                 return $(body);
         }
 
@@ -49,7 +49,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 2 inputs and void output
          */
-        public static def<Object> function(VFunc2<?, ?> body) {
+        public static def<Void> function(VFunc2<?, ?> body) {
                 return $(body);
         }
 
@@ -59,7 +59,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 3 inputs and void output
          */
-        public static def<Object> function(VFunc3<?, ?, ?> body) {
+        public static def<Void> function(VFunc3<?, ?, ?> body) {
                 return $(body);
         }
 
@@ -69,7 +69,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 4 inputs and void output
          */
-        public static def<Object> function(VFunc4<?, ?, ?, ?> body) {
+        public static def<Void> function(VFunc4<?, ?, ?, ?> body) {
                 return $(body);
         }
 
@@ -79,7 +79,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 5 inputs and void output
          */
-        public static def<Object> function(VFunc5<?, ?, ?, ?, ?> body) {
+        public static def<Void> function(VFunc5<?, ?, ?, ?, ?> body) {
                 return $(body);
         }
 
@@ -89,7 +89,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 6 inputs and void output
          */
-        public static def<Object> function(VFunc6<?, ?, ?, ?, ?, ?> body) {
+        public static def<Void> function(VFunc6<?, ?, ?, ?, ?, ?> body) {
                 return $(body);
         }
 
@@ -99,7 +99,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 7 inputs and void output
          */
-        public static def<Object> function(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
+        public static def<Void> function(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
                 return $(body);
         }
 
@@ -193,7 +193,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 0 input and void output
          */
-        public static def<Object> $(VFunc0 body) {
+        public static def<Void> $(VFunc0 body) {
                 return new def<>(body);
         }
 
@@ -203,7 +203,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 1 input and void output
          */
-        public static def<Object> $(VFunc1<?> body) {
+        public static def<Void> $(VFunc1<?> body) {
                 return new def<>(body);
         }
 
@@ -213,7 +213,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 2 inputs and void output
          */
-        public static def<Object> $(VFunc2<?, ?> body) {
+        public static def<Void> $(VFunc2<?, ?> body) {
                 return new def<>(body);
         }
 
@@ -223,7 +223,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 3 inputs and void output
          */
-        public static def<Object> $(VFunc3<?, ?, ?> body) {
+        public static def<Void> $(VFunc3<?, ?, ?> body) {
                 return new def<>(body);
         }
 
@@ -233,7 +233,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 4 inputs and void output
          */
-        public static def<Object> $(VFunc4<?, ?, ?, ?> body) {
+        public static def<Void> $(VFunc4<?, ?, ?, ?> body) {
                 return new def<>(body);
         }
 
@@ -243,7 +243,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 5 inputs and void output
          */
-        public static def<Object> $(VFunc5<?, ?, ?, ?, ?> body) {
+        public static def<Void> $(VFunc5<?, ?, ?, ?, ?> body) {
                 return new def<>(body);
         }
 
@@ -253,7 +253,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 6 inputs and void output
          */
-        public static def<Object> $(VFunc6<?, ?, ?, ?, ?, ?> body) {
+        public static def<Void> $(VFunc6<?, ?, ?, ?, ?, ?> body) {
                 return new def<>(body);
         }
 
@@ -263,7 +263,7 @@ public abstract class Core {
          * @param body the function to generate
          * @return a function with 7 inputs and void output
          */
-        public static def<Object> $(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
+        public static def<Void> $(VFunc7<?, ?, ?, ?, ?, ?, ?> body) {
                 return new def<>(body);
         }
 
@@ -357,7 +357,9 @@ public abstract class Core {
          * initial type<br>
          * Type of the pointer is guaranteed by Generic System.<br>
          * You can access it's contained value using <b>ptr.item</b>, <br>
-         * Or using {@link #$(ptr)} and {@link #$(ptr, Object)}.
+         * Or using {@link #$(ptr)} and {@link #$(ptr, Object)}.<br>
+         * A proxy object will be generated if the given object has an interface.<br>
+         * It won't be generated if the given object is null.
          *
          * @param o the object to be pointed to
          * @return a new pointer points to given object
@@ -415,7 +417,7 @@ public abstract class Core {
          * @see Async#onError(def)
          * @see Async#awaitError(def)
          */
-        public static AsyncGroup $(def<Object> handler, Async<?>... asyncs) {
+        public static AsyncGroup $(def<Void> handler, Async<?>... asyncs) {
                 return new AsyncGroup(handler, asyncs);
         }
 

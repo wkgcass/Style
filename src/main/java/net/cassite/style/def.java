@@ -20,23 +20,23 @@ public class def<R> {
                 return hasReturnValue;
         }
 
-        private VFunc0 void0;
-        private VFunc1<Object> void1;
-        private VFunc2<Object, Object> void2;
-        private VFunc3<Object, Object, Object> void3;
-        private VFunc4<Object, Object, Object, Object> void4;
-        private VFunc5<Object, Object, Object, Object, Object> void5;
-        private VFunc6<Object, Object, Object, Object, Object, Object> void6;
-        private VFunc7<Object, Object, Object, Object, Object, Object, Object> void7;
+        VFunc0 void0;
+        VFunc1<Object> void1;
+        VFunc2<Object, Object> void2;
+        VFunc3<Object, Object, Object> void3;
+        VFunc4<Object, Object, Object, Object> void4;
+        VFunc5<Object, Object, Object, Object, Object> void5;
+        VFunc6<Object, Object, Object, Object, Object, Object> void6;
+        VFunc7<Object, Object, Object, Object, Object, Object, Object> void7;
 
-        private RFunc0<R> body0;
-        private RFunc1<R, Object> body1;
-        private RFunc2<R, Object, Object> body2;
-        private RFunc3<R, Object, Object, Object> body3;
-        private RFunc4<R, Object, Object, Object, Object> body4;
-        private RFunc5<R, Object, Object, Object, Object, Object> body5;
-        private RFunc6<R, Object, Object, Object, Object, Object, Object> body6;
-        private RFunc7<R, Object, Object, Object, Object, Object, Object, Object> body7;
+        RFunc0<R> body0;
+        RFunc1<R, Object> body1;
+        RFunc2<R, Object, Object> body2;
+        RFunc3<R, Object, Object, Object> body3;
+        RFunc4<R, Object, Object, Object, Object> body4;
+        RFunc5<R, Object, Object, Object, Object, Object> body5;
+        RFunc6<R, Object, Object, Object, Object, Object, Object> body6;
+        RFunc7<R, Object, Object, Object, Object, Object, Object, Object> body7;
 
         def(VFunc0 body) {
                 argCount = 0;
@@ -227,7 +227,7 @@ public class def<R> {
                                 throw new IllegalArgumentException();
                         }
                 } catch (Throwable t) {
-                        throw Core.$(t);
+                        throw Style.$(t);
                 }
         }
 

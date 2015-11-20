@@ -16,10 +16,10 @@ public class AsyncGroup {
         private boolean inProcess = false;
 
         private StyleRuntimeException err;
-        private def<Object> handler;
+        private def<Void> handler;
         private final Object lock = new Object();
 
-        AsyncGroup(def<Object> asyncHandler, Async<?>... group) {
+        AsyncGroup(def<Void> asyncHandler, Async<?>... group) {
                 if (group.length == 0)
                         throw new IllegalArgumentException("at least one Async object should be passed in");
                 this.group = Arrays.copyOf(group, group.length);
@@ -43,7 +43,7 @@ public class AsyncGroup {
          * @return asyncGroup object
          */
         public AsyncGroup callback(VFunc0 func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -57,7 +57,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc1<?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -71,7 +71,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc2<?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -85,7 +85,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc3<?, ?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -99,7 +99,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc4<?, ?, ?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -113,7 +113,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc5<?, ?, ?, ?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -127,7 +127,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc6<?, ?, ?, ?, ?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -141,7 +141,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callback(VFunc7<?, ?, ?, ?, ?, ?, ?> func) {
-                return callback(Core.$(func));
+                return callback(Style.$(func));
         }
 
         /**
@@ -154,10 +154,8 @@ public class AsyncGroup {
          *             finished.
          * @return <code>this</code>.
          */
-        public AsyncGroup callback(def<Object> func) {
-                Utils.run(() -> {
-                        callbackSync(func);
-                });
+        public AsyncGroup callback(def<Void> func) {
+                Utils.run(() -> callbackSync(func));
                 return this;
         }
 
@@ -172,7 +170,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc0 func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -186,7 +184,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc1<?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -200,7 +198,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc2<?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -214,7 +212,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc3<?, ?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -228,7 +226,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc4<?, ?, ?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -242,7 +240,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc5<?, ?, ?, ?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -256,7 +254,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc6<?, ?, ?, ?, ?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -270,7 +268,7 @@ public class AsyncGroup {
          * @return <code>this</code>.
          */
         public AsyncGroup callbackSync(VFunc7<?, ?, ?, ?, ?, ?, ?> func) {
-                return callbackSync(Core.$(func));
+                return callbackSync(Style.$(func));
         }
 
         /**
@@ -283,7 +281,7 @@ public class AsyncGroup {
          *             finished.
          * @return <code>this</code>.
          */
-        public AsyncGroup callbackSync(def<Object> func) {
+        public AsyncGroup callbackSync(def<Void> func) {
                 inProcess = true;
                 try {
                         Object[] awaits = new Object[group.length];
@@ -295,7 +293,7 @@ public class AsyncGroup {
                         func.apply(awaits);
                 } catch (Throwable e) {
                         synchronized (lock) {
-                                err = Core.$(e);
+                                err = Style.$(e);
                                 if (handler != null) {
                                         handler.apply(err);
                                 }
@@ -317,7 +315,7 @@ public class AsyncGroup {
          * @see StyleRuntimeException
          */
         public void onError(VFunc1<StyleRuntimeException> handler) {
-                onError(Core.$(handler));
+                onError(Style.$(handler));
         }
 
         /**
@@ -332,7 +330,7 @@ public class AsyncGroup {
          *                would be packed into StyleRuntimeException
          * @see StyleRuntimeException
          */
-        public void onError(def<Object> handler) {
+        public void onError(def<Void> handler) {
                 while (!inProcess) {
                         // block
                 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import net.cassite.style.def;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 import net.cassite.style.interfaces.RFunc1;
 

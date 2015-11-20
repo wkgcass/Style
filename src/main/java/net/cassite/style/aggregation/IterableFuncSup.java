@@ -9,7 +9,7 @@ import net.cassite.style.ptr;
 import net.cassite.style.control.*;
 import net.cassite.style.interfaces.RFunc1;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 /**

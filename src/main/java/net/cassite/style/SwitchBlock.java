@@ -3,7 +3,7 @@ package net.cassite.style;
 import net.cassite.style.interfaces.RFunc0;
 import net.cassite.style.interfaces.VFunc0;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter for switch expression<br>

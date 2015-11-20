@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.cassite.style.$;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;

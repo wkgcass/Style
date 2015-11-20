@@ -9,7 +9,7 @@ import net.cassite.style.*;
 import net.cassite.style.control.Remove;
 import net.cassite.style.interfaces.*;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 /**
  * Supporter of maps
@@ -36,7 +36,7 @@ public class MapFuncSup<K, V> {
          */
         @SuppressWarnings("unchecked")
         public <R> R forEach(VFunc2<K, V> func) {
-                return (R) forEach(Core.$(func));
+                return (R) forEach(Style.$(func));
         }
 
         /**
@@ -51,7 +51,7 @@ public class MapFuncSup<K, V> {
          */
         @SuppressWarnings("unchecked")
         public <R> R forEach(VFunc3<K, V, IteratorInfo<R>> func) {
-                return (R) forEach(Core.$(func));
+                return (R) forEach(Style.$(func));
         }
 
         /**
@@ -65,7 +65,7 @@ public class MapFuncSup<K, V> {
          * more info about 'last loop value'
          */
         public <R> R forEach(RFunc2<R, K, V> func) {
-                return forEach(Core.$(func));
+                return forEach(Style.$(func));
         }
 
         /**
@@ -81,7 +81,7 @@ public class MapFuncSup<K, V> {
          * @see IteratorInfo
          */
         public <R> R forEach(RFunc3<R, K, V, IteratorInfo<R>> func) {
-                return forEach(Core.$(func));
+                return forEach(Style.$(func));
         }
 
         /**
@@ -110,7 +110,7 @@ public class MapFuncSup<K, V> {
          */
         @SuppressWarnings("unchecked")
         public <R> R forThose(RFunc2<Boolean, K, V> predicate, VFunc2<K, V> func) {
-                return (R) forThose(predicate, Core.$(func));
+                return (R) forThose(predicate, Style.$(func));
         }
 
         /**
@@ -128,7 +128,7 @@ public class MapFuncSup<K, V> {
          */
         @SuppressWarnings("unchecked")
         public <R> R forThose(RFunc2<Boolean, K, V> predicate, VFunc3<K, V, IteratorInfo<R>> func) {
-                return (R) forThose(predicate, Core.$(func));
+                return (R) forThose(predicate, Style.$(func));
         }
 
         /**
@@ -144,7 +144,7 @@ public class MapFuncSup<K, V> {
          * more info about 'last loop value'
          */
         public <R> R forThose(RFunc2<Boolean, K, V> predicate, RFunc2<R, K, V> func) {
-                return forThose(predicate, Core.$(func));
+                return forThose(predicate, Style.$(func));
         }
 
         /**
@@ -162,7 +162,7 @@ public class MapFuncSup<K, V> {
          * @see IteratorInfo
          */
         public <R> R forThose(RFunc2<Boolean, K, V> predicate, RFunc3<R, K, V, IteratorInfo<R>> func) {
-                return forThose(predicate, Core.$(func));
+                return forThose(predicate, Style.$(func));
         }
 
         /**
@@ -180,8 +180,8 @@ public class MapFuncSup<K, V> {
         public <R> R forThose(RFunc2<Boolean, K, V> predicate, def<R> func) {
                 Iterator<K> it = map.keySet().iterator();
                 IteratorInfo<R> info = new IteratorInfo<>();
-                ptr<Integer> i = Core.ptr(0);
-                return Core.While(it::hasNext, (loopInfo) -> {
+                ptr<Integer> i = Style.ptr(0);
+                return Style.While(it::hasNext, (loopInfo) -> {
                         K k = it.next();
                         V v = map.get(k);
                         try {
@@ -190,7 +190,7 @@ public class MapFuncSup<K, V> {
                                                 loopInfo.currentIndex, loopInfo.effectiveIndex, loopInfo.lastRes));
                                 }).Else(() -> null);
                         } catch (Throwable err) {
-                                StyleRuntimeException sErr = Core.$(err);
+                                StyleRuntimeException sErr = Style.$(err);
                                 Throwable t = sErr.origin();
                                 if (t instanceof Remove) {
                                         it.remove();
@@ -243,7 +243,7 @@ public class MapFuncSup<K, V> {
                  * @return collection with objects after the transform
                  */
                 public Coll via(RFunc2<R, K, V> method) {
-                        return via(Core.$(method));
+                        return via(Style.$(method));
                 }
 
                 /**
@@ -296,7 +296,7 @@ public class MapFuncSup<K, V> {
                  * @return an array with objects after the transform
                  */
                 public R[] via(RFunc2<R, K, V> method) {
-                        return via(Core.$(method));
+                        return via(Style.$(method));
                 }
 
                 /**
@@ -309,7 +309,7 @@ public class MapFuncSup<K, V> {
                 public R[] via(def<R> method) {
                         Aggregation.$(map).forEach((k, v, i) -> {
                                 if (i.effectiveIndex == retArr.length) {
-                                        Core.Break();
+                                        Style.Break();
                                 } else {
                                         retArr[i.effectiveIndex] = method.apply(k, v);
                                 }
@@ -356,7 +356,7 @@ public class MapFuncSup<K, V> {
                  * @return an array with objects after the transform
                  */
                 public M via(RFunc2<Entry<K2, V2>, K, V> method) {
-                        return via(Core.$(method));
+                        return via(Style.$(method));
                 }
 
                 /**
@@ -419,7 +419,7 @@ public class MapFuncSup<K, V> {
          * @return first matched entry
          */
         public Entry<K, V> findOne(RFunc2<Boolean, K, V> filter) {
-                return findOne(Core.$(filter));
+                return findOne(Style.$(filter));
         }
 
         /**
@@ -442,7 +442,7 @@ public class MapFuncSup<K, V> {
          * @return all matched entries in a HashMap
          */
         public Map<K, V> findAll(RFunc2<Boolean, K, V> filter) {
-                return findAll(Core.$(filter));
+                return findAll(Style.$(filter));
         }
 
         /**
@@ -466,7 +466,7 @@ public class MapFuncSup<K, V> {
          * @return all matched entries in a HashMap
          */
         public Map<K, V> findAll(RFunc2<Boolean, K, V> filter, Map<K, V> map) {
-                return findAll(Core.$(filter), map);
+                return findAll(Style.$(filter), map);
         }
 
         /**
@@ -492,7 +492,7 @@ public class MapFuncSup<K, V> {
          * @return all matched entries in a HashMap
          */
         public Map<K, V> findAll(RFunc2<Boolean, K, V> filter, Map<K, V> map, int limit) {
-                return findAll(Core.$(filter), map, limit);
+                return findAll(Style.$(filter), map, limit);
         }
 
         /**
@@ -507,9 +507,9 @@ public class MapFuncSup<K, V> {
         public Map<K, V> findAll(def<Boolean> filter, Map<K, V> map, int limit) {
                 return Aggregation.$(this.map).to(map).via((k, v) -> {
                         if (!filter.apply(k, v))
-                                Core.Continue();
+                                Style.Continue();
                         if (limit > 0 && limit <= map.size())
-                                Core.Break();
+                                Style.Break();
                         return new Entry<>(k, v);
                 });
         }

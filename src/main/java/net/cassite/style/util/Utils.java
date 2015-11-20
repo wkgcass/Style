@@ -2,13 +2,13 @@ package net.cassite.style.util;
 
 import java.util.Date;
 
-import net.cassite.style.Core;
+import net.cassite.style.Style;
 import net.cassite.style.def;
 import net.cassite.style.ptr;
 import net.cassite.style.interfaces.VFunc0;
 import net.cassite.style.util.lang.*;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 
 public abstract class Utils {
         protected Utils() {
@@ -186,7 +186,7 @@ public abstract class Utils {
          * @see Utils#run(def)
          */
         public static Thread run(VFunc0 runnable) {
-                return Utils.run(Core.$(runnable));
+                return Utils.run(Style.$(runnable));
         }
 
         /**
@@ -195,7 +195,7 @@ public abstract class Utils {
          * @param toRun function run on the new thread
          * @return created thread
          */
-        public static Thread run(def<Object> toRun) {
+        public static Thread run(def<Void> toRun) {
                 Thread t = new Thread(toRun::apply);
                 t.start();
                 return t;

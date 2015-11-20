@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * A RuntimeException to simplify exception handling.<br>
- * it is recommended to create this exception using {@link Core#$(Throwable)}
+ * it is recommended to create this exception using {@link Style#$(Throwable)}
  *
  * @author wkgcass
  */
@@ -63,10 +63,6 @@ public class StyleRuntimeException extends RuntimeException {
         @Override
         public Throwable getCause() {
                 Throwable target = super.getCause();
-                if (target instanceof InvocationTargetException) {
-                        return ((InvocationTargetException) target).getTargetException();
-                } else {
-                        return target.getCause();
-                }
+                return target.getCause();
         }
 }

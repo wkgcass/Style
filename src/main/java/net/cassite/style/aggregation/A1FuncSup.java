@@ -6,7 +6,7 @@ import java.util.Collection;
 import net.cassite.style.$;
 import net.cassite.style.def;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 import net.cassite.style.interfaces.RFunc1;

@@ -4,7 +4,7 @@ import net.cassite.style.$;
 import net.cassite.style.def;
 import net.cassite.style.interfaces.*;
 
-import static net.cassite.style.Core.*;
+import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 
 import java.util.Collection;
