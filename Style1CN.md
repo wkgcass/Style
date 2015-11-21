@@ -56,6 +56,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 * [新]现在可以通过`ClassSup`调用`newInstance()`直接生成实例
 * [新]现在`ClassSup`增加了一个`getters()`方法用于获取所有getter
 * [新]`MInteger`增加了一个方法，用于生成包含连续整数序列的List，见文档
+* [新]增加了一个方法`breakable(()->{})`提供可跳出的方法。
 
 #目录
 
@@ -93,6 +94,7 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 		* 逻辑控制
 			* Break
 				* BreakWithResult
+				* breakable
 			* Continue
 			* Remove
 			* (仅List)
@@ -643,6 +645,17 @@ While的返回值的行为和For一致。
 	return Break(); // 不产生编译错误的话也可以直接 'Break();'
 	// or
 	throw new Break();
+
+提供了一个`breakable(()->{})`方法，可以在其方法体中使用Break跳出方法块。例如
+
+	breakable(()->{
+		list.stream().filter(u -> u.age > 18).forEach(u->{
+			if(u.name.equals("cass")) Break();
+			System.out.println(u);
+		});
+	});
+	
+BreakWithResult也可以使用，但不会有任何特殊作用。
 	
 ####BreakWithResult
 在设置好‘上次循环结果’后跳出循环
@@ -697,10 +710,18 @@ Array通过 new T[]{...}; 可以非常方便的初始化
 	
 将会增加 3 条字符串到指定的集合中.
 
+	list("hello","world","!");
+
+创建了一个包含3个元素的新ArrayList。
+
 	$(new HashMap<String, Integer>(), 
 		map("a", 1).$("b", 2).$("c", 3));
 		
 将会put 3 个entry到指定Map中.
+
+	map("a",1).$("b",2).$("c",3);
+
+创建了一个JSONLike(extends LinkedHashMap)
 
 >你也可以使用同样的方法 add/put 元素/entry 到已存在的 集合/Map.
 
@@ -724,14 +745,14 @@ JDK1.8 对iterable对象提供forEach和filter方法, 但是, 它们不包含返
 		info.effectiveIndex; // 上次循环结果被修改过的次数
 		info.lastRes // 上次循环结果
 	*/
-	$(arr).forEach((e, i)->{...});
+	$(arr).forEach((e, info)->{...});
 	$(arr).forThose(e->{boolean}, e->{...});
-	$(arr).forThose(e->{boolean}, (e, i)->{...});
+	$(arr).forThose(e->{boolean}, (e, info)->{...});
 	
 Map:
 
 	$(map).forEach((k,v)->{...});
-	$(map).forEach((k,v,i)->{...}); // 加上迭代信息
+	$(map).forEach((k,v,info)->{...}); // 加上迭代信息
 	$(map).forThose((k,v)->{boolean}, (k,v)->{...});
 	$(map).forThose((k,v)->{boolean}, (k,v,i)->{...});
 	

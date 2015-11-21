@@ -56,6 +56,7 @@ This upgrade may be incompatible with original versions.
 * [New]Now new instances can be generated calling `newInstance` from `ClassSup`
 * [New]Now `ClassSup` added `getters()` to retrieve all getters
 * [New]`MInteger` added a new method to generate consistent sequence of integers, see doc for more info
+* [New]added a new method, `breakable(()->{})`provides break function.
 
 #Directory
 
@@ -93,6 +94,7 @@ This upgrade may be incompatible with original versions.
 		* Control
 			* Break
 				* BreakWithResult
+				* breakable
 			* Continue
 			* Remove
 			* (List-Only)
@@ -637,6 +639,17 @@ Break the loop instantly
 	// or
 	throw new Break();
 	
+There's also a method `breakable(()->{})` provided, which allows you breaking out of the method block. e.g.
+
+	breakable(()->{
+		list.stream().filter(u -> u.age > 18).forEach(u->{
+			if(u.name.equals("cass")) Break();
+			System.out.println(u);
+		});
+	});
+	
+BreakWithResult也可以使用，但不会有任何特殊作用。
+	
 ####BreakWithResult
 Break the loop after setting 'last loop value'.
 
@@ -690,10 +703,18 @@ However collections and maps are much difficut.
 	
 would add 3 strings into given collection.
 
+	list("hello","world","!");
+
+creates a new ArrayList with 3 elements in it.
+
 	$(new HashMap<String, Integer>(), 
 		map("a", 1).$("b", 2).$("c", 3));
 		
 would put 3 entries into given map.
+
+	map("a",1).$("b",2).$("c",3);
+
+creates a new JSONLike(extends LinkedHashMap)
 
 >You can also add/put elements/entries into already existed collections/maps in the same way.
 
@@ -716,9 +737,9 @@ Arrays, Iterables:
 		info.hasNext;
 		info.lastRes // result from last loop
 	*/
-	$(arr).forEach((e, i)->{...});
+	$(arr).forEach((e, info)->{...});
 	$(arr).forThose(e->{boolean}, e->{...});
-	$(arr).forThose(e->{boolean}, (e, i)->{...});
+	$(arr).forThose(e->{boolean}, (e, info)->{...});
 	
 Maps:
 

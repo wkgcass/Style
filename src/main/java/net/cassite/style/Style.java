@@ -1278,4 +1278,26 @@ public abstract class Style {
         public static <T1, T2, T3, T4, T5, T6, T7> Tuple7<T1, T2, T3, T4, T5, T6, T7> tuple(T1 _1, T2 _2, T3 _3, T4 _4, T5 _5, T6 _6, T7 _7) {
                 return new Tuple7<>(_1, _2, _3, _4, _5, _6, _7);
         }
+
+        /**
+         * a breakable code block
+         *
+         * @param func code which can be breaked out
+         */
+        public static void breakable(VFunc0 func) {
+                breakable($(func));
+        }
+
+        /**
+         * a breakable code block
+         *
+         * @param func code which can be breaked out
+         */
+        public static void breakable(def<Void> func) {
+                try {
+                        func.apply();
+                } catch (StyleRuntimeException e) {
+                        e.throwNotIn(Break.class, BreakWithResult.class);
+                }
+        }
 }

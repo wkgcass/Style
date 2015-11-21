@@ -6,6 +6,8 @@ import static net.cassite.style.reflect.Reflect.*;
 import static net.cassite.style.util.Utils.*;
 import static org.junit.Assert.*;
 
+import net.cassite.style.control.Break;
+import net.cassite.style.control.BreakWithResult;
 import net.cassite.style.interfaces.RFunc0;
 import net.cassite.style.interfaces.VFunc1;
 import net.cassite.style.reflect.*;
@@ -16,7 +18,9 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * test style
@@ -655,5 +659,107 @@ public class TestStyle {
                 assertEquals($(0).until(10), list);
         }
 
+        @Test
+        public void testForToStep() {
+                int res = For(0).to(10).step(2).loop((i, info) -> i + info.initRes(0));
+                assertEquals(30, res);
+        }
+
+        @Test
+        public void testWhile() {
+                MInteger mInt = $(20);
+                MInteger count = $(0);
+                While(() -> mInt.intValue() > 0, () -> {
+                        mInt.inc(-1);
+                        count.inc(1);
+                });
+                assertEquals(20, count.intValue());
+        }
+
+        @Test
+        public void testBreak() {
+                MInteger mInt = $(0);
+                assertNull(For(0, i -> i < 20, i -> i + 1, (VFunc1<Integer>) mInt::inc));
+                assertEquals(190, mInt.intValue());
+
+                List<Integer> list = For(0, i -> i < 20, i -> i + 1, (i, info) -> {
+                        List<Integer> l = info.initRes(new ArrayList<>());
+                        l.add(i);
+                        if (i == 9) Break();
+                        return l;
+                });
+                assertEquals($(0).to(9), list);
+        }
+
+        @Test
+        public void testContinue() {
+                MInteger mInt = $(0);
+                assertNull(For(0, i -> i < 20, i -> i + 1, (VFunc1<Integer>) mInt::inc));
+                assertEquals(190, mInt.intValue());
+
+                List<Integer> list = For(0, i -> i < 10, i -> i + 1, (i, info) -> {
+                        if (i == 8) Continue();
+                        List<Integer> l = info.initRes(new ArrayList<>());
+                        l.add(i);
+                        return l;
+                });
+                assertEquals(list(0, 1, 2, 3, 4, 5, 6, 7, 9), list);
+        }
+
+        @Test
+        public void testBreakWithResult() {
+                MInteger mInt = $(0);
+                assertNull(For(0, i -> i < 20, i -> i + 1, (VFunc1<Integer>) mInt::inc));
+                assertEquals(190, mInt.intValue());
+
+                List<Integer> list = For(0, i -> i < 10, i -> i + 1, (i, info) -> {
+                        if (i == 8) BreakWithResult(list(0));
+                        List<Integer> l = info.initRes(new ArrayList<>());
+                        l.add(i);
+                        return l;
+                });
+                assertEquals(list(0), list);
+        }
+
+        @Test
+        public void testBreakable() {
+                ptr<Integer> intP = ptr(0);
+                try {
+                        breakable(() -> {
+                                $(intP, 1);
+                                Break();
+                                fail();
+                        });
+                } catch (Break b) {
+                        fail();
+                }
+                assertEquals(1, (int) $(intP));
+
+                try {
+                        breakable(() -> {
+                                $(intP, 2);
+                                BreakWithResult(0);
+                                fail();
+                        });
+                } catch (BreakWithResult b) {
+                        fail();
+                }
+                assertEquals(2, (int) $(intP));
+        }
+
+        @Test
+        public void testConstructing() {
+                List<Integer> list = list(0, 1, 2, 3, 4);
+                assertEquals(Arrays.asList(0, 1, 2, 3, 4), list);
+                List<Integer> list2 = $(list, 5, 6, 7, 8);
+                assertEquals(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), list2);
+                assertTrue(list == list2);
+
+                Map<String, Integer> map = map("a", 1).$("b", 2).$("c", 3);
+                assertEquals(3, map.size());
+                Map<String, Integer> map2 = $(map, map("d", 4).$("e", 5).$("f", 6));
+                assertEquals(6, map2.size());
+                assertTrue(map == map2);
+        }
 
 }
