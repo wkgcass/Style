@@ -42,12 +42,12 @@ public class LoopInfo<R> {
          * it's only a simplified way of reducing null value of lastRes.
          *
          * @param init the initial value
-         * @return the init value itself
+         * @return the init value itself if lastRes is null, lastRes otherwise
          */
         public R initRes(R init) {
                 if (lastRes == null) {
                         lastRes = init;
                 }
-                return init;
+                return lastRes;
         }
 }

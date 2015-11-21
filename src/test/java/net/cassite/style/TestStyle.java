@@ -3,15 +3,19 @@ package net.cassite.style;
 import static net.cassite.style.Style.*;
 import static net.cassite.style.aggregation.Aggregation.*;
 import static net.cassite.style.reflect.Reflect.*;
+import static net.cassite.style.util.Utils.*;
 import static org.junit.Assert.*;
 
 import net.cassite.style.interfaces.RFunc0;
+import net.cassite.style.interfaces.VFunc1;
 import net.cassite.style.reflect.*;
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;
 import net.cassite.style.tuple.*;
+import net.cassite.style.util.lang.MInteger;
 import org.junit.Test;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -610,4 +614,46 @@ public class TestStyle {
                 });
                 assertTrue($(entered2));
         }
+
+        @Test
+        public void testIf() {
+                ptr<Integer> intP = ptr(0);
+                // vfunc0
+                assertNull(If(true, () -> {
+                        intP.item = 1;
+                }).End());
+
+                assertEquals(1, (int) $(intP));
+
+                // rfun1
+                assertEquals(21, (int) If(20, (v) -> (intP.item = v) + 1).End());
+
+                assertEquals(20, (int) $(intP));
+
+                // rfun1 else
+                assertEquals(22, (int) If(false, () -> 0).Else(() -> 22));
+        }
+
+        @Test
+        public void testSwitch() {
+                User cass = new User("cass", 20);
+                assertEquals("b", Switch(cass, String.class, (a, b) -> a.getName().equals(b.getName()) && a.getAge() == b.getAge())
+                        .Case(new User("cass", 20), "b").Default(() -> null));
+        }
+
+        @Test
+        public void testFor() {
+                MInteger mInt = $(0);
+                assertNull(For(0, i -> i < 20, i -> i + 1, (VFunc1<Integer>) mInt::inc));
+                assertEquals(190, mInt.intValue());
+
+                List<Integer> list = For(0, i -> i < 10, i -> i + 1, (i, info) -> {
+                        List<Integer> l = info.initRes(new ArrayList<>());
+                        l.add(i);
+                        return l;
+                });
+                assertEquals($(0).until(10), list);
+        }
+
+
 }
