@@ -35,13 +35,15 @@ public class string {
         /**
          * fill the string like <code>My name is {0}, I'm {1} years old</code>
          * with given objects.<br>
-         * simply invoke {@link MessageFormat#format(String, Object...)}
          *
          * @param fill fill object
          * @return formated string
          */
         public String fill(Object... fill) {
-                return MessageFormat.format(str, fill);
+                for (int i = 0; i < fill.length; ++i) {
+                        str = str.replace("{" + i + "}", fill[i].toString());
+                }
+                return str;
         }
 
         /**

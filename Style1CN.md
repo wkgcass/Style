@@ -10,6 +10,14 @@ Click [here](https://github.com/wkgcass/Style) for English tutorial
 
 >本工具参考了Scala, PHP, JavaScript, Groovy, C++ 以及 C#
 
+Maven
+
+	<dependency>
+		<groupId>net.cassite</groupId>
+		<artifactId>style</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+
 #为何选择Style?
 
 Style免费，轻量级，是一个有着详细指引的开源项目。  
@@ -53,6 +61,9 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 * 完整的单元测试
 * readme.md修订
 * 所有无返回值的函数被定义为`def<Void>`
+* [修复]Windows上，Async线程可能不会被执行（OSX和Linux上都没问题）。现在所有操作系统上都可以正常运行了。
+* [修正]$(iterable).first()在其中没有元素时曾跑出异常，修正为返回null
+* [修正]$(str).fill(...)曾使用JDK提供的`MessageFormat#format(String, Object...)`但和我预期不同。现在已修复
 * [新]现在可以通过`ClassSup`调用`newInstance()`直接生成实例
 * [新]现在`ClassSup`增加了一个`getters()`方法用于获取所有getter
 * [新]`MInteger`增加了一个方法，用于生成包含连续整数序列的List，见文档
@@ -817,8 +828,10 @@ e.g.
 	$(list).findAll(e->{boolean}, Coll, int limit);
 	// 在集合内容数量超过limit之前，将获取所有找到的元素并把它们放入Coll集合中
 	
->Map也有类似的行为, 返回Map或者Entry 而不是 集合或者元素
+>Map也有类似的行为, 返回Map或者Entry 而不是 集合或者元素  
+>findOne在找不到时返回null
 
+还提供了一个`first`方法，用于获取集合/映射中的第一个元素。
 
 #其他
 
@@ -869,10 +882,10 @@ g表示全局，i表示忽略大小写，m表示多行。
 
 使用：
 
-	System.out.println(regex("/<[^>]*>/g").replace("<html>abc</html>", ""));
-	System.out.println(regex("/<[^>]*>/").matches("<html>"));
-	System.out.println(regex("/<[^>]*>/").test("abc<html>def"));
-	System.out.println(Arrays.toString(regex("/(\\d+,)(\\d+)/").exec("123,456-34,345")));
+	regex("/<[^>]*>/g").replace("<html>abc</html>", "") // abc
+	regex("/<[^>]*>/").matches("<html>") // true
+	regex("/<[^>]*>/").test("abc<html>def") // abcdef
+	regex("/a(bc)(def)(gh)/").exec("abcdefghi") // {bc,def,gh}
 
 ###Comparable
 通常我们只需要比较两个对象的“大小”，而不必精确到“大”了多少。
@@ -911,7 +924,7 @@ g表示全局，i表示忽略大小写，m表示多行。
 如果您将要生成的量封装成了对象，那么Style还提供这种方式：  
 例如这么一个Sample类
 
-	class Sample implements var {
+	class Sample {
 		private String name;
 		private int age;
 		public String sex;

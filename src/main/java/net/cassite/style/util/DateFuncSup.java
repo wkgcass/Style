@@ -72,7 +72,7 @@ public class DateFuncSup {
         }
 
         /**
-         * Add date to supported date
+         * Add date on supported date
          *
          * @param d date to add
          * @return <code>this</code>
@@ -83,7 +83,7 @@ public class DateFuncSup {
         }
 
         /**
-         * Add date to supported date
+         * Add date on supported date
          *
          * @param dateFunction date to add
          * @return <code>this</code>
@@ -94,7 +94,7 @@ public class DateFuncSup {
         }
 
         /**
-         * Add date to supported date
+         * Add date on supported date
          *
          * @param dateFunction date to add
          * @return <code>this</code>
@@ -104,7 +104,7 @@ public class DateFuncSup {
         }
 
         /**
-         * subtract date to supported date
+         * subtract date on supported date
          *
          * @param d date to subtract
          * @return <code>this</code>
@@ -115,7 +115,7 @@ public class DateFuncSup {
         }
 
         /**
-         * subtract date to supported date
+         * subtract date on supported date
          *
          * @param dateFunction date to subtract
          * @return <code>this</code>
@@ -126,7 +126,7 @@ public class DateFuncSup {
         }
 
         /**
-         * subtract date to supported date
+         * subtract date on supported date
          *
          * @param dateFunction date to subtract
          * @return <code>this</code>

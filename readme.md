@@ -9,6 +9,14 @@ Bring efficient coding style from other languages to JAVA 8.
 *Style* focuses on making your code prettier, less reinventing--wheels and well-understood.
 >Referenced languages : Scala, PHP, JavaScript, Groovy, C++, and C#.
 
+Maven
+
+	<dependency>
+		<groupId>net.cassite</groupId>
+		<artifactId>style</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+
 #Why Style?
 
 Style is a free, light-weight, and open-source project with detailed tutorial.  
@@ -53,6 +61,9 @@ This upgrade may be incompatible with original versions.
 * Full unit test support.
 * Revision in readme.md
 * All functions with void return type are defined as `def<Void>`
+* [Fixed]thread of Async might not get the chance to start on Windows(it was ok on OSX and Linux), now it works well on all these operating systems.
+* [Adjust]$(iterable).first() used to throw NoSuchElementException when there's no element in the map. Now returns null instead.
+* [Adjust]$(str).fill(...) used to use `MessageFormat#format(String, Object...)`, but it doesn't work as I assumed. It's fixed now.
 * [New]Now new instances can be generated calling `newInstance` from `ClassSup`
 * [New]Now `ClassSup` added `getters()` to retrieve all getters
 * [New]`MInteger` added a new method to generate consistent sequence of integers, see doc for more info
@@ -809,7 +820,10 @@ Usually we need to find some elements/entries from an array, an iterable, or a m
 	$(list).findAll(e->{boolean}, Coll, int limit);
 	// get all found elements and add them in Coll before Coll.size() reaches limit
 	
->Map have similar behavior, return Maps or Entries instead of Collections or Elements
+>Map have similar behavior, return Maps or Entries instead of Collections or Elements  
+>findOne would return null if not found.
+
+Also, method `first` is provided to retrieve the first element in the collection/map.
 
 
 #Other
@@ -860,10 +874,10 @@ create using *regex("/reg expression/flags")*
 
 e.g.
 
-	System.out.println(regex("/<[^>]*>/g").replace("<html>abc</html>", ""));
-	System.out.println(regex("/<[^>]*>/").matches("<html>"));
-	System.out.println(regex("/<[^>]*>/").test("abc<html>def"));
-	System.out.println(Arrays.toString(regex("/(\\d+,)(\\d+)/").exec("123,456-34,345")));
+	regex("/<[^>]*>/g").replace("<html>abc</html>", "") // abc
+	regex("/<[^>]*>/").matches("<html>") // true
+	regex("/<[^>]*>/").test("abc<html>def") // abcdef
+	regex("/a(bc)(def)(gh)/").exec("abcdefghi") // {bc,def,gh}
 
 ###Comparable
 Usually we only need to compare two Comparable which is bigger/smaller, but don't need to know how bigger/smaller it is.
@@ -902,7 +916,7 @@ will return :
 If you packed the variables to an object, Style provide another way :  
 e.g. a class Sample
 
-	class Sample implements var {
+	class Sample {
 		private String name;
 		private int age;
 		public String sex;
@@ -919,11 +933,6 @@ e.g. a class Sample
 
 		public int getAge() {
 			return age;
-		}
-
-		public static Sample from(String str) {
-			String[] strArr = str.split(";");
-			return new Sample(strArr[0], Integer.parseInt(strArr[1]), strArr[2]);
 		}
 	}
 	

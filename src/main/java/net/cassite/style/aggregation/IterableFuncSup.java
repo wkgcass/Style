@@ -53,7 +53,12 @@ public class IterableFuncSup<T> implements A1FuncSup<T> {
 
         @Override
         public T first() {
-                return iterable.iterator().next();
+                Iterator<T> it = iterable.iterator();
+                if (it.hasNext()) {
+                        return it.next();
+                } else {
+                        return null;
+                }
         }
 
         public <R, Coll extends Collection<R>> Transformer<R, T, Coll> to(Coll collection) {

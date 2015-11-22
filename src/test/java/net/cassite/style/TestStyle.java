@@ -13,14 +13,12 @@ import net.cassite.style.interfaces.VFunc1;
 import net.cassite.style.reflect.*;
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;
 import net.cassite.style.tuple.*;
+import net.cassite.style.util.PathMapper;
 import net.cassite.style.util.lang.MInteger;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * test style
@@ -336,6 +334,13 @@ public class TestStyle {
         }
 
         @Test
+        public void testPtr() {
+                ptr<String> p = ptr("1234");
+                assertEquals("1234", p.item);
+                assertTrue(p.equals("1234"));
+        }
+
+        @Test
         public void testImp() {
                 User user = imp("cass,20", User.class);
 
@@ -647,11 +652,20 @@ public class TestStyle {
 
         @Test
         public void testFor() {
+                MInteger ii = $(0);
                 MInteger mInt = $(0);
                 assertNull(For(0, i -> i < 20, i -> i + 1, (VFunc1<Integer>) mInt::inc));
                 assertEquals(190, mInt.intValue());
 
                 List<Integer> list = For(0, i -> i < 10, i -> i + 1, (i, info) -> {
+                        assertEquals(ii.intValue(), info.currentIndex);
+                        assertEquals(ii.intValue(), info.effectiveIndex);
+                        if (ii.intValue() == 0) {
+                                assertNull(info.lastRes);
+                        } else {
+                                assertNotNull(info.lastRes);
+                        }
+                        ii.inc(1);
                         List<Integer> l = info.initRes(new ArrayList<>());
                         l.add(i);
                         return l;
@@ -669,7 +683,12 @@ public class TestStyle {
         public void testWhile() {
                 MInteger mInt = $(20);
                 MInteger count = $(0);
-                While(() -> mInt.intValue() > 0, () -> {
+                MInteger i = $(0);
+                While(() -> mInt.intValue() > 0, (info) -> {
+                        assertEquals(i.intValue(), info.currentIndex);
+                        assertEquals(0, info.effectiveIndex);
+                        assertNull(info.lastRes);
+                        i.inc(1);
                         mInt.inc(-1);
                         count.inc(1);
                 });
@@ -762,4 +781,186 @@ public class TestStyle {
                 assertTrue(map == map2);
         }
 
+        @Test
+        public void testForEach() {
+                List<Integer> list = $(list(0, 1, 2, 3, 4, 5)).forEach((i, info) -> {
+                        List<Integer> ls = info.initRes(new ArrayList<>());
+                        ls.add(i + 1);
+                        return ls;
+                });
+
+                assertEquals($(1).to(6), list);
+        }
+
+        @Test
+        public void testRemove() {
+                List<Integer> ls = list(0, 1, 2, 3, 4, 5);
+                $(ls).forEach(i -> {
+                        if (i == 1 || i == 5) {
+                                Remove();
+                        }
+                });
+                assertEquals(list(0, 2, 3, 4), ls);
+        }
+
+        @Test
+        public void testSet() {
+                List<Integer> ls = list(0, 1, 2, 3, 4, 5);
+                $(ls).forEach(i -> {
+                        Set(i + 1);
+                });
+                assertEquals($(1).to(6), ls);
+        }
+
+        @Test
+        public void testAdd() {
+                List<Integer> ls = list(0, 1, 2, 3, 4, 5);
+                $(ls).forEach(i -> {
+                        if (i == 0) Add(6);
+                });
+                assertEquals(list(0, 6, 1, 2, 3, 4, 5), ls);
+        }
+
+        @Test
+        public void testForThose() {
+                List<Integer> ls = list(0, 1, 2, 3, 4, 5);
+                $(ls).forThose(i -> i > 2, i -> {
+                        Set(i + 1);
+                });
+                assertEquals(list(0, 1, 2, 4, 5, 6), ls);
+        }
+
+        @Test
+        public void testArrayForThose() {
+                Integer[] ls = new Integer[]{0, 1, 2, 3, 4, 5};
+                ptr<String> strP = ptr("");
+                $(ls).forThose(i -> i > 2, i -> {
+                        strP.item += i;
+                });
+                assertEquals("345", strP.item);
+        }
+
+        @Test
+        public void testMapForEach() {
+                Map<String, Integer> birthMap = map("cass", 1995).$("john", 1994).$("cassie", 1996);
+                ptr<String> strP = ptr("");
+                $(birthMap).forEach((k, v) -> {
+                        strP.item += (k + "" + v);
+                });
+                assertEquals("cass1995john1994cassie1996", strP.item);
+        }
+
+        @Test
+        public void testToVia() {
+                List<Integer> list = list(0, 1, 2, 3, 4);
+                Set<String> set = $(list).to(new HashSet<String>()).via(i -> i + "+");
+                assertEquals(new HashSet<>(list("0+", "1+", "2+", "3+", "4+")), set);
+        }
+
+        @Test
+        public void testMapToVia() {
+                Map<String, Integer> birthMap = map("cass", 1995).$("john", 1994).$("cassie", 1996);
+                Map<Integer, String> res = $(birthMap).to(new HashMap<Integer, String>()).via((k, v) -> tuple(v, k));
+                assertEquals(map(1995, "cass").$(1994, "john").$(1996, "cassie"), res);
+        }
+
+        @Test
+        public void testFindOne() {
+                List<Integer> list = list(0, 1, 2, 3, 4);
+                assertNull($(list).findOne(i -> i >= 5));
+                assertEquals(3, (int) $(list).findOne(i -> i > 2));
+
+                Map<String, Integer> birthMap = map("cass", 1995).$("john", 1994).$("cassie", 1996);
+                assertEquals(new Entry<>("john", 1994), $(birthMap).findOne((k, v) -> v == 1994));
+                assertNull($(birthMap).findOne((k, v) -> v == 0));
+        }
+
+        @Test
+        public void testAvoidNull() {
+                int i = avoidNull(null, 1);
+                assertEquals(1, i);
+
+                long l = avoidNull(null, () -> 1);
+                assertEquals(1L, l);
+        }
+
+        @Test
+        public void testDate() {
+                long time = 1448180688655L;
+                Date date = new Date(time);
+                assertEquals(time + 3 + 5 * 1000 + 4 * 60 * 1000 + 2 * 3600 * 1000 + 1 * 24 * 3600 * 1000, $(date).add(d -> d.day(1).hour(2).milli(3).minute(4).second(5)).getDate().getTime());
+                assertEquals(time, $(date).subtract(d -> d.day(1).hour(2).milli(3).minute(4).second(5)).getDate().getTime());
+                assertEquals("48-48-24-24-4-16-04-16-22-22-11-11-15-2015-pm-PM", $(date).toString("s-ss-i-ii-h-H-hh-HH-d-dd-m-mm-yy-yyyy-a-A"));
+        }
+
+        @Test
+        public void testRegex() {
+                assertEquals("abc", regex("/<[^>]*>/g").replace("<html>abc</html>", ""));
+                assertTrue(regex("/<[^>]*>/").matches("<html>"));
+                assertTrue(regex("/<[^>]*>/").test("abc<html>def"));
+                assertArrayEquals(new String[]{"bc", "def", "gh"}, regex("/a(bc)(def)(gh)/").exec("abcdefghi"));
+        }
+
+        @Test
+        public void testComparable() {
+                int i = 1;
+                assertTrue($((Comparable<Integer>) i).eq(1));
+                assertTrue($((Comparable<Integer>) i).ne(2));
+                assertTrue($((Comparable<Integer>) i).neq(2));
+                assertTrue($((Comparable<Integer>) i).gt(0));
+                assertTrue($((Comparable<Integer>) i).gte(1));
+                assertTrue($((Comparable<Integer>) i).ge(1));
+                assertTrue($((Comparable<Integer>) i).gte(0));
+                assertTrue($((Comparable<Integer>) i).ge(0));
+                assertTrue($((Comparable<Integer>) i).lt(2));
+                assertTrue($((Comparable<Integer>) i).le(1));
+                assertTrue($((Comparable<Integer>) i).lte(1));
+                assertTrue($((Comparable<Integer>) i).le(2));
+        }
+
+        @Test
+        public void testString() {
+                assertEquals("hello, my name is cass, let's write java with Style!", $("hello, my name is {0}, let's write java with {1}!").fill("cass", "Style"));
+                User user = new User("cass", 20);
+                assertEquals("my name is cass, im 20 years old", $("my name is ${name}, im ${age} years old").from(user));
+                assertTrue($("testtest") == $("testtest"));
+        }
+
+        @Test
+        public void testJSON() {
+                JSONLike jsonLike = map(new Object[]{
+                        "name", "cass",
+                        "age", 20,
+                        "sex", "male"
+                });
+                assertEquals(map("name", (Object) "cass").$("age", 20).$("sex", "male"), jsonLike);
+        }
+
+        @Test
+        public void testJoin() {
+                List<Integer> l1 = list(3, 7, 5, 4);
+                List<Integer> l2 = list(8);
+                List<Integer> l3 = list(2, 9, 6);
+                List<Integer> l4 = list(1, 0);
+                List<Integer> list = join(l1, l2, l3, l4);
+                assertEquals(10, list.size());
+                ptr<String> strP = ptr("");
+                list.stream().sorted().forEach(i -> {
+                        strP.item += i;
+                });
+                assertEquals("0123456789", strP.item);
+        }
+
+        @Test
+        public void testPathMapper() {
+                PathMapper mapper = new PathMapper();
+                mapper.put("a.b.c", "i am a.b.c");
+                mapper.get("a.b", () -> "abc");
+                assertEquals("i am a.b.c", mapper.get("a.b.c"));
+                assertEquals("abc", mapper.get("a.b"));
+                assertEquals(1, mapper.getContainMap().size());
+                assertEquals(1, ((Map) mapper.getContainMap().get("a")).size());
+                assertEquals(2, ((Map) ((Map) mapper.getContainMap().get("a")).get("b")).size());
+                assertEquals(1, ((Map) ((Map) ((Map) mapper.getContainMap().get("a")).get("b")).get("c")).size());
+        }
 }

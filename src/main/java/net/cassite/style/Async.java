@@ -71,6 +71,7 @@ public class Async<R> {
         public R await() {
                 while (!container.inProcess) {
                         // block
+                        Style.sleep(1);
                 }
                 synchronized (container) {
                         return container.ret;
@@ -124,6 +125,7 @@ public class Async<R> {
                 this.handler = handler;
                 while (!container.inProcess) {
                         // block
+                        Style.sleep(1);
                 }
                 synchronized (lock) {
                         if (null != throwable) {
@@ -161,6 +163,7 @@ public class Async<R> {
         public void awaitError(def<Void> handler) {
                 while (!container.inProcess) {
                         // block
+                        Style.sleep(1);
                 }
                 synchronized (container) {
                         if (null != throwable) {

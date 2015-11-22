@@ -333,6 +333,7 @@ public class AsyncGroup {
         public void onError(def<Void> handler) {
                 while (!inProcess) {
                         // block
+                        Style.sleep(1);
                 }
                 synchronized (lock) {
                         this.handler = handler;
