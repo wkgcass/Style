@@ -13,11 +13,16 @@ import net.cassite.style.interfaces.VFunc1;
 import net.cassite.style.reflect.*;
 import net.cassite.style.reflect.readonly.ModifyReadOnlyException;
 import net.cassite.style.tuple.*;
+import net.cassite.style.util.Directory;
 import net.cassite.style.util.PathMapper;
+import net.cassite.style.util.SFile;
 import net.cassite.style.util.lang.MInteger;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+import java.io.Writer;
 import java.math.BigInteger;
+import java.nio.file.NotDirectoryException;
 import java.util.*;
 
 /**
@@ -962,5 +967,53 @@ public class TestStyle {
                 assertEquals(1, ((Map) mapper.getContainMap().get("a")).size());
                 assertEquals(2, ((Map) ((Map) mapper.getContainMap().get("a")).get("b")).size());
                 assertEquals(1, ((Map) ((Map) ((Map) mapper.getContainMap().get("a")).get("b")).get("c")).size());
+        }
+
+        @Test
+        public void testCDAndFile() throws Exception {
+                Directory dir = cd("/Volumes/PROJECTS/prj");
+                dir.mkdir("testTmp");
+                dir = dir.cd("testTmp");
+                try (SFile file = dir.file("tmp.txt")) {
+                        Writer writer = file.writer();
+                        writer.write("hello world");
+                        writer.flush();
+                }
+
+                try (SFile file = dir.file("tmp.txt")) {
+                        assertEquals("hello world", file.reader().readLine());
+                }
+
+                rm(dir.file("tmp.txt"));
+                rm(dir);
+
+                try {
+                        cd("/Volumes/PROJECTS/prj/testTmp");
+                        fail();
+                } catch (FileNotFoundException | NotDirectoryException ignore) {
+                }
+        }
+
+        @Test
+        public void testMoveDirAndFile() throws Exception {
+                Directory dir = cd("/Volumes/PROJECTS/prj");
+                dir.mkdir("testTmp2");
+                dir = dir.cd("testTmp2");
+
+                dir = mv(dir, "testTmpMV");
+                try (SFile file = dir.file("tmp.txt")) {
+                        Writer writer = file.writer();
+                        writer.write("hello world");
+                        writer.flush();
+                }
+
+                SFile file = dir.file("tmp.txt");
+                mv(file, "tmp2.txt");
+
+                try (SFile f = dir.file("tmp2.txt")) {
+                        assertEquals("hello world", f.reader().readLine());
+                }
+
+                rm(dir);
         }
 }

@@ -50,24 +50,9 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 有任何问题，您可以随时通过[wkgcass@hotmail.com](mailto:wkgcass@hotmail.com)与我联系.  
 
 #更新内容
-1.1.3 --> 2.0.1
+2.0.1 --> 2.0.2
 
-本版本更新可能导致与以往版本不兼容
-
-* 移除了`Style`类, 并将`Core`重命名为 Style
-* `Aggregation`,`Reflect`,`Utils`不再继承`Style`
-* 删除var接口
-* 增加Maven支持
-* 完整的单元测试
-* readme.md修订
-* 所有无返回值的函数被定义为`def<Void>`
-* [修复]Windows上，Async线程可能不会被执行（OSX和Linux上都没问题）。现在所有操作系统上都可以正常运行了。
-* [修正]$(iterable).first()在其中没有元素时曾跑出异常，修正为返回null
-* [修正]$(str).fill(...)曾使用JDK提供的`MessageFormat#format(String, Object...)`但和我预期不同。现在已修复
-* [新]现在可以通过`ClassSup`调用`newInstance()`直接生成实例
-* [新]现在`ClassSup`增加了一个`getters()`方法用于获取所有getter
-* [新]`MInteger`增加了一个方法，用于生成包含连续整数序列的List，见文档
-* [新]增加了一个方法`breakable(()->{})`提供可跳出的方法。
+* Utils模块增加File支持,以Unix风格进行文件操作
 
 #目录
 
@@ -125,6 +110,8 @@ Style免费，轻量级，是一个有着详细指引的开源项目。
 	* 字符串
 	* JSON
 	* join
+	* 文件
+	* PathMapper
 * 附录
 	* 上次循环结果
 
@@ -981,6 +968,17 @@ g表示全局，i表示忽略大小写，m表示多行。
 	Collections.sort(joinedList);
 	// list1, list2, list3, list4, ... will be modified.
 	
+##文件
+Utils模块提供了UNIX风格的文件访问
+
+	Directory dir=cd("/User/wkgcass/").cd("Desktop").cd("dir");
+	dir=mv(dir,"newDir");
+	VimFile file=vim("/User/wkgcass/Desktop/newDir/file.java");
+	file=(dir,"file.java");
+	OutputStream output=file.a();
+	InputStream input=file.w();
+	file.q();  // 关闭所有已打开的流
+
 ##PathMapper
 将对象以“路径”的格式进行存储。  
 路径根据“.”分割。

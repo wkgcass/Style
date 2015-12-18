@@ -50,24 +50,9 @@ Fell free to contact me through [wkgcass@hotmail.com](mailto:wkgcass@hotmail.com
 And pls execuse me for my poor english...
 
 #Update
-1.1.3 --> 2.0.1
+2.0.1 --> 2.0.2
 
-This upgrade may be incompatible with original versions.
-
-* Removed class `Style`, and renamed class `Core` into Style
-* `Aggregation`,`Reflect`,`Utils` no longer extends `Style`
-* removed interface var
-* Added Maven support
-* Full unit test support.
-* Revision in readme.md
-* All functions with void return type are defined as `def<Void>`
-* [Fixed]thread of Async might not get the chance to start on Windows(it was ok on OSX and Linux), now it works well on all these operating systems.
-* [Adjust]$(iterable).first() used to throw NoSuchElementException when there's no element in the map. Now returns null instead.
-* [Adjust]$(str).fill(...) used to use `MessageFormat#format(String, Object...)`, but it doesn't work as I assumed. It's fixed now.
-* [New]Now new instances can be generated calling `newInstance` from `ClassSup`
-* [New]Now `ClassSup` added `getters()` to retrieve all getters
-* [New]`MInteger` added a new method to generate consistent sequence of integers, see doc for more info
-* [New]added a new method, `breakable(()->{})`provides break function.
+* Utils module adds File support ,allow you to operate on files using UNIX style. 
 
 #Directory
 
@@ -125,6 +110,8 @@ This upgrade may be incompatible with original versions.
 	* String
 	* JSON
 	* join
+	* File
+	* PathMapper
 * Appendix
 	* last loop result
 

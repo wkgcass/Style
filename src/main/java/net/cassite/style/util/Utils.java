@@ -1,5 +1,9 @@
 package net.cassite.style.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.NotDirectoryException;
 import java.util.Date;
 
 import net.cassite.style.Style;
@@ -201,35 +205,220 @@ public abstract class Utils {
                 return t;
         }
 
+        /**
+         * mutable integer and enhanced operations<br>
+         * which also supports <code>to</code> and <code>until</code> operations<br>
+         * e.g. <code>$(0).until(9)</code> means list(0,1,2,3,4,5,6,7,8)<br>
+         * and <code>$(0).to(9)</code> means list(0,1,2,3,4,5,6,7,8,9)
+         *
+         * @param n integer
+         * @return mutable integer
+         */
         public static MInteger $(Integer n) {
                 return new MInteger(n);
         }
 
+        /**
+         * mutable double and enhanced operations
+         *
+         * @param n double
+         * @return mutable double
+         */
         public static MDouble $(Double n) {
                 return new MDouble(n);
         }
 
+        /**
+         * mutable float and enhanced operations
+         *
+         * @param n float
+         * @return mutable float
+         */
         public static MFloat $(Float n) {
                 return new MFloat(n);
         }
 
+        /**
+         * mutable long and enhanced operations
+         *
+         * @param n long
+         * @return mutable long
+         */
         public static MLong $(Long n) {
                 return new MLong(n);
         }
 
+        /**
+         * mutable short and enhanced operations
+         *
+         * @param n short
+         * @return mutable short
+         */
         public static MShort $(Short n) {
                 return new MShort(n);
         }
 
+        /**
+         * mutable byte and enhanced operations
+         *
+         * @param n byte
+         * @return mutable byte
+         */
         public static MByte $(Byte n) {
                 return new MByte(n);
         }
 
+        /**
+         * mutable char and enhanced operations
+         *
+         * @param c char
+         * @return mutable char
+         */
         public static MCharacter $(Character c) {
                 return new MCharacter(c);
         }
 
+        /**
+         * mutable bool and enhanced operations
+         *
+         * @param b bool
+         * @return mutable bool
+         */
         public static MBoolean $(Boolean b) {
                 return new MBoolean(b);
+        }
+
+        /**
+         * locate the directory
+         *
+         * @param dir path
+         * @return directory object
+         * @throws FileNotFoundException the given path is not found
+         * @throws NotDirectoryException the given path is not a directory
+         */
+        public static Directory cd(String dir) throws FileNotFoundException, NotDirectoryException {
+                return cd(new File(dir));
+        }
+
+        /**
+         * locate the directory
+         *
+         * @param dir file representing the directory
+         * @return directory object
+         * @throws FileNotFoundException the given path is not found
+         * @throws NotDirectoryException the given path is not a directory
+         */
+        public static Directory cd(File dir) throws FileNotFoundException, NotDirectoryException {
+                return new Directory(dir);
+        }
+
+        /**
+         * rename the dir to newDir
+         *
+         * @param dir    the directory to rename
+         * @param newDir new name
+         * @return new directory object
+         * @throws FileOperationFailedException failed when moving
+         */
+        public static Directory mv(Directory dir, String newDir) throws FileOperationFailedException {
+                if (!new File(dir.fullPath()).renameTo(new File(dir.parentPath() + newDir))) throw new FileOperationFailedException("mv " + dir + " " + newDir);
+                try {
+                        return cd(dir.parentPath() + newDir);
+                } catch (FileNotFoundException | NotDirectoryException e) {
+                        throw Style.$(e);
+                }
+        }
+
+        /**
+         * move the path to new path
+         *
+         * @param path    original path
+         * @param newPath new path
+         * @throws FileOperationFailedException failed when moving
+         */
+        public static void mv(String path, String newPath) throws FileOperationFailedException {
+                if (!new File(path).renameTo(new File(newPath))) throw new FileOperationFailedException("mv " + path + " " + newPath);
+        }
+
+        /**
+         * rename the file to new name
+         *
+         * @param file    original file
+         * @param newFile new file name
+         * @return new file object
+         * @throws FileOperationFailedException failed when moving
+         */
+        public static SFile mv(SFile file, String newFile) throws FileOperationFailedException {
+                if (!file.getFile().renameTo(new File(file.parentPath() + newFile))) throw new FileOperationFailedException("mv " + file + " " + newFile);
+                try {
+                        return new SFile(new File(file.parentPath() + newFile));
+                } catch (IOException e) {
+                        throw Style.$(e);
+                }
+        }
+
+        /**
+         * get the file
+         *
+         * @param file file
+         * @return sfile
+         * @throws IOException                  not found || creation failed
+         * @throws FileOperationFailedException not file
+         */
+        public static SFile vim(File file) throws IOException, FileOperationFailedException {
+                return new SFile(file);
+        }
+
+        /**
+         * get file
+         *
+         * @param file file
+         * @return sfile
+         * @throws IOException                  not found || creation failed
+         * @throws FileOperationFailedException not file
+         */
+        public static SFile vim(String file) throws IOException, FileOperationFailedException {
+                return vim(new File(file));
+        }
+
+        /**
+         * remove the path
+         *
+         * @param path path
+         * @throws FileOperationFailedException failed when deleting the path
+         */
+        public static void rm(String path) throws FileOperationFailedException {
+                if (!new File(path).delete()) throw new FileOperationFailedException(path + " not deleted");
+        }
+
+        private static void removeDir(File dir) throws FileOperationFailedException {
+                File[] children = dir.listFiles();
+                assert children != null;
+                for (File f : children) {
+                        if (f.isFile()) {
+                                if (!f.delete()) throw new FileOperationFailedException(f + " not deleted");
+                        } else if (f.isDirectory()) removeDir(f);
+                }
+                if (!dir.delete()) throw new FileOperationFailedException(dir + " not deleted");
+        }
+
+        /**
+         * recursively remove the dir
+         *
+         * @param dir directory
+         * @throws FileOperationFailedException failed removing the dir
+         */
+        public static void rm(Directory dir) throws FileOperationFailedException {
+                removeDir(dir.getFile());
+        }
+
+        /**
+         * remove the file
+         *
+         * @param file file
+         * @throws FileOperationFailedException failed removing the file
+         */
+        public static void rm(SFile file) throws FileOperationFailedException {
+                rm(file.fullPath());
         }
 }
